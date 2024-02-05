@@ -168,29 +168,29 @@ namespace Src\Controller\Component {
                 $response[] = !empty($recognizer_by_id) ? $recognizer_by_id : [];
                 
             }
-            $action = 'cameras';
-            $method = 'GET';
-            $result_cameras = $this->sendRequest([], $action, $method, $this->service['url2']);
+            // $action = 'cameras';
+            // $method = 'GET';
+            // $result_cameras = $this->sendRequest([], $action, $method, $this->service['url2']);
             
-            foreach($result_cameras['data'] as $camera)
-            {
-                $action = "cameras/".$camera['id']."/protocol?start_time=$lastDay&stop_time=$today";
-                $camera_by_id = $this->sendRequest([], $action, $method, $this->service['url2'])['data'];
-                foreach($camera_by_id as $k => $passagem)
-                {
-                    $action = "cameras/".$camera['id']."/image/".$passagem['tid'];
-                    $image = $this->sendRequest([], $action, $method, $this->service['url2']);
+            // foreach($result_cameras['data'] as $camera)
+            // {
+            //     $action = "cameras/".$camera['id']."/protocol?start_time=$lastDay&stop_time=$today";
+            //     $camera_by_id = $this->sendRequest([], $action, $method, $this->service['url2'])['data'];
+            //     foreach($camera_by_id as $k => $passagem)
+            //     {
+            //         $action = "cameras/".$camera['id']."/image/".$passagem['tid'];
+            //         $image = $this->sendRequest([], $action, $method, $this->service['url2']);
                     
-                    $tmp_file = 'img/tmp/';
-                    $path = 'C:/xampp/htdocs/api/web/public/'. $tmp_file;
-                    $file_name = 'securos-'.$passagem['tid'].'.jpeg';
-                    $file_path = $path.$file_name;
-                    file_put_contents($file_path, $image);
-                    $camera_by_id[$k]['imagens'][] = $tmp_file.$file_name;
-                }
-                $response[] = !empty($camera_by_id) ? $camera_by_id : [];
+            //         $tmp_file = 'img/tmp/';
+            //         $path = 'C:/xampp/htdocs/api/web/public/'. $tmp_file;
+            //         $file_name = 'securos-'.$passagem['tid'].'.jpeg';
+            //         $file_path = $path.$file_name;
+            //         file_put_contents($file_path, $image);
+            //         $camera_by_id[$k]['imagens'][] = $tmp_file.$file_name;
+            //     }
+            //     $response[] = !empty($camera_by_id) ? $camera_by_id : [];
                 
-            }
+            // }
             return $response;
         }
     }
