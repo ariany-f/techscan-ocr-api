@@ -123,13 +123,12 @@ class GetOCRDataController extends App
                 $params['api_origin'] = 1;
                 foreach($result as $camera)
                 {
-                    $params['direction'] = (explode(':', $camera['name'])[1] == 'Externo') ? 1 : 2;
+                    $params['direction'] = (isset(explode(':', $camera['name'])[1]) && explode(':', $camera['name'])[1] == 'Externo') ? 1 : 2;
                     $params['gate_id'] = 0;
                     $params['external_id'] = $camera['id'];
                     $params['name'] = $camera['name'];
-                    $params['position'] = explode(':', $camera['name'])[2];
+                    $params['position'] = isset(explode(':', $camera['name'])[2]) ? explode(':', $camera['name'])[2] : ($camera['name'] === 'LPR' ? 'LPR' : 'plate');
                     $this->cameraModel->save($params);
-
                 }
                 break;
             case 'wegate':
