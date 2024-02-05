@@ -1,0 +1,331 @@
+.Index-index {
+  width: unset;
+}
+
+/*.header {
+    height: 20vw !important;
+}*/
+#top {
+  height: 22vh;
+}
+
+#top h5 {
+  font-weight: 700;
+  line-height: 30px;
+}
+
+.mother-mobile #top {
+  background-image: url("../../../img/index/banner2.webp");
+  cursor: pointer;
+  background-size: cover;
+  background-position: right;
+}
+
+.first-mobile #top {
+  background-image: url("../../../img/index/new-background-mobile.webp");
+  background-size: cover;
+  background-position-y: bottom;
+}
+.second-mobile #top {
+  background-image: url("../../../img/index/background4.webp");
+  background-position: right;
+  background-size: cover;
+}
+.third-mobile #top {
+  background-image: url("../../../img/index/background3.webp");
+  background-position: right;
+  background-size: cover;
+}
+
+.first-mobile #top p {
+  font-weight: 600;
+  font-size: 0.9em;
+  margin: 0.3em 0;
+}
+
+#top a.bt-vidaclass {
+  font-size: 0.8em;
+  padding: 5px 30px;
+  white-space: nowrap;
+  position: relative;
+  padding-right: 50px;
+  left: -40px;
+}
+
+.row#products {
+  top: -1rem;
+}
+
+.col-md-6 {
+  width: 50% !important;
+}
+
+.row#search #title {
+  top: 0;
+}
+
+#post-its .col.post-it {
+  height: 95px;
+  max-width: 100px;
+  margin: 0 1.9vw;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0px 3px 6px #00000029;
+  padding: 0;
+  font-size: 12px;
+}
+
+#post-its .col-4.post-it.left {
+  margin: 0 35px 0 -5px;
+}
+
+.post-it .category {
+  top: 47px !important;
+}
+
+#post-its .col img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  height: 35px;
+}
+
+#post-its .col.diff img {
+  top: 30px !important;
+}
+
+.hideNav {
+  opacity: 0;
+  display: none;
+}
+
+.nav-content.hidden {
+  display: none;
+}
+
+.nav-content {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: block;
+  height: 100%;
+  z-index: 999;
+}
+
+#post-its .col-6.post-it,
+#post-its .col-4.post-it {
+  min-height: 130px;
+  max-width: 130px;
+  margin: 0 0.8vw;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0px 3px 6px #00000029;
+  padding: 0;
+}
+
+#post-its .col-6 img {
+  height: 55px;
+  margin-top: 10px;
+}
+
+#post-its .col-4 img {
+  top: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  height: 55px;
+  margin-top: 10px;
+}
+
+#post-its .col-6.post-it {
+  font-size: 0.9em;
+}
+
+#post-its .col-4.post-it {
+  font-size: 1.1em;
+}
+
+.entrar-mobile {
+  padding: 15px 4vw !important;
+}
+
+nav.header a.button {
+  min-width: 80%;
+  margin: 3vw 8.5vw;
+  text-align: center;
+  display: inline-block;
+}
+
+.post-it a {
+  top: 42px !important;
+}
+
+.row#post-its {
+  position: relative;
+  top: 10px;
+}
+
+button.saiba-mais {
+  color: white !important;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 4em;
+  background-color: #07bebb;
+  border-radius: 30px;
+  border: 0;
+  position: relative;
+  top: 25px;
+}
+
+#post-its .col img {
+  height: 45px;
+  margin-top: 5px;
+}
+
+#box_vc .col.post-it.partner {
+  height: 220px;
+}
+
+.einstein-detail {
+  top: 0;
+}
+
+.row.products {
+  top: -1em;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  padding: 0;
+}
+
+.row.products .col-4 {
+  padding: 10px;
+}
+
+#search #title {
+  text-align: center;
+  font-weight: 700;
+  color: #606060;
+}
+
+#post-its .col img {
+  max-height: 45px;
+  height: auto;
+  margin-top: -10px;
+}
+
+.carousel .carousel-control-prev-icon,
+.carousel .carousel-control-next-icon {
+  width: 35px;
+  height: 35px;
+  display: none;
+}
+
+@media (max-width: 330px) {
+  #top a.bt-vidaclass {
+    right: -10px;
+  }
+  #post-its .col-12 {
+    padding: 15px;
+  }
+  #post-its .col-6.post-it {
+    font-size: 0.8em;
+    height: 110px;
+    max-width: 110px;
+  }
+}
+
+/*IPHONE 5 (640x1136 )*/
+@media (min-width: 600px) {
+  #carouselDepositions .content {
+    min-height: 255px;
+    margin-bottom: 15%;
+  }
+
+  .aspas_fecha {
+    margin: -40px 0 0 220px;
+  }
+}
+
+/*IPAD*/
+@media (min-width: 700px) {
+  #post-its .col.post-it {
+    max-width: 110px;
+  }
+
+  .post-it .category {
+    top: 55px !important;
+  }
+
+  #carouselDepositions .content {
+    min-height: 225px;
+    margin-bottom: 15%;
+  }
+
+  .aspas_fecha {
+    margin: -40px 0 0 280px;
+  }
+
+  #top a.bt-vidaclass {
+    font-size: 1em;
+  }
+
+  .first-mobile #top p {
+    font-size: 1.1em;
+  }
+}
+
+/*IPHONE 12 (1284x2778) */
+@media (min-width: 1200px) {
+  #carouselDepositions .content {
+    min-height: 215px;
+    margin-bottom: -6%;
+  }
+
+  .aspas_fecha {
+    margin: -40px 0 0 325px;
+  }
+
+  #top {
+    height: 12em;
+  }
+}
+
+#post-its .cards-home img {
+  position: inherit;
+}
+
+.category-name {
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+.description-area {
+  height: 145px;
+  display: flex;
+  align-items: center;
+  text-align: justify !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  margin-bottom: 0 !important;
+  padding: 0px 10px;
+}
+.card-base {
+  width: 325px;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  height: 215px;
+}
+
+.card-base-mom {
+  width: 325px;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px 0 rgb(233 154 233 / 50%),
+    0 2px 10px 0 rgb(233 154 233 / 50%);
+  height: 215px;
+}

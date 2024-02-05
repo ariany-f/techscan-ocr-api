@@ -1,0 +1,865 @@
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background-color: #fafafa;
+  font-family: "Montserrat", sans-serif;
+}
+
+.row {
+  margin: 0;
+}
+
+.col-md-12 {
+  padding: 0;
+}
+
+nav.header {
+  font-family: "Montserrat", sans-serif;
+  background-color: #07bebb;
+  color: white;
+  font-weight: 600;
+  min-height: 5vw;
+}
+.partner-2181 nav.header {
+  font-family: "Montserrat", sans-serif;
+  background-color: #ffd400;
+  color: white;
+  font-weight: 600;
+  min-height: 5vw;
+}
+
+.partner-178 nav.header {
+  font-family: "Montserrat", sans-serif;
+  background-color: #005b94;
+  color: white;
+  font-weight: 600;
+  min-height: 5vw;
+}
+
+nav.header a {
+  color: white;
+  text-shadow: 1px 1px #d1d1d114;
+  font-size: 1vw;
+  font-weight: 700;
+}
+.partner-2181 nav.header a {
+  color: #16479d;
+}
+
+nav.header img {
+  margin: 0 4vw;
+}
+
+nav.header .dropdown-menu {
+  background-color: #09918f;
+  border: none;
+  border-radius: 15px;
+}
+.partner-2181 nav.header .dropdown-menu {
+  background-color: #ffd400;
+  border: none;
+  border-radius: 15px;
+}
+
+.partner nav.header .dropdown-item {
+  font-weight: 600;
+}
+
+nav.header .dropdown-item:focus,
+.dropdown-item:hover {
+  color: #09918f;
+  text-decoration: none;
+  background-color: #f8f9fa;
+  text-shadow: unset;
+}
+
+nav.header .dropdown-item i {
+  color: #07bebb;
+  margin-right: 10px;
+}
+
+nav.header a.button {
+  color: #07bebb;
+  background-color: white;
+  border-radius: 42px;
+  box-shadow: 0 3px 6px #00000029;
+  text-shadow: unset;
+  padding: 0 1.2rem;
+  margin: 1vw 0.5vw;
+}
+.partner-2181 nav.header a.button {
+  color: #16479d;
+}
+nav.header a.button-sb {
+  color: #07bebb;
+  background-color: white;
+  border-radius: 42px;
+  box-shadow: 0 3px 6px #00000029;
+  text-shadow: unset;
+  padding: 0 1.2rem;
+  margin-left: 0.8vw;
+  height: 50px;
+}
+
+.default-container {
+  margin: 5vh 10vh 0 10vh;
+  padding-top: 2em;
+  background-color: white;
+  box-shadow: 0 3px 26px #00000029;
+  border-radius: 38px 38px 0 0;
+  text-align: center;
+  padding-bottom: 5vh;
+  min-height: 70vh;
+}
+
+footer.page-footer {
+  color: #363636;
+  background-color: #e9f6f6 !important;
+}
+
+footer.page-footer .partner h5,
+footer.page-footer .partnerMermaid h5 {
+  color: white;
+  font-size: 1rem;
+}
+
+.partner li span,
+.mermaid li span,
+footer.page-footer .partner a,
+footer.page-footer .partnerMermaid a {
+  font-size: 1em;
+  color: white;
+  font-weight: 400;
+}
+
+.partner ul li,
+.mermaid ul li {
+  padding: 3px;
+}
+
+ul li img.iconContato {
+  width: 14px;
+}
+
+li span,
+footer.page-footer a {
+  font-size: 0.8em;
+  color: #363636;
+  font-weight: 400;
+}
+
+footer.page-footer .footer-copyright {
+  font-size: 1em;
+  color: white;
+  font-weight: 600;
+  background-color: #07bebb;
+  text-shadow: 1px 1px #d1d1d114;
+}
+.partner-2181 footer.page-footer .footer-copyright {
+  font-size: 1em;
+  color: white;
+  font-weight: 600;
+  background-color: #ffd400;
+  text-shadow: 1px 1px #d1d1d114;
+}
+
+footer.page-footer .footer-copyright.partnerMermaid {
+  font-size: 1em;
+  color: white;
+  font-weight: 600;
+  background-color: #4bb6b5;
+  text-shadow: 1px 1px #d1d1d114;
+}
+
+.default-container {
+  margin: 5vh 10vh 0 10vh;
+  background-color: white;
+  box-shadow: 0px 3px 26px #00000029;
+  border-radius: 38px 38px 0px 0px;
+  text-align: center;
+  padding-bottom: 5vh;
+  min-height: 80vh;
+}
+
+footer.page-footer h5 {
+  color: #07bebb;
+  font-size: 0.9rem;
+}
+
+footer.page-footer a.map {
+  color: #07bebb;
+  font-size: 1.1em;
+}
+
+.btn-fb {
+  color: #fff !important;
+  background-color: #3b5998 !important;
+}
+
+.btn-li {
+  color: #fff !important;
+  background-color: #0082ca !important;
+}
+
+.btn-ins {
+  color: #fff !important;
+  background: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  ) !important;
+}
+
+.btn-floating i {
+  font-size: 1.25rem;
+  line-height: 47px;
+}
+
+.btn-floating {
+  font-size: 1.25rem;
+  line-height: 47px;
+  border-radius: 50%;
+  width: 47px;
+  height: 47px;
+  box-shadow: 0px 0px 5px 1px rgba(2, 148, 146, 0.61);
+}
+
+.list-unstyled {
+  margin-bottom: 0;
+}
+
+.col-md-2 img {
+  width: 100%;
+}
+
+.nav.header .logo {
+  max-height: 100%;
+}
+
+.nav.header .logo img {
+  max-height: 100%;
+  padding: 3px;
+}
+
+#footer .partner hr {
+  margin: 1em 6em;
+}
+
+.ticket-saude .nav.header .logo img {
+  max-height: 90%;
+  padding: 3px;
+}
+
+#modalPrestador .modal-header {
+  text-align: center;
+  text-shadow: 1px 1px 1px #0000002b;
+  background-color: #003591;
+  color: white !important;
+}
+
+#modalPrestador .modal-header h5 {
+  font-weight: 600;
+  text-align: center;
+}
+
+#modalPrestador b {
+  color: #003591;
+  font-weight: 500;
+}
+
+#modalPrestador .button-ok {
+  font-weight: 700;
+  font-size: 16px;
+  padding: 0.5em 3em;
+  background-color: #0085ca;
+  color: white;
+  border-radius: 30px;
+  border: 0;
+}
+
+#modalPrestador .modal-content {
+  border-radius: 8px;
+}
+
+#modalPrestador .close {
+  color: white;
+  text-shadow: 0 0 0 transparent;
+  font-size: 32px;
+}
+
+.sender {
+  padding: 70px 0;
+}
+
+.menu .itemMenu a {
+  color: #363636;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.campaign-month {
+  position: absolute;
+  z-index: 10;
+}
+
+.laco-ticket {
+  position: absolute;
+  z-index: 10;
+  margin-left: 45px;
+  margin-top: 3px;
+}
+
+/** Modal Para sua Empresa */
+#modalEmpresas h4 {
+  font-size: 1.3rem;
+  border-bottom: 1px solid rgb(228, 227, 227);
+  margin: 0 4rem;
+  font-weight: 600;
+  color: #07bebb;
+  text-align: center;
+  padding-bottom: 7px;
+  margin-bottom: 1.5rem;
+}
+
+#modalEmpresas br {
+  margin: 0.7rem;
+}
+
+#modalEmpresas .modal-body a {
+  margin: 6px 0;
+  color: #363636;
+  font-weight: 500;
+}
+
+#modalEmpresas .modal-body i {
+  color: #07bebb;
+  margin-right: 10px;
+}
+
+#modalEmpresas .modal-header {
+  text-align: center;
+  text-shadow: 1px 1px 1px #0000002b;
+  background-color: #07bebb;
+  color: white !important;
+}
+
+#modalEmpresas .modal-header h5 {
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Modal seja um representante */
+#modalRepresentantes .modal-content {
+  background-image: url("../img/pop-up-representantes/VendaDiretaPopUp-1.png"),
+    url("../img/direct-selling/MockUpVendaDiretaHEAD-desktop.jpg");
+  background-repeat: no-repeat;
+  background-position: right, top center;
+  background-size: contain, cover;
+  height: 300px;
+  border-radius: 35px;
+  margin: 0;
+  padding: 0;
+}
+
+#modalRepresentantes .modal-body h4 {
+  font-size: 2.2em;
+  color: #fff;
+  font-weight: 400 !important;
+  margin-top: 11px;
+  margin-left: 15px;
+  margin-bottom: 24px;
+}
+
+#modalRepresentantes .modal-body p {
+  color: #fff;
+  font-size: 0.9em;
+  margin: 0;
+  margin-left: 18px;
+}
+
+#modalRepresentantes .modal-body img {
+  margin-left: 10px;
+  margin-bottom: 12px;
+  width: 50%;
+}
+
+@media (max-width: 850px) {
+  #modalRepresentantes .modal-body h4 {
+    font-size: 1.6em;
+  }
+}
+
+@media (max-width: 340px) {
+  #modalRepresentantes .modal-body h4 {
+    font-size: 1.3em;
+  }
+
+  #modalRepresentantes .modal-body p {
+    color: #fff;
+    font-size: 0.9em;
+    margin: 0;
+    margin-left: 2px;
+  }
+
+  #modalRepresentantes .modal-body img {
+    margin-left: 0px;
+    margin-bottom: 25px;
+    width: 47%;
+  }
+
+  #steps span.textTopics-Telemedicina {
+    font-size: 11.8px !important;
+  }
+}
+
+/**
+ Box, preco, desconto...
+ */
+.box-price {
+  height: 90px;
+}
+
+.box-price .text {
+  color: #909090;
+  font-weight: bold;
+}
+
+.box-price .de {
+  position: absolute;
+  top: -5px;
+  left: 10px;
+}
+
+.box-price .de-vlr {
+  margin: 18px 0 0 -25px;
+  white-space: nowrap;
+  text-decoration: line-through;
+}
+
+.box-price .para {
+  position: absolute;
+  left: 10px;
+  font-weight: bold;
+}
+
+.box-price .para-vlr {
+  margin: 20px 0 0 0;
+}
+
+.box-price .para-vlr a {
+  white-space: nowrap;
+}
+
+.box-discount {
+  margin-top: 0;
+}
+
+.box-discount .text {
+  margin-top: 5px;
+  font-weight: bold;
+  font-style: italic;
+  color: #909090;
+}
+
+.box-discount .num {
+  margin: 3px 0 10px 0;
+  font-weight: bold;
+  color: #0010ff;
+}
+
+/** Loader geral */
+.overlayLoading,
+.loading-img {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 45%;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0px 0px 6px 4px rgb(0 0 0 / 19%);
+}
+
+.overlayLoading {
+  display: none;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.342);
+  z-index: 99999;
+}
+
+.loading-img {
+  background: #fff;
+  width: max-content;
+  height: max-content;
+  border-radius: 50%;
+  z-index: 99999;
+}
+
+.loading-img img {
+  height: 60px;
+  width: 60px;
+  -webkit-animation: vidaclass_loading 1s linear infinite;
+  -moz-animation: vidaclass_loading 1s linear infinite;
+  animation: vidaclass_loading 1s linear infinite;
+}
+
+@-moz-keyframes vidaclass_loading {
+  0% {
+    -moz-transform: rotateY(0deg) scale(0.6);
+  }
+
+  100% {
+    -moz-transform: rotateY(360deg) scale(0.6);
+  }
+}
+
+@-webkit-keyframes vidaclass_loading {
+  0% {
+    -webkit-transform: rotateY(0deg) scale(0.6);
+  }
+
+  100% {
+    -webkit-transform: rotateY(360deg) scale(0.6);
+  }
+}
+
+@keyframes vidaclass_loading {
+  0% {
+    -webkit-transform: rotateY(0deg) scale(0.6);
+    transform: rotateY(0deg) scale(0.6);
+  }
+
+  100% {
+    -webkit-transform: rotateY(360deg) scale(0.6);
+    transform: rotateY(360deg) scale(0.6);
+  }
+}
+
+/** Botão padrão */
+.bt-vidaclass {
+  border-radius: 30px;
+  padding: 15px 30px;
+  background-color: #07bebb;
+  color: #ffffff !important;
+  font-weight: 700;
+  border: none;
+}
+
+a.bt-vidaclass:hover {
+  color: rgba(255, 255, 255, 0.884);
+}
+
+.bt-vidaclass2 {
+  border-radius: 30px;
+  padding: 15px 30px;
+  color: #088d8b;
+  background-color: #ffffff !important;
+  font-weight: 700;
+  border: none;
+}
+
+a.bt-vidaclass2:hover {
+  color: #088d8b;
+}
+
+.bt-vidaclass3 {
+  border-radius: 30px;
+  padding: 15px 30px;
+  color: white;
+  background-color: #088d8b !important;
+  font-weight: 700;
+  border: none;
+}
+
+a.bt-vidaclass3:hover {
+  color: rgba(255, 255, 255, 0.884);
+}
+
+/*IPAD*/
+@media (max-width: 850px) {
+  .ticket-saude nav.header img {
+    width: 120px;
+    margin: 0 15px 10px 35px;
+  }
+}
+
+#modal-login-assine .card {
+  height: 100%;
+}
+
+#modalMinorAge .modal-header {
+  text-align: center;
+  text-shadow: 1px 1px 1px #0000002b;
+  background-color: #07bebb;
+  color: white;
+}
+
+#modalMinorAge .modal-title {
+  margin-top: 0;
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+#modalMinorAge .btn-MinorAge {
+  background-color: #07bebb !important;
+  color: white;
+  font-weight: 700;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 30px;
+}
+
+#modalMinorAge .btn-minorAge {
+  background-color: #dc3545 !important;
+  color: white;
+  font-weight: 700;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 30px;
+}
+
+/* Modal Campanha */
+#modalCampanha .modal-content {
+  background-color: #303f9a;
+  background-image: url("../img/index/campanhas-meses/bgmodal_novembroazul.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: -35%;
+  height: 300px;
+  border-radius: 35px;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+#modalCampanha .modal-body h3,
+#modalCampanha .modal-body h5 {
+  color: #07bebb;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+}
+
+#modalCampanha .modal-body .title p {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.233);
+  font-weight: 600;
+  margin: 0;
+}
+
+#modalCampanha .modal-body .subtitle {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.233);
+  font-weight: 500;
+  font-size: 0.8em;
+}
+
+#modalCampanha .bt-vidaclass {
+  background-color: #1e86ad;
+}
+
+#modalCampanha .buttons {
+  margin-top: 50px;
+}
+
+.title-card {
+  color: #ffffff;
+  padding: 10px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.bt-assine {
+  color: white !important;
+  font-weight: 600;
+  font-size: 20px;
+  padding: 10px 4.3em;
+  background-color: #07bebb;
+  border-radius: 30px;
+  border: 0;
+  margin-top: 45px;
+}
+
+.cards-home {
+  width: 15rem;
+  display: inline-block;
+  border-radius: 10px;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.card-platinum {
+  border-radius: 10px;
+}
+.card-insurance {
+  border-radius: 10px;
+}
+.card-premium {
+  border-radius: 10px;
+}
+.card-repom {
+  border-radius: 10px;
+}
+.card-ticket {
+  border-radius: 10px;
+}
+
+.card-platinum img,
+.card-premium img,
+.card-repom img,
+.card-insurance img {
+  height: 42px;
+}
+
+.price-platinum {
+  color: #004f92;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 25px;
+  height: 60px;
+  padding: 5px;
+  box-shadow: 1px -1px 10px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  width: 158px;
+}
+.price-platinum small {
+  font-size: 14px;
+}
+
+.price-premium {
+  color: #07bebb;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 40px;
+  background-color: #ffffff;
+  border-radius: 25px;
+  height: 60px;
+  padding: 6px;
+  box-shadow: 1px -1px 10px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  width: 158px;
+}
+.price-premium small {
+  font-size: 14px;
+}
+.price-insurance {
+  color: #07bebb;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 41px;
+  background-color: #ffffff;
+  border-radius: 25px;
+  height: 60px;
+  padding: 6px;
+  box-shadow: 1px -1px 10px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  width: 158px;
+}
+.price-insurance small {
+  font-size: 14px;
+}
+.price-repom {
+  color: #07bebb;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 42px;
+  border-radius: 25px;
+  height: 60px;
+  padding: 6px;
+  box-shadow: 1px -1px 10px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  width: 158px;
+}
+
+.price-ticket {
+  color: #07bebb;
+  font-weight: 600;
+  font-size: 1.2em;
+  text-align: center;
+  text-align: center;
+  margin-top: 62px;
+  border-radius: 25px;
+  height: 60px;
+  padding: 15px;
+  box-shadow: 1px -1px 10px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  width: 158px;
+}
+
+.price-first {
+  font-size: 0.8em;
+  margin: 0;
+  color: #979797;
+  font-weight: 500;
+}
+@media (min-width: 576px) {
+  .modal-dialog {
+    min-width: 500px;
+  }
+}
+.modal-content {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+.play-button-mobile {
+  position: absolute;
+  transform: translateY(-50%);
+  bottom: 35px;
+  width: 90px;
+  height: 60px;
+  background-color: #333;
+  box-shadow: 0 0 30px rgb(0 0 0 / 60%);
+  z-index: 1;
+  opacity: 0.9;
+  border: none;
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.img-capa-mobile {
+  width: 350px;
+  height: 180px;
+}
+.fa-play {
+  color: #ffffff;
+  font-size: 2em;
+}
+.laco-campanha {
+  height: 65px;
+  margin: 0;
+  top: -4px;
+  position: relative;
+  left: 68px;
+}
+@media (min-width: 576px) {
+  .modal-custom {
+    max-width: 800px !important;
+    margin: 1.75rem auto;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+  }
+}
+
+.pink-footer {
+  background-color: #ffdcf9;
+  color: #272727;
+}
+
+.pink-footer h5 {
+  color: #cf3492;
+}
+.pink-footer a {
+  color: rgb(32, 32, 32);
+}
+.footer-copyright-pink {
+  background-color: #cf3492;
+  color: #fafafa;
+}

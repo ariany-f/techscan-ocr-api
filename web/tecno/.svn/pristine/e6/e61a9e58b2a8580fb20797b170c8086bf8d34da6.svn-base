@@ -1,0 +1,559 @@
+<?php
+/**
+ * Framework Tecno
+ * @author Anderson Carlos <anderson.carlos@tecnoprog.com.br>
+ * @copyright  Tecnoprog © 2019, Tecnoprog Informatica e Eletronica LTDA - ME.
+ */
+
+namespace Tecno\Controller {
+
+    use Config\Config;
+    use Src\App;
+    use Tecno\View\Views;
+    use Tecno\View\View;
+    use Tecno\View\Html;
+    use Tecno\Lib\Utils;
+    use Tecno\Lib\Session;
+    use Tecno\Auth\Auth;
+    use Gettext\Translator;
+    use Gettext\Translations;
+    use GettextDb\Translator as TranslatorDb;
+    use stdClass;
+
+    /**
+     * Class Controller
+     * @property Auth $auth
+     * @property Views $output
+     * @package Tecno\Controller
+     */
+    class Controller {
+
+        /**
+         * Objeto que recebe os paramentros passados pelo shell
+         * @var array
+         */
+        public $argv;
+
+        /**
+         * Objeto Auth
+         */
+        public $auth;
+
+        /**
+         * Guarda a Rota
+         */
+        public $route;
+
+        /**
+         * Quarda o nome da Classe
+         * @var string
+         */
+        public $controller;
+
+        /**
+         * Guardar o nome do metodo
+         * @var string
+         */
+        public $action;
+
+        /**
+         * Guardar o objeto View
+         * @var string
+         */
+        private $viewApp;
+
+        /**
+         * Guarda todos os header do request
+         * @var
+         */
+        public $headers;
+
+        /**
+         * Guardar os parametros passados via url
+         * @var
+         */
+        public $params;
+
+        /**
+         * Guardar vars via router
+         * @var
+         */
+        public $pass;
+
+        /**
+         * Guardar os parametros passados via query string
+         * Aliases para o get
+         * @var
+         */
+        public $query_string;
+
+        /**
+         * Guardar os parametros passados via query string
+         * @var
+         */
+        public $get;
+
+        /**
+         * Guardar os valores do post
+         * @var
+         */
+        public $post;
+
+        /**
+         * Guarda os valores do post via json
+         * @var
+         */
+        public $json;
+
+        /**
+         * Guarda o metodo de request
+         * @var
+         */
+        public $method;
+
+        /**
+         *  Valor default do render
+         * @var
+         */
+        public $render;
+
+        /**
+         * Layout default
+         * @var
+         */
+        public $layout;
+
+        /**
+         * Template default
+         * @var
+         */
+        public $template;
+
+        /**
+         * Vars default
+         * @var
+         */
+        public $vars;
+
+        /**
+         * Webroot
+         */
+        public $webroot = __DIR_INDEX__;
+
+        /**
+         *
+         * @var stdClass
+         */
+        public $output;
+
+        /**
+         * Controller constructor.
+         */
+        public function __construct()
+        {
+            /**
+             * Set params shell
+             */
+            $this->argv = $GLOBALS['shell'];
+
+            /**
+             * View [HTML, Json, Ajax]
+             */
+            $this->viewApp = new Html();
+
+            /**
+             * Se acesso por shell muda $_SERVER
+             */
+            if(!$this->argv)
+            {
+                $headers = getallheaders();
+            }
+            else
+            {
+                $headers = [];
+                $_SERVER['REQUEST_URI'] = (isset($this->argv[1])) ? '/' . $this->argv[1] : '';
+                $_SERVER['QUERY_STRING'] = '';
+                $_SERVER['REQUEST_METHOD'] = 'SHELL';
+            }
+
+            /**
+             * Set headers
+             */
+            $this->headers = $headers;
+
+            /**
+             * Mapeando url
+             */
+            $file_full_path = explode("/", $_SERVER['SCRIPT_NAME']);
+            $request_uri = Utils::removeDoubleBar($_SERVER['REQUEST_URI']);
+            $query_string = $_SERVER['QUERY_STRING'];
+            array_pop($file_full_path);
+            unset($file_full_path[0]);
+            $file_full_path = array_values($file_full_path);
+            $find = implode("/", $file_full_path);
+            $request_uri_real = ($find) ? str_replace("/" . $find, '', $request_uri) : $request_uri;
+            $request_uri_real = substr($request_uri_real, 1, strlen($request_uri_real));
+            $request_uri_real = ($query_string != '') ? str_replace("?" . $query_string, '', $request_uri_real) : $request_uri_real;
+            $request_array = explode("/", $request_uri_real);
+
+            /**
+             * Set query string
+             * se houver
+             */
+            $this->query_string = [];
+            if ($query_string != '') {
+                parse_str($query_string, $query_string);
+                $this->query_string = $query_string;
+            }
+
+            /**
+             * Set query string
+             * se houver
+             */
+            $this->get = $this->query_string;
+
+            /**
+             * Set post
+             * se houver
+             */
+            $this->post = [];
+            if (count($_POST))
+            {
+                $this->post = $_POST;
+            }
+
+            /**
+             * Set json
+             * se houver
+             */
+            $this->json = [];
+            if (json_decode(file_get_contents('php://input'), true) !== null)
+            {
+                $this->json = json_decode(file_get_contents('php://input'), true);
+            }
+
+            /**
+             * Modelos de traducao
+             */
+            $lang_browser = @str_replace("-", "_", @explode(',', @getallheaders()['Accept-Language'])[0]);
+            $lang = Config::vars('lang');
+            $lang_available = Config::vars('lang_available');
+
+            $dir_message = '../locale';
+            if(isset($this->json['lang']) and $this->json['lang'] != '')
+            {
+                $locale = strtolower($this->json['lang']);
+                $locale = explode('-', $locale);
+                $sub_lang = isset($locale[1]) ? $locale[1] : '';
+                $locale = $locale[0] . '_' . strtoupper($sub_lang);
+            }
+            elseif(isset($this->post['lang']) and $this->post['lang'] != '')
+            {
+                $locale = strtolower($this->post['lang']);
+                $locale = explode('-', $locale);
+                $sub_lang = isset($locale[1]) ? $locale[1] : '';
+                $locale = $locale[0] . '_' . strtoupper($sub_lang);
+            }
+            elseif(isset($this->get['lang']) and $this->get['lang'] != '')
+            {
+                $locale = strtolower($this->get['lang']);
+                $locale = explode('-', $locale);
+                $sub_lang = isset($locale[1]) ? $locale[1] : '';
+                $locale = $locale[0] . '_' . strtoupper($sub_lang);
+            }
+            elseif(in_array($lang_browser, $lang_available))
+            {
+                $locale = $lang_browser;
+            }
+            else
+            {
+                if(Session::read('lang') != '')
+                {
+                    $locale = Session::read('lang');
+                }
+                else
+                {
+                    $locale = $lang;
+                }
+            }
+
+            /**
+             * Se tem session, ela assusme
+             */
+            if(Session::read('lang') != '')
+            {
+                $locale = Session::read('lang');
+            }
+
+            $file_dir = $dir_message . '/' . $locale . '/LC_MESSAGES/messages.po';
+            $this->file_language_db = $dir_message . '/' . $locale . '/LC_MESSAGES/messages.db';
+            $translator = new Translator();
+            new TranslatorDb($this->file_language_db);
+
+            if(file_exists($file_dir))
+            {
+                $translations = Translations::fromPoFile($file_dir);
+                $translator->loadTranslations($translations);
+            }
+            $translator->register();
+
+            /**
+             * Set controller
+             * se vazio set Index
+             */
+            $controller = str_replace(['-', '_', '+', '%20'], ['_', '_', '', ''], (isset($request_array[0])) ? ($request_array[0] == '') ? 'Index' : $request_array[0] : 'Index');
+            $controller = (substr($controller, -1) == '_') ? substr($controller, 0, -1) : $controller;
+            $controller = (substr($controller, 0, 1) == '_') ? substr($controller, 1) : $controller;
+            $controller = (substr($controller, -1) == '?') ? substr($controller, 0, -1) : $controller;
+
+            $this->controller = Utils::camelCase($controller);
+
+            /**
+             * Set action
+             * se vazio set index
+             */
+            $action = str_replace(['-', '_', '+', '%20'], ['_', '_', '', ''], (isset($request_array[1])) ? ($request_array[1] == '') ? 'index' : $request_array[1] : 'index');
+            $action = (substr($action, -1) == '_') ? substr($action, 0, -1) : $action;
+            $action = (substr($action, 0, 1) == '_') ? substr($action, 1) : $action;
+            $action = (substr($action, -1) == '?') ? substr($action, 0, -1) : $action;
+            $this->action = strtolower(substr(Utils::camelCase($action), 0, 1)) . substr(Utils::camelCase($action), 1);
+
+            /**
+             * Set outros parametros
+             * enviados via url
+             */
+            $this->params = [];
+            if (count($request_array) >= 3) {
+                unset($request_array[0]);
+                unset($request_array[1]);
+                $this->params = array_values($request_array);
+            }
+
+            /**
+             * Method de request
+             */
+            $this->method = $_SERVER['REQUEST_METHOD'];
+
+            /**
+             * Set a rota
+             */
+            $this->route = Utils::routesClenner($request_uri_real);
+
+            /**
+             * Caso tenho rota configurada
+             */
+            $route = Utils::route($this->route);
+            if ($route)
+            {
+                $this->controller = $route['controller'];
+                $this->action = $route['action'];
+                $this->params = $route['params'];
+                $this->pass = $route['pass'];
+            }
+
+            /**
+             * Padrao para o render
+             */
+            $this->layout = 'Layout/default';
+            $this->template = $this->controller . "/" . $this->action;
+            $this->vars = [];
+            $this->render = [
+                'layout' => $this->layout,
+                'template' => $this->template,
+                'vars' => $this->vars
+            ];
+        }
+
+        /**
+         * Vamos rodar o app
+         * @return bool
+         * @throws \Exception
+         */
+        public function run()
+        {
+            /**
+             * Para registrar acoes que
+             * so devem ocorrer uma vez
+             * a cada request
+             */
+            $app = new App();
+            $register = 'register';
+            if (method_exists($app, $register))
+            {
+                $app->$register();
+            }
+
+            /**
+             * Se shell troca layout de erro
+             */
+            if(!$this->argv)
+            {
+                $layout_error = 'Layout/error';
+            }
+            else
+            {
+                $layout_error = 'Layout/shell';
+            }
+
+            /**
+             * Load controller
+             */
+            if (file_exists(__DIR_ROOT__ . "/src/Controller/" . $this->controller . "Controller.php"))
+            {
+                /**
+                 * Checando a classe
+                 */
+                $class = '\src\Controller\\' . $this->controller . 'Controller';
+                if (class_exists($class))
+                {
+                    $controller = new $class;
+                }
+                else
+                {
+                    $this->render = [
+                        'layout' => $layout_error,
+                        'template' => 'Errors/classe',
+                        'vars' => [
+                            'error' => $this->controller
+                        ]
+                    ];
+                    $this->viewApp->sendDisplay($this);
+                    return false;
+                }
+
+            }
+            else
+            {
+                $this->render = [
+                    'layout' => $layout_error,
+                    'template' => 'Errors/controller',
+                    'vars' => [
+                        'error' => $this->controller
+                    ]
+                ];
+                $this->viewApp->sendDisplay($this);
+                return false;
+            }
+
+            /**
+             * Load Action
+             */
+            $action = $this->action;
+            if (method_exists($controller, $action))
+            {
+                $controller->$action();
+            }
+            else
+            {
+                $this->render = [
+                    'layout' => $layout_error,
+                    'template' => 'Errors/action',
+                    'vars' => [
+                        'error' => $this->action
+                    ]
+                ];
+
+                $this->viewApp->sendDisplay($this);
+                return false;
+            }
+
+            /**
+             * Verifica se controller deve ser renderizado
+             */
+            if($controller->render !== false and !$this->argv)
+            {
+                $this->viewApp->sendDisplay($controller);
+            }
+            return true;
+        }
+
+        /**
+         * Set o layout para a View
+         * @param $layout
+         * @return bool
+         */
+        public function setLayout($layout)
+        {
+            $this->layout = $layout;
+            $this->render =  [
+                'layout' => $this->layout,
+                'template' => $this->template,
+                'vars' => $this->vars
+            ];
+            return true;
+        }
+
+        /**
+         * Set template para a View
+         * @param $template
+         * @return bool
+         */
+        public function setTemplate($template)
+        {
+            $this->template = $template;
+            $this->render =  [
+                'layout' => $this->layout,
+                'template' => $this->template,
+                'vars' => $this->vars
+            ];
+            return true;
+        }
+
+        /**
+         * Set as variaveis para a View
+         * @param array $vars
+         */
+        public function setVars(array $vars)
+        {
+            $this->vars = array_merge($this->vars, $vars);
+            $this->render =  [
+                'layout' => $this->layout,
+                'template' => $this->template,
+                'vars' => $this->vars
+            ];
+        }
+
+         /**
+         * @param array $params
+         * @throws \Exception
+         */
+        public function authenticate(array $params)
+        {
+            $this->auth = new Auth($params);
+        }
+
+        /**
+         * Nao renderiza as views
+         * @return bool
+         */
+        public function noRender()
+        {
+            $this->render = false;
+            return true;
+        }
+
+        /**
+         * Tipos de views
+         * @param $type
+         * @return bool
+         */
+        public function setRender($type)
+        {
+            $type = strtoupper($type[0]) . substr($type, 1);
+            if($type == 'Html')
+            {
+                $this->render = [
+                    'layout' => $this->layout,
+                    'template' => $this->template,
+                    'vars' => $this->vars
+                ];
+            }
+
+            $class_render = '\tecno\View\\' . $type;
+            $view = new $class_render();
+            $this->output = new View($view);
+            $this->render = false;
+            return true;
+        }
+    }
+}

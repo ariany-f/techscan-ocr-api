@@ -1,0 +1,267 @@
+<?php
+/**
+ * Framework Tecno
+ * @author Anderson Carlos <anderson.carlos@tecnoprog.com.br>
+ * @copyright  Tecnoprog © 2019, Tecnoprog Informatica e Eletronica LTDA - ME.
+ */
+
+namespace Tecno\Database {
+
+    use PDO;
+    use PDOException;
+    use Exception;
+    use Tecno\Lib\Utils;
+
+    /**
+     * Class Postgres
+     * @property PDO $connect
+     * @package Tecno\Database
+     */
+    class Postgres implements Dbs {
+
+        public $config,
+               $connect;
+
+        /**
+         * Mysql constructor
+         * Faz a conexao
+         * @param $config
+         */
+        public function __construct($config)
+        {
+            $this->config = $config;
+        }
+
+        /**
+         * Inicia a conexao
+         * @throws Exception
+         */
+        public function startConn()
+        {
+            try {
+                if($this->connect)
+                {
+                    $this->connect->query("SELECT 1");
+                }
+                else
+                {
+                    throw new Exception('NewConnet');
+                }
+            }
+            catch (Exception $e)
+            {
+                try {
+                    $dsn = 'pgsql:host=' . $this->config['host'] . ';port=' . $this->config['port'] . ';dbname=' . $this->config['database'];
+                    $connect = new PDO( $dsn, $this->config['username'], $this->config['password'], [
+                            PDO::ATTR_PERSISTENT => $this->config['persistent'],
+                            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                            PDO::ATTR_EMULATE_PREPARES => FALSE
+                        ]
+                    );
+
+                    $this->connect = $connect;
+                }
+                catch (PDOException $e)
+                {
+                    Db::typeError($e->getMessage());
+                }
+            }
+        }
+
+        /**
+         * Query generica
+         * @param $sql
+         * @param array $bind
+         * @return array|bool|Exception|PDO|\PDOException|string
+         * @throws Exception
+         */
+        public function query(string $sql, array $bind = [])
+        {
+            self::startConn();
+            // $insert = false;
+            try {
+                if($bind)
+                {
+                    Utils::queryDecode($sql, $bind);
+                    $query = $this->connect->prepare($sql);
+                    $query->execute($bind);
+                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+                    $query->closeCursor();
+                }
+                else
+                {
+                    // $insert = strpos($sql, 'INSERT');
+                    Utils::queryDecode($sql, $bind);
+                    $query = $this->connect->query($sql);
+                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+                    // if($insert !== false){
+                    //     $result = $query->lastInsertId();
+                    // }
+                    $query->closeCursor();
+                }
+                return $result;
+            }
+            catch (Exception $e)
+            {
+                throw new Exception($e->getMessage());
+            }
+        }
+        
+        /**
+         * Query generica
+         * @param $sequence_name
+         * @return array|bool|Exception|PDO|\PDOException|string
+         * @throws Exception
+         */
+        public function lastInsertId(string $sequence_name)
+        {
+            self::startConn();
+            try {
+
+                $id = $this->connect->lastInsertId($sequence_name);
+
+                return $id;
+
+            }
+            catch (Exception $e)
+            {
+                throw new Exception($e->getMessage());
+            }
+        }
+
+        /**
+         * Insert
+         * @param string $table
+         * @param array $insert
+         * @return mixed
+         * @throws Exception
+         */
+        public function insert(string $table, array $insert)
+        {
+            self::startConn();
+            try {
+                $columns = "(";
+                $values = "(";
+                $bind = [];
+                foreach ($insert as $column => $value)
+                {
+                    $columns .= $column . ',';
+                    $values .= ':' . $column . ',';
+                    $bind_key = ':' . $column;
+                    $bind[$bind_key] = $value;
+                }
+                $columns = substr($columns, 0, -1) . ')';
+                $values = substr($values, 0, -1) . ')';
+                $sql = "INSERT INTO  ${table} ${columns} VALUES ${values};";
+                Utils::queryDecode($sql, $bind, '');
+                $query = $this->connect->prepare($sql);
+                $query->execute($bind);
+                $id = $this->connect->lastInsertId();
+                return $id;
+            }
+            catch (Exception $e)
+            {
+                throw new Exception($e->getMessage());
+            }
+        }
+
+        /**
+         * Insert ou replace
+         * @param string $table
+         * @param array $replace
+         * @return mixed
+         * @throws Exception
+         */
+        public function replace(string $table, array $replace)
+        {
+            self::startConn();
+            try {
+                $columns = "(";
+                $values = "(";
+                $bind = [];
+                foreach ($replace as $column => $value)
+                {
+                    $columns .= $column . ',';
+                    $values .= ':' . $column . ',';
+                    $bind_key = ':' . $column;
+                    $bind[$bind_key] = $value;
+                }
+                $columns = substr($columns, 0, -1) . ')';
+                $values = substr($values, 0, -1) . ')';
+                $sql = "REPLACE INTO  ${table} ${columns} VALUES ${values};";
+                Utils::queryDecode($sql, $bind, '');
+                $query = $this->connect->prepare($sql);
+                $query->execute($bind);
+                $id = $this->connect->lastInsertId();
+                return $id;
+            }
+            catch (Exception $e)
+            {
+                throw new Exception($e->getMessage());
+            }
+        }
+
+        /**
+         * Update
+         * @param array $query = [
+         *      'table' => '',
+         *      'id' => [
+         *          'chave' => 'valor'
+         *      ],
+         *      'columns' => [
+         *          'coluna' => 'valor'
+         *      ]
+         * ]
+         * @return bool
+         * @throws Exception
+         */
+        public function update(array $query)
+        {
+            self::startConn();
+            try {
+                $bind = [];
+                $columns = [];
+                foreach ($query['columns'] as $column => $value)
+                {
+                    $bind_key = ':' . $column;
+                    $columns[] = "${column}=${bind_key}";
+                    $bind[$bind_key] = $value;
+                }
+                $id = current($query['id']);
+                $id = gettype($id) === 'string' ? "'" . $id . "'" : $id;
+                $sql = "UPDATE ${query['table']} SET " . implode(", ", $columns) . " WHERE " . key($query['id']) . " = " . $id ;
+                Utils::queryDecode($sql, $bind, '');
+                $query = $this->connect->prepare($sql);
+                $query->execute($bind);
+                return true;
+            }
+            catch (Exception $e)
+            {
+                throw new Exception($e->getMessage());
+            }
+        }
+
+        /**
+         * Monta string e o array para fazer o bind
+         * @param array $in_array
+         * @return array|mixed
+         */
+        public function inWhere(array $in_array = [])
+        {
+            $in = '';
+            $in_params = [];
+            foreach ($in_array as $key => $value)
+            {
+                $id = ':id' . $key;
+                $in .= $id . ',';
+                $in_params[$id] = $value;
+            }
+            $in = substr($in, 0, -1);
+
+            return [
+                'in_sql' => $in,
+                'in_bind' => $in_params
+            ];
+        }
+    }
+}

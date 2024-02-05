@@ -1,0 +1,1102 @@
+2024-02-05 12:27:20 - 1707146840.4373
+Array
+(
+    [file] => C:\xampp\htdocs\api\web\tecno\Lib\Mailer.php
+    [line] => 220
+    [data] => Swift_RfcComplianceException Object
+        (
+            [message:protected] => Address in mailbox given [] does not comply with RFC 2822, 3.6.2.
+            [string:Exception:private] => 
+            [code:protected] => 0
+            [file:protected] => C:\xampp\htdocs\api\web\vendor\swiftmailer\swiftmailer\lib\classes\Swift\Mime\Headers\MailboxHeader.php
+            [line:protected] => 355
+            [trace:Exception:private] => Array
+                (
+                    [0] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\vendor\swiftmailer\swiftmailer\lib\classes\Swift\Mime\Headers\MailboxHeader.php
+                            [line] => 272
+                            [function] => assertValidAddress
+                            [class] => Swift_Mime_Headers_MailboxHeader
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => 
+                                )
+
+                        )
+
+                    [1] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\vendor\swiftmailer\swiftmailer\lib\classes\Swift\Mime\Headers\MailboxHeader.php
+                            [line] => 117
+                            [function] => normalizeMailboxes
+                            [class] => Swift_Mime_Headers_MailboxHeader
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                        )
+
+                    [2] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\vendor\swiftmailer\swiftmailer\lib\classes\Swift\Mime\Headers\MailboxHeader.php
+                            [line] => 74
+                            [function] => setNameAddresses
+                            [class] => Swift_Mime_Headers_MailboxHeader
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                        )
+
+                    [3] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\vendor\swiftmailer\swiftmailer\lib\classes\Swift\Mime\SimpleMimeEntity.php
+                            [line] => 600
+                            [function] => setFieldBodyModel
+                            [class] => Swift_Mime_Headers_MailboxHeader
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                        )
+
+                    [4] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\vendor\swiftmailer\swiftmailer\lib\classes\Swift\Mime\SimpleMessage.php
+                            [line] => 213
+                            [function] => setHeaderFieldModel
+                            [class] => Swift_Mime_SimpleMimeEntity
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => From
+                                    [1] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                        )
+
+                    [5] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\tecno\Lib\Mailer.php
+                            [line] => 180
+                            [function] => setFrom
+                            [class] => Swift_Mime_SimpleMessage
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                        )
+
+                    [6] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\tecno\Database\Db.php
+                            [line] => 82
+                            [function] => send
+                            [class] => Tecno\Lib\Mailer
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [subject] => Tecnoprog Framework - Database error
+                                            [to] => ti@thunderbold.com.br
+                                            [layout] => default
+                                            [template] => error
+                                            [vars] => Array
+                                                (
+                                                    [title] => Mail errors
+                                                    [error] => Exception Object
+                                                        (
+                                                            [message:protected] => SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'EJC6120-2024-02-05 12:21:23-61' for key 'plate_datetime'
+                                                            [string:Exception:private] => Exception: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'EJC6120-2024-02-05 12:21:23-61' for key 'plate_datetime' in C:\xampp\htdocs\api\web\tecno\Database\Db.php:65
+Stack trace:
+#0 C:\xampp\htdocs\api\web\tecno\Database\Mysql.php(166): Tecno\Database\Db::typeError('SQLSTATE[23000]...')
+#1 C:\xampp\htdocs\api\web\tecno\Database\Db.php(117): Tecno\Database\Mysql->insert('passages', Array)
+#2 C:\xampp\htdocs\api\web\src\Model\Passage\PassageModel.php(41): Tecno\Database\Db->insert('passages', Array)
+#3 C:\xampp\htdocs\api\web\src\Controller\GetOCRDataController.php(194): src\Model\Passage\PassageModel->save(Array)
+#4 C:\xampp\htdocs\api\web\tecno\Controller\Controller.php(450): src\Controller\GetOCRDataController->passagens()
+#5 C:\xampp\htdocs\api\web\bin\tecnoprog.php(17): Tecno\Controller\Controller->run()
+#6 {main}
+                                                            [code:protected] => 0
+                                                            [file:protected] => C:\xampp\htdocs\api\web\tecno\Database\Db.php
+                                                            [line:protected] => 65
+                                                            [trace:Exception:private] => Array
+                                                                (
+                                                                    [0] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\tecno\Database\Mysql.php
+                                                                            [line] => 166
+                                                                            [function] => typeError
+                                                                            [class] => Tecno\Database\Db
+                                                                            [type] => ::
+                                                                            [args] => Array
+                                                                                (
+                                                                                    [0] => SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'EJC6120-2024-02-05 12:21:23-61' for key 'plate_datetime'
+                                                                                )
+
+                                                                        )
+
+                                                                    [1] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\tecno\Database\Db.php
+                                                                            [line] => 117
+                                                                            [function] => insert
+                                                                            [class] => Tecno\Database\Mysql
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                    [0] => passages
+                                                                                    [1] => Array
+                                                                                        (
+                                                                                            [api_origin] => 2
+                                                                                            [direction] => 1
+                                                                                            [datetime] => 2024-02-05T12:21:23.250
+                                                                                            [external_id] => 3a4efee1-0bf2-4d59-9869-35ee0323431a
+                                                                                            [id_gate] => 61
+                                                                                            [plate] => EJC6120
+                                                                                            [camera] => 100
+                                                                                        )
+
+                                                                                )
+
+                                                                        )
+
+                                                                    [2] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\src\Model\Passage\PassageModel.php
+                                                                            [line] => 41
+                                                                            [function] => insert
+                                                                            [class] => Tecno\Database\Db
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                    [0] => passages
+                                                                                    [1] => Array
+                                                                                        (
+                                                                                            [api_origin] => 2
+                                                                                            [direction] => 1
+                                                                                            [datetime] => 2024-02-05T12:21:23.250
+                                                                                            [external_id] => 3a4efee1-0bf2-4d59-9869-35ee0323431a
+                                                                                            [id_gate] => 61
+                                                                                            [plate] => EJC6120
+                                                                                            [camera] => 100
+                                                                                        )
+
+                                                                                )
+
+                                                                        )
+
+                                                                    [3] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\src\Controller\GetOCRDataController.php
+                                                                            [line] => 194
+                                                                            [function] => save
+                                                                            [class] => src\Model\Passage\PassageModel
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                    [0] => Array
+                                                                                        (
+                                                                                            [api_origin] => 2
+                                                                                            [direction] => 1
+                                                                                            [datetime] => 2024-02-05T12:21:23.250
+                                                                                            [external_id] => 3a4efee1-0bf2-4d59-9869-35ee0323431a
+                                                                                            [id_gate] => 61
+                                                                                            [plate] => EJC6120
+                                                                                            [camera] => 100
+                                                                                        )
+
+                                                                                )
+
+                                                                        )
+
+                                                                    [4] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\tecno\Controller\Controller.php
+                                                                            [line] => 450
+                                                                            [function] => passagens
+                                                                            [class] => src\Controller\GetOCRDataController
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                )
+
+                                                                        )
+
+                                                                    [5] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\bin\tecnoprog.php
+                                                                            [line] => 17
+                                                                            [function] => run
+                                                                            [class] => Tecno\Controller\Controller
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                )
+
+                                                                        )
+
+                                                                )
+
+                                                            [previous:Exception:private] => 
+                                                        )
+
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                    [7] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\tecno\Database\Mysql.php
+                            [line] => 166
+                            [function] => typeError
+                            [class] => Tecno\Database\Db
+                            [type] => ::
+                            [args] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [subject] => Tecnoprog Framework - Database error
+                                            [to] => ti@thunderbold.com.br
+                                            [layout] => default
+                                            [template] => error
+                                            [vars] => Array
+                                                (
+                                                    [title] => Mail errors
+                                                    [error] => Exception Object
+                                                        (
+                                                            [message:protected] => SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'EJC6120-2024-02-05 12:21:23-61' for key 'plate_datetime'
+                                                            [string:Exception:private] => Exception: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'EJC6120-2024-02-05 12:21:23-61' for key 'plate_datetime' in C:\xampp\htdocs\api\web\tecno\Database\Db.php:65
+Stack trace:
+#0 C:\xampp\htdocs\api\web\tecno\Database\Mysql.php(166): Tecno\Database\Db::typeError('SQLSTATE[23000]...')
+#1 C:\xampp\htdocs\api\web\tecno\Database\Db.php(117): Tecno\Database\Mysql->insert('passages', Array)
+#2 C:\xampp\htdocs\api\web\src\Model\Passage\PassageModel.php(41): Tecno\Database\Db->insert('passages', Array)
+#3 C:\xampp\htdocs\api\web\src\Controller\GetOCRDataController.php(194): src\Model\Passage\PassageModel->save(Array)
+#4 C:\xampp\htdocs\api\web\tecno\Controller\Controller.php(450): src\Controller\GetOCRDataController->passagens()
+#5 C:\xampp\htdocs\api\web\bin\tecnoprog.php(17): Tecno\Controller\Controller->run()
+#6 {main}
+                                                            [code:protected] => 0
+                                                            [file:protected] => C:\xampp\htdocs\api\web\tecno\Database\Db.php
+                                                            [line:protected] => 65
+                                                            [trace:Exception:private] => Array
+                                                                (
+                                                                    [0] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\tecno\Database\Mysql.php
+                                                                            [line] => 166
+                                                                            [function] => typeError
+                                                                            [class] => Tecno\Database\Db
+                                                                            [type] => ::
+                                                                            [args] => Array
+                                                                                (
+                                                                                    [0] => SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'EJC6120-2024-02-05 12:21:23-61' for key 'plate_datetime'
+                                                                                )
+
+                                                                        )
+
+                                                                    [1] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\tecno\Database\Db.php
+                                                                            [line] => 117
+                                                                            [function] => insert
+                                                                            [class] => Tecno\Database\Mysql
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                    [0] => passages
+                                                                                    [1] => Array
+                                                                                        (
+                                                                                            [api_origin] => 2
+                                                                                            [direction] => 1
+                                                                                            [datetime] => 2024-02-05T12:21:23.250
+                                                                                            [external_id] => 3a4efee1-0bf2-4d59-9869-35ee0323431a
+                                                                                            [id_gate] => 61
+                                                                                            [plate] => EJC6120
+                                                                                            [camera] => 100
+                                                                                        )
+
+                                                                                )
+
+                                                                        )
+
+                                                                    [2] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\src\Model\Passage\PassageModel.php
+                                                                            [line] => 41
+                                                                            [function] => insert
+                                                                            [class] => Tecno\Database\Db
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                    [0] => passages
+                                                                                    [1] => Array
+                                                                                        (
+                                                                                            [api_origin] => 2
+                                                                                            [direction] => 1
+                                                                                            [datetime] => 2024-02-05T12:21:23.250
+                                                                                            [external_id] => 3a4efee1-0bf2-4d59-9869-35ee0323431a
+                                                                                            [id_gate] => 61
+                                                                                            [plate] => EJC6120
+                                                                                            [camera] => 100
+                                                                                        )
+
+                                                                                )
+
+                                                                        )
+
+                                                                    [3] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\src\Controller\GetOCRDataController.php
+                                                                            [line] => 194
+                                                                            [function] => save
+                                                                            [class] => src\Model\Passage\PassageModel
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                    [0] => Array
+                                                                                        (
+                                                                                            [api_origin] => 2
+                                                                                            [direction] => 1
+                                                                                            [datetime] => 2024-02-05T12:21:23.250
+                                                                                            [external_id] => 3a4efee1-0bf2-4d59-9869-35ee0323431a
+                                                                                            [id_gate] => 61
+                                                                                            [plate] => EJC6120
+                                                                                            [camera] => 100
+                                                                                        )
+
+                                                                                )
+
+                                                                        )
+
+                                                                    [4] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\tecno\Controller\Controller.php
+                                                                            [line] => 450
+                                                                            [function] => passagens
+                                                                            [class] => src\Controller\GetOCRDataController
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                )
+
+                                                                        )
+
+                                                                    [5] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\bin\tecnoprog.php
+                                                                            [line] => 17
+                                                                            [function] => run
+                                                                            [class] => Tecno\Controller\Controller
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                )
+
+                                                                        )
+
+                                                                )
+
+                                                            [previous:Exception:private] => 
+                                                        )
+
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                    [8] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\tecno\Database\Db.php
+                            [line] => 117
+                            [function] => insert
+                            [class] => Tecno\Database\Mysql
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => passages
+                                    [1] => Array
+                                        (
+                                            [api_origin] => 2
+                                            [direction] => 1
+                                            [datetime] => 2024-02-05T12:21:23.250
+                                            [external_id] => 3a4efee1-0bf2-4d59-9869-35ee0323431a
+                                            [id_gate] => 61
+                                            [plate] => EJC6120
+                                            [camera] => 100
+                                        )
+
+                                )
+
+                        )
+
+                    [9] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\src\Model\Passage\PassageModel.php
+                            [line] => 41
+                            [function] => insert
+                            [class] => Tecno\Database\Db
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => passages
+                                    [1] => Array
+                                        (
+                                            [api_origin] => 2
+                                            [direction] => 1
+                                            [datetime] => 2024-02-05T12:21:23.250
+                                            [external_id] => 3a4efee1-0bf2-4d59-9869-35ee0323431a
+                                            [id_gate] => 61
+                                            [plate] => EJC6120
+                                            [camera] => 100
+                                        )
+
+                                )
+
+                        )
+
+                    [10] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\src\Controller\GetOCRDataController.php
+                            [line] => 194
+                            [function] => save
+                            [class] => src\Model\Passage\PassageModel
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [api_origin] => 2
+                                            [direction] => 1
+                                            [datetime] => 2024-02-05T12:21:23.250
+                                            [external_id] => 3a4efee1-0bf2-4d59-9869-35ee0323431a
+                                            [id_gate] => 61
+                                            [plate] => EJC6120
+                                            [camera] => 100
+                                        )
+
+                                )
+
+                        )
+
+                    [11] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\tecno\Controller\Controller.php
+                            [line] => 450
+                            [function] => passagens
+                            [class] => src\Controller\GetOCRDataController
+                            [type] => ->
+                            [args] => Array
+                                (
+                                )
+
+                        )
+
+                    [12] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\bin\tecnoprog.php
+                            [line] => 17
+                            [function] => run
+                            [class] => Tecno\Controller\Controller
+                            [type] => ->
+                            [args] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+            [previous:Exception:private] => 
+        )
+
+)
+
+
+2024-02-05 12:30:01 - 1707147001.8183
+Array
+(
+    [file] => C:\xampp\htdocs\api\web\tecno\Lib\Mailer.php
+    [line] => 220
+    [data] => Swift_RfcComplianceException Object
+        (
+            [message:protected] => Address in mailbox given [] does not comply with RFC 2822, 3.6.2.
+            [string:Exception:private] => 
+            [code:protected] => 0
+            [file:protected] => C:\xampp\htdocs\api\web\vendor\swiftmailer\swiftmailer\lib\classes\Swift\Mime\Headers\MailboxHeader.php
+            [line:protected] => 355
+            [trace:Exception:private] => Array
+                (
+                    [0] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\vendor\swiftmailer\swiftmailer\lib\classes\Swift\Mime\Headers\MailboxHeader.php
+                            [line] => 272
+                            [function] => assertValidAddress
+                            [class] => Swift_Mime_Headers_MailboxHeader
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => 
+                                )
+
+                        )
+
+                    [1] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\vendor\swiftmailer\swiftmailer\lib\classes\Swift\Mime\Headers\MailboxHeader.php
+                            [line] => 117
+                            [function] => normalizeMailboxes
+                            [class] => Swift_Mime_Headers_MailboxHeader
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                        )
+
+                    [2] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\vendor\swiftmailer\swiftmailer\lib\classes\Swift\Mime\Headers\MailboxHeader.php
+                            [line] => 74
+                            [function] => setNameAddresses
+                            [class] => Swift_Mime_Headers_MailboxHeader
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                        )
+
+                    [3] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\vendor\swiftmailer\swiftmailer\lib\classes\Swift\Mime\SimpleMimeEntity.php
+                            [line] => 600
+                            [function] => setFieldBodyModel
+                            [class] => Swift_Mime_Headers_MailboxHeader
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                        )
+
+                    [4] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\vendor\swiftmailer\swiftmailer\lib\classes\Swift\Mime\SimpleMessage.php
+                            [line] => 213
+                            [function] => setHeaderFieldModel
+                            [class] => Swift_Mime_SimpleMimeEntity
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => From
+                                    [1] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                        )
+
+                    [5] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\tecno\Lib\Mailer.php
+                            [line] => 180
+                            [function] => setFrom
+                            [class] => Swift_Mime_SimpleMessage
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                        )
+
+                    [6] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\tecno\Database\Db.php
+                            [line] => 82
+                            [function] => send
+                            [class] => Tecno\Lib\Mailer
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [subject] => Tecnoprog Framework - Database error
+                                            [to] => ti@thunderbold.com.br
+                                            [layout] => default
+                                            [template] => error
+                                            [vars] => Array
+                                                (
+                                                    [title] => Mail errors
+                                                    [error] => Exception Object
+                                                        (
+                                                            [message:protected] => SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'FXY1680-2024-02-05 12:24:15-67' for key 'plate_datetime'
+                                                            [string:Exception:private] => Exception: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'FXY1680-2024-02-05 12:24:15-67' for key 'plate_datetime' in C:\xampp\htdocs\api\web\tecno\Database\Db.php:65
+Stack trace:
+#0 C:\xampp\htdocs\api\web\tecno\Database\Mysql.php(166): Tecno\Database\Db::typeError('SQLSTATE[23000]...')
+#1 C:\xampp\htdocs\api\web\tecno\Database\Db.php(117): Tecno\Database\Mysql->insert('passages', Array)
+#2 C:\xampp\htdocs\api\web\src\Model\Passage\PassageModel.php(41): Tecno\Database\Db->insert('passages', Array)
+#3 C:\xampp\htdocs\api\web\src\Controller\GetOCRDataController.php(194): src\Model\Passage\PassageModel->save(Array)
+#4 C:\xampp\htdocs\api\web\tecno\Controller\Controller.php(450): src\Controller\GetOCRDataController->passagens()
+#5 C:\xampp\htdocs\api\web\bin\tecnoprog.php(17): Tecno\Controller\Controller->run()
+#6 {main}
+                                                            [code:protected] => 0
+                                                            [file:protected] => C:\xampp\htdocs\api\web\tecno\Database\Db.php
+                                                            [line:protected] => 65
+                                                            [trace:Exception:private] => Array
+                                                                (
+                                                                    [0] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\tecno\Database\Mysql.php
+                                                                            [line] => 166
+                                                                            [function] => typeError
+                                                                            [class] => Tecno\Database\Db
+                                                                            [type] => ::
+                                                                            [args] => Array
+                                                                                (
+                                                                                    [0] => SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'FXY1680-2024-02-05 12:24:15-67' for key 'plate_datetime'
+                                                                                )
+
+                                                                        )
+
+                                                                    [1] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\tecno\Database\Db.php
+                                                                            [line] => 117
+                                                                            [function] => insert
+                                                                            [class] => Tecno\Database\Mysql
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                    [0] => passages
+                                                                                    [1] => Array
+                                                                                        (
+                                                                                            [api_origin] => 2
+                                                                                            [direction] => 1
+                                                                                            [datetime] => 2024-02-05T12:24:15.367
+                                                                                            [external_id] => 09fb6071-b94d-46d8-94d7-98540b851f27
+                                                                                            [id_gate] => 67
+                                                                                            [plate] => FXY1680
+                                                                                            [camera] => 100
+                                                                                        )
+
+                                                                                )
+
+                                                                        )
+
+                                                                    [2] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\src\Model\Passage\PassageModel.php
+                                                                            [line] => 41
+                                                                            [function] => insert
+                                                                            [class] => Tecno\Database\Db
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                    [0] => passages
+                                                                                    [1] => Array
+                                                                                        (
+                                                                                            [api_origin] => 2
+                                                                                            [direction] => 1
+                                                                                            [datetime] => 2024-02-05T12:24:15.367
+                                                                                            [external_id] => 09fb6071-b94d-46d8-94d7-98540b851f27
+                                                                                            [id_gate] => 67
+                                                                                            [plate] => FXY1680
+                                                                                            [camera] => 100
+                                                                                        )
+
+                                                                                )
+
+                                                                        )
+
+                                                                    [3] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\src\Controller\GetOCRDataController.php
+                                                                            [line] => 194
+                                                                            [function] => save
+                                                                            [class] => src\Model\Passage\PassageModel
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                    [0] => Array
+                                                                                        (
+                                                                                            [api_origin] => 2
+                                                                                            [direction] => 1
+                                                                                            [datetime] => 2024-02-05T12:24:15.367
+                                                                                            [external_id] => 09fb6071-b94d-46d8-94d7-98540b851f27
+                                                                                            [id_gate] => 67
+                                                                                            [plate] => FXY1680
+                                                                                            [camera] => 100
+                                                                                        )
+
+                                                                                )
+
+                                                                        )
+
+                                                                    [4] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\tecno\Controller\Controller.php
+                                                                            [line] => 450
+                                                                            [function] => passagens
+                                                                            [class] => src\Controller\GetOCRDataController
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                )
+
+                                                                        )
+
+                                                                    [5] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\bin\tecnoprog.php
+                                                                            [line] => 17
+                                                                            [function] => run
+                                                                            [class] => Tecno\Controller\Controller
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                )
+
+                                                                        )
+
+                                                                )
+
+                                                            [previous:Exception:private] => 
+                                                        )
+
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                    [7] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\tecno\Database\Mysql.php
+                            [line] => 166
+                            [function] => typeError
+                            [class] => Tecno\Database\Db
+                            [type] => ::
+                            [args] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [subject] => Tecnoprog Framework - Database error
+                                            [to] => ti@thunderbold.com.br
+                                            [layout] => default
+                                            [template] => error
+                                            [vars] => Array
+                                                (
+                                                    [title] => Mail errors
+                                                    [error] => Exception Object
+                                                        (
+                                                            [message:protected] => SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'FXY1680-2024-02-05 12:24:15-67' for key 'plate_datetime'
+                                                            [string:Exception:private] => Exception: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'FXY1680-2024-02-05 12:24:15-67' for key 'plate_datetime' in C:\xampp\htdocs\api\web\tecno\Database\Db.php:65
+Stack trace:
+#0 C:\xampp\htdocs\api\web\tecno\Database\Mysql.php(166): Tecno\Database\Db::typeError('SQLSTATE[23000]...')
+#1 C:\xampp\htdocs\api\web\tecno\Database\Db.php(117): Tecno\Database\Mysql->insert('passages', Array)
+#2 C:\xampp\htdocs\api\web\src\Model\Passage\PassageModel.php(41): Tecno\Database\Db->insert('passages', Array)
+#3 C:\xampp\htdocs\api\web\src\Controller\GetOCRDataController.php(194): src\Model\Passage\PassageModel->save(Array)
+#4 C:\xampp\htdocs\api\web\tecno\Controller\Controller.php(450): src\Controller\GetOCRDataController->passagens()
+#5 C:\xampp\htdocs\api\web\bin\tecnoprog.php(17): Tecno\Controller\Controller->run()
+#6 {main}
+                                                            [code:protected] => 0
+                                                            [file:protected] => C:\xampp\htdocs\api\web\tecno\Database\Db.php
+                                                            [line:protected] => 65
+                                                            [trace:Exception:private] => Array
+                                                                (
+                                                                    [0] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\tecno\Database\Mysql.php
+                                                                            [line] => 166
+                                                                            [function] => typeError
+                                                                            [class] => Tecno\Database\Db
+                                                                            [type] => ::
+                                                                            [args] => Array
+                                                                                (
+                                                                                    [0] => SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'FXY1680-2024-02-05 12:24:15-67' for key 'plate_datetime'
+                                                                                )
+
+                                                                        )
+
+                                                                    [1] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\tecno\Database\Db.php
+                                                                            [line] => 117
+                                                                            [function] => insert
+                                                                            [class] => Tecno\Database\Mysql
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                    [0] => passages
+                                                                                    [1] => Array
+                                                                                        (
+                                                                                            [api_origin] => 2
+                                                                                            [direction] => 1
+                                                                                            [datetime] => 2024-02-05T12:24:15.367
+                                                                                            [external_id] => 09fb6071-b94d-46d8-94d7-98540b851f27
+                                                                                            [id_gate] => 67
+                                                                                            [plate] => FXY1680
+                                                                                            [camera] => 100
+                                                                                        )
+
+                                                                                )
+
+                                                                        )
+
+                                                                    [2] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\src\Model\Passage\PassageModel.php
+                                                                            [line] => 41
+                                                                            [function] => insert
+                                                                            [class] => Tecno\Database\Db
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                    [0] => passages
+                                                                                    [1] => Array
+                                                                                        (
+                                                                                            [api_origin] => 2
+                                                                                            [direction] => 1
+                                                                                            [datetime] => 2024-02-05T12:24:15.367
+                                                                                            [external_id] => 09fb6071-b94d-46d8-94d7-98540b851f27
+                                                                                            [id_gate] => 67
+                                                                                            [plate] => FXY1680
+                                                                                            [camera] => 100
+                                                                                        )
+
+                                                                                )
+
+                                                                        )
+
+                                                                    [3] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\src\Controller\GetOCRDataController.php
+                                                                            [line] => 194
+                                                                            [function] => save
+                                                                            [class] => src\Model\Passage\PassageModel
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                    [0] => Array
+                                                                                        (
+                                                                                            [api_origin] => 2
+                                                                                            [direction] => 1
+                                                                                            [datetime] => 2024-02-05T12:24:15.367
+                                                                                            [external_id] => 09fb6071-b94d-46d8-94d7-98540b851f27
+                                                                                            [id_gate] => 67
+                                                                                            [plate] => FXY1680
+                                                                                            [camera] => 100
+                                                                                        )
+
+                                                                                )
+
+                                                                        )
+
+                                                                    [4] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\tecno\Controller\Controller.php
+                                                                            [line] => 450
+                                                                            [function] => passagens
+                                                                            [class] => src\Controller\GetOCRDataController
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                )
+
+                                                                        )
+
+                                                                    [5] => Array
+                                                                        (
+                                                                            [file] => C:\xampp\htdocs\api\web\bin\tecnoprog.php
+                                                                            [line] => 17
+                                                                            [function] => run
+                                                                            [class] => Tecno\Controller\Controller
+                                                                            [type] => ->
+                                                                            [args] => Array
+                                                                                (
+                                                                                )
+
+                                                                        )
+
+                                                                )
+
+                                                            [previous:Exception:private] => 
+                                                        )
+
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                    [8] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\tecno\Database\Db.php
+                            [line] => 117
+                            [function] => insert
+                            [class] => Tecno\Database\Mysql
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => passages
+                                    [1] => Array
+                                        (
+                                            [api_origin] => 2
+                                            [direction] => 1
+                                            [datetime] => 2024-02-05T12:24:15.367
+                                            [external_id] => 09fb6071-b94d-46d8-94d7-98540b851f27
+                                            [id_gate] => 67
+                                            [plate] => FXY1680
+                                            [camera] => 100
+                                        )
+
+                                )
+
+                        )
+
+                    [9] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\src\Model\Passage\PassageModel.php
+                            [line] => 41
+                            [function] => insert
+                            [class] => Tecno\Database\Db
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => passages
+                                    [1] => Array
+                                        (
+                                            [api_origin] => 2
+                                            [direction] => 1
+                                            [datetime] => 2024-02-05T12:24:15.367
+                                            [external_id] => 09fb6071-b94d-46d8-94d7-98540b851f27
+                                            [id_gate] => 67
+                                            [plate] => FXY1680
+                                            [camera] => 100
+                                        )
+
+                                )
+
+                        )
+
+                    [10] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\src\Controller\GetOCRDataController.php
+                            [line] => 194
+                            [function] => save
+                            [class] => src\Model\Passage\PassageModel
+                            [type] => ->
+                            [args] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [api_origin] => 2
+                                            [direction] => 1
+                                            [datetime] => 2024-02-05T12:24:15.367
+                                            [external_id] => 09fb6071-b94d-46d8-94d7-98540b851f27
+                                            [id_gate] => 67
+                                            [plate] => FXY1680
+                                            [camera] => 100
+                                        )
+
+                                )
+
+                        )
+
+                    [11] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\tecno\Controller\Controller.php
+                            [line] => 450
+                            [function] => passagens
+                            [class] => src\Controller\GetOCRDataController
+                            [type] => ->
+                            [args] => Array
+                                (
+                                )
+
+                        )
+
+                    [12] => Array
+                        (
+                            [file] => C:\xampp\htdocs\api\web\bin\tecnoprog.php
+                            [line] => 17
+                            [function] => run
+                            [class] => Tecno\Controller\Controller
+                            [type] => ->
+                            [args] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+            [previous:Exception:private] => 
+        )
+
+)
+
+

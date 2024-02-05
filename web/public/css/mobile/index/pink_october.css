@@ -1,0 +1,233 @@
+.first-pinkoctober {
+  background-image: url("../../../img/index/campanhas-meses/outubro-mobile.png");
+  height: 25vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.second-pinkoctober {
+  background-image: url("../../../img/index/campanhas-meses/outubroRosa-mobile.png");
+  height: 25vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.card.plan {
+  width: 14rem;
+  border-radius: 11px !important;
+  height: 330px;
+}
+
+#post-its .card-body.color-pink-dark {
+  background-color: #ce3390;
+  border-radius: 11px 11px 0 0;
+  max-height: 88px;
+}
+
+#post-its .color-pink-white {
+  background-color: #fcdffc;
+}
+
+#post-its .color-pink-white.header {
+  padding: 16px 16px 0 16px !important;
+}
+
+#post-its .color-pink-dark .card-text {
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+}
+
+#post-its .color-pink-white .card-text {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #693b85;
+}
+
+.card-body .card-text-saibaMais {
+  font-size: 0.7rem;
+}
+
+.card-body .card-text-info {
+  font-size: small;
+  color: #b92243;
+  font-weight: 700;
+}
+
+.card-body .card-textInfo {
+  font-size: small;
+  color: #693b85;
+  font-weight: 700;
+}
+
+.card-body .card-textPrice {
+  font-size: large;
+  color: #b92243;
+  font-weight: 700;
+}
+
+.card-body .cardtextPrice {
+  font-size: 1.7rem;
+  color: #b92243;
+  font-weight: 700;
+}
+
+.card-text h1 {
+  font-size: 3.5rem;
+  color: #b92243;
+  font-weight: 700 !important;
+}
+
+.card-text-saibaMais {
+  font-weight: 700;
+  font-size: 10px;
+}
+
+.card-text-plan {
+  font-weight: 700;
+  font-size: 10px;
+  color: #b92243;
+}
+.img-cards {
+  height: 50vh;
+  width: 100%;
+}
+
+.card-info {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.2em;
+  padding: 30px 70px;
+  color: #282627;
+}
+
+.card-info a {
+  border: none;
+  padding: 15px;
+  border-radius: 20px;
+}
+
+.card-container {
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.card-image-container {
+  width: 100%;
+  max-height: 340px;
+  overflow: hidden;
+}
+
+.card-image-container-custom {
+  width: 100%;
+  max-height: 360px;
+  overflow: hidden;
+  background-image: url(../../../img/index/campanhas-meses/card22.jpg);
+  background-size: cover;
+  height: 50vh;
+}
+
+.first-date-button {
+  width: 115px;
+  padding: 5px 0 5px 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  position: relative;
+  top: 37%;
+  cursor: pointer;
+}
+.first-date-button p {
+  margin-bottom: 0;
+}
+.second-date-button {
+  width: 115px;
+  padding: 5px 0 5px 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  position: relative;
+  top: 40%;
+  cursor: pointer;
+}
+.second-date-button p {
+  margin-bottom: 0;
+}
+
+.card-image-container img {
+  width: 100%;
+}
+
+/* middle end */
+
+/* cores */
+.bg-light-pink {
+  background-color: #ffdcf9;
+}
+
+.bg-dark-pink {
+  background-color: #cf3492;
+}
+
+.text-light {
+  color: #efeaee;
+  font-weight: 700 !important;
+}
+
+.text-purple {
+  color: #693597;
+  font-weight: 700 !important;
+}
+
+.text-red {
+  color: #bb2646;
+  font-weight: 700 !important;
+}
+.text-pink {
+  color: #cf3492;
+  font-weight: 700 !important;
+}
+.carousel-partners {
+  height: 180px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  align-items: center;
+  display: flex;
+}
+
+.cedipo-img {
+  width: 200px;
+  height: 100px;
+}
+
+.femme-img {
+  width: 240px;
+  height: 85px;
+}
+
+.guanabara-img {
+  width: 150px;
+  height: 100px;
+}
+
+.inmed-img {
+  width: 150px;
+  height: 100px;
+}
+
+.proexame-img {
+  width: 235;
+  height: 68px;
+}
+
+.cedil-img {
+  height: 115px;
+  width: 100px;
+}
+.card-footer img {
+  width: 25px;
+  height: 20px;
+}
+.control-custom {
+  background-color: #693597;
+  border-radius: 20px;
+}

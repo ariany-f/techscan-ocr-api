@@ -1,0 +1,170 @@
+<?php
+/**
+ * Framework Tecno
+ * @author Anderson Carlos <anderson.carlos@tecnoprog.com.br>
+ * @copyright  Tecnoprog © 2019, Tecnoprog Informatica e Eletronica LTDA - ME.
+ */
+
+namespace Tecno\Auth {
+
+    use DateTime;
+    use Tecno\View\Json;
+    use Tecno\Lib\Utils;
+    use Tecno\Database\Db;
+
+    class Restful {
+
+        /**
+         * Dados
+         * @var array
+         */
+        private $config,
+            $output,
+            $db;
+
+        /**
+         * Restful constructor
+         * @param array $params
+         * @throws \Exception
+         */
+        public function __construct(array $params)
+        {
+            $this->config = $params;
+            $this->output = new Json();
+            $this->db = new Db('default');
+        }
+
+        /**
+         * Checa de action exige autenticao
+         * @param array $params
+         * @return bool
+         * @throws \Exception
+         */
+        public function allow(array $params)
+        {
+            $this->config['allow'] = $params;
+            $details = Utils::getDetailsExec();
+            if(!in_array(strtolower($details['action']), array_map('strtolower', $this->config['allow'])))
+            {
+                self::tokenCheck($details, $this->config);
+            }
+            return true;
+        }
+
+        /**
+         * @param array $params
+         * @param array $config
+         * @throws \Exception
+         */
+        public function tokenCheck(array $params, array $config)
+        {
+            $this->output->code = 401;
+            $this->output->message = __('Authentication required');
+
+            $headers = $params['headers'];
+
+            /**
+             * Sem chave Authorization
+             */
+            if (!isset($headers['Authorization']))
+            {
+                $this->output->errors = [
+                    [
+                        'code' => 'auth1',
+                        'value' => __('Authentication data not reported')
+                    ]
+                ];
+                $this->output->now();
+            }
+
+            $token_header = explode(" ", $headers['Authorization']);
+            $token_check = (isset($token_header[1])) ? $token_header[1] : null;
+
+            /**
+             * Token com formato invalido
+             */
+            if(is_null($token_check))
+            {
+                $this->output->errors = [
+                    [
+                        'code' => 'auth2',
+                        'value' => __('Authorization token invalid format')
+                    ]
+                ];
+                $this->output->now();
+            }
+
+            /**
+             * Tabela e campos personalizados
+             */
+            $table = $this->config['table'];
+            $token = $this->config['token'];
+            $expire = $this->config['expire'];
+            $status = $this->config['status'];
+            $status_active = $this->config['status_active'];
+
+            /**
+             * Query busca token
+             */
+            $query = "SELECT
+                ${table}.id,
+                ${table}.${token},
+                ${table}.${expire},
+                ${table}.${status}
+            FROM
+                ${table}
+            WHERE
+                ${table}.${token} = :token 
+        ";
+            $bind = [
+                'token' => $token_check
+            ];
+            $data_db = $this->db->query($query, $bind);
+
+            /**
+             * Token nao encontrado
+             */
+            if(!$data_db)
+            {
+                $this->output->errors = [
+                    [
+                        'code' => 'auth3',
+                        'value' => __('Token not found')
+                    ]
+                ];
+                $this->output->now();
+            }
+
+            /**
+             * Verifica se token esta expirado
+             */
+            $date_now = new DateTime(date('Y-m-d H:i:s'));
+            $expire_db = new DateTime($data_db[0]['expire']);
+            $seconds = $expire_db->format('U') - $date_now->format('U');
+            if($seconds <= 0)
+            {
+                $this->output->errors = [
+                    [
+                        'code' => 'auth4',
+                        'value' => __('Token expired')
+                    ]
+                ];
+                $this->output->now();
+            }
+
+            /**
+             * User ativo com base no status code
+             */
+            if($data_db[0][$status] != $status_active)
+            {
+                $this->output->errors = [
+                    [
+                        'code' => 'auth5',
+                        'value' => __('Your Status is not allowed, please contact your supervisor')
+                    ]
+                ];
+                $this->output->now();
+            }
+        }
+    }
+}

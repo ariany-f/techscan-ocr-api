@@ -1,0 +1,38 @@
+{
+    "name": "gettextdb/gettextdb",
+    "type": "library",
+    "description": "PHP gettextdb manager",
+    "keywords": ["js", "gettext", "i18n", "translation", "array", "db"],
+    "homepage": "https://composer.tecnoprog.com.br",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anderson Carlos",
+            "email": "webmaster@tencoprog.com.br",
+            "homepage": "https://www.tecnoprog.com.br",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "webmaster@tencoprog.com.br",
+        "issues": "https://composer.tecnoprog.com.br/gettextdb/issues"
+    },
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+    },
+    "suggest": {
+    },
+    "autoload": {
+        "psr-4": {
+            "GettextDb\\": "src"
+        }
+    },
+    "autoload-dev": {
+    },
+    "scripts": {
+        "test": [
+        ]
+    }
+}

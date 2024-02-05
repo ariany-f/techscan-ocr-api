@@ -1,0 +1,38 @@
+#top {
+    height: 24vh;
+    max-width: 100%;
+    background: url('../../../img/index/orienta/background.jpg') no-repeat right top;
+    background-size: 160%;
+    font-size: 12px;
+    margin-bottom: -4em;
+}
+
+.row.info {
+    top: 0;
+    font-size: 11px;
+    padding: 1.2vw 0;
+}
+
+#steps {
+    top: 7vw;
+    margin-bottom: 0;
+}
+
+#steps h6 {
+    text-align: center;
+    color: #07BEBB;
+    font-weight: 600;
+}
+
+#steps ul {
+    font-size: .8em;
+}
+
+#steps .card {
+    font-size: 15px;
+}
+
+span#circle {
+
+    font-size: 1rem;
+}

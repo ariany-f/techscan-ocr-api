@@ -1,0 +1,43 @@
+@import "logo";
+
+.jp-card-logo.jp-card-sorocred {
+    $box-offset: 8px;
+    $box-width: $logo-height - $box-offset;
+    $box-height: $box-width;
+    $font-size: 13px;
+    $font-padding: 2px;
+
+    text-transform: uppercase;
+
+    font-size: $font-size;
+    font-weight: bold;
+    color: darkgoldenrod;
+    border: 2px solid darkgoldenrod;
+    background-color: #f7f7f7;
+
+    &:before, &:after {
+        width: $box-width;
+        display: block;
+        position: absolute;
+        left: ($logo-width - $box-width) / 2;
+    }
+
+    &:before {
+        $blue: #267AC3;
+        height: $box-height;
+        content: "SORO";
+        // box-shadow: 1px 1px 0 0 rgba(0, 0, 0, 0.6);
+        top: $box-offset / 2 - 1;
+        text-align: left;
+        padding-left: $font-padding;
+        padding-top: $box-height / 2 - $font-size + 1;
+        background: $blue;
+    }
+
+    &:after {
+        content: "CRED";
+        bottom: $box-height / 2 - $font-size + 1;
+        text-align: right;
+        padding-right: $font-padding;
+    }
+}

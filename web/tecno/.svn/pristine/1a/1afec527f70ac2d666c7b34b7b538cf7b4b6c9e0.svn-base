@@ -1,0 +1,415 @@
+<?php
+/**
+ * Framework Tecno
+ * @author Anderson Carlos <anderson.carlos@tecnoprog.com.br>
+ * @copyright  Tecnoprog © 2019, Tecnoprog Informatica e Eletronica LTDA - ME.
+ */
+
+namespace Tecno\View {
+
+    use Config\Config;
+    use Tecno\Lib\Utils;
+
+    /**
+     * Class Html
+     * @package Tecno\View
+     */
+    class Html {
+
+        /**
+         * Recebe resultado do templete
+         * @var
+         */
+        private $template_res;
+
+        /**
+         * Recebe resultado do elemento
+         * @var
+         */
+        private $element_res;
+
+        /**
+         * Recebe resultado do debug
+         * @var
+         */
+        private $debug_res;
+
+        /**
+         * Is Mobile
+         */
+        private $isMobile;
+
+        /**
+         * Path Template
+         * @var
+         */
+        private $templateDefaultDir;
+        private $templateMobileDir;
+
+
+
+        /**
+         * Recebe css dentro do head
+         * @var array
+         */
+        public $css = [];
+
+        /**
+         * Recebe js (ambos)
+         * @var array
+         */
+        public $js = [];
+
+        /**
+         * Recebe js (ambos)
+         * @var array
+         */
+        public $js_top = [];
+
+        /**
+         * Recebe js (ambos)
+         * @var array
+         */
+        public $js_down = [];
+
+        /**
+         *
+         * @param $app
+         */
+        public function initialize($app)
+        {
+            /**
+             * Checks mobile
+             */
+            $this->isMobile = false;
+            if(file_exists(__DIR_ROOT__ . '/vendor/mobiledetect/mobiledetectlib/Mobile_Detect.php'))
+            {
+                include_once __DIR_ROOT__ . '/vendor/mobiledetect/mobiledetectlib/Mobile_Detect.php';
+                $interface = new \Mobile_Detect();
+                $this->isMobile = $interface->isMobile();
+            }
+
+            /**
+             * Dirs templates
+             */
+            $this->templateDefaultDir = 'Template';
+            $this->templateMobileDir = 'TemplateMobile';
+
+            /**
+             * Dynamic Objects
+             */
+            foreach ($app as $key => $value)
+            {
+                $this->$key = $value;
+            }
+        }
+
+        /**
+         * Faz o render dos ctps
+         * @param $app
+         */
+        public function sendDisplay($app)
+        {
+            $this->initialize($app);
+            $params = $this->render;
+            extract($params['vars']);
+
+            $layout_default = $layout = (isset($params['layout'])) ? __DIR_ROOT__ . '/src/' . $this->templateDefaultDir . '/' . $params['layout'] . '.ctp' : __DIR_ROOT__ . '/src/' . $this->templateDefaultDir . '/Layout/default.ctp';
+            $layout_error_default = $layout_error = __DIR_ROOT__ . '/src/' . $this->templateDefaultDir . '/Errors/layout.ctp';
+            $template_default = $template = (isset($params['template'])) ? __DIR_ROOT__ . '/src/' . $this->templateDefaultDir . '/' . $params['template'] . '.ctp' : __DIR_ROOT__ . '/src/' . $this->templateDefaultDir . '/Errors/template.ctp';
+            $template_error_defaut = $template_error =  __DIR_ROOT__ . '/src/' . $this->templateDefaultDir . '/Errors/template.ctp';
+            $debug_default = $debug = __DIR_ROOT__ . '/src/' . $this->templateDefaultDir . '/Debug/debug.ctp';
+
+            /**
+             * Mobile interface
+             */
+            if($this->isMobile)
+            {
+                $layout = (isset($params['layout'])) ? __DIR_ROOT__ . '/src/' . $this->templateMobileDir . '/' . $params['layout'] . '.ctp' : __DIR_ROOT__ . '/src/' . $this->templateMobileDir . '/Layout/default.ctp';
+                $layout_error = __DIR_ROOT__ . '/src/' . $this->templateMobileDir . '/Errors/layout.ctp';
+                $template = (isset($params['template'])) ? __DIR_ROOT__ . '/src/' . $this->templateMobileDir . '/' . $params['template'] . '.ctp' : __DIR_ROOT__ . '/src/' . $this->templateMobileDir . '/Errors/template.ctp';
+                $template_error =  __DIR_ROOT__ . '/src/' . $this->templateMobileDir . '/Errors/template.ctp';
+                $debug = __DIR_ROOT__ . '/src/' . $this->templateMobileDir . '/Debug/debug.ctp';
+            }
+
+            /**
+             * Template
+             */
+            ob_start();
+            if(file_exists($template))
+            {
+                include $template;
+            }
+            else
+            {
+                if(file_exists($template_default))
+                {
+                    include $template_default;
+                }
+                else
+                {
+                    $error = $template;
+                    if(file_exists($template_error))
+                    {
+                        include $template_error;
+                    }
+                    else
+                    {
+                        include $template_error_defaut;
+                    }
+                }
+            }
+            $this->template_res = ob_get_contents();
+            ob_end_clean();
+
+
+            /**
+             * Debug
+             */
+            if(Config::vars('params_show'))
+            {
+                ob_start();
+                if(file_exists($debug))
+                {
+                    include $debug;
+                }
+                else
+                {
+                    include $debug_default;
+                }
+                $this->debug_res = ob_get_contents();
+                ob_end_clean();
+            }
+
+            /**
+             * Layout
+             */
+            ob_start();
+            if(file_exists($layout))
+            {
+                include $layout;
+            }
+            else
+            {
+                if(file_exists($layout_default))
+                {
+                    include $layout_default;
+                }
+                else
+                {
+                    $error = $layout;
+                    if(file_exists($layout_error))
+                    {
+                        include $layout_error;
+                    }
+                    else
+                    {
+                        include $layout_error_default;
+                    }
+
+                }
+            }
+            $layout_content = ob_get_contents();
+            ob_end_clean();
+
+            /**
+             * Manda para a tela
+             */
+            echo $layout_content;
+        }
+
+        /**
+         * Retorno o content do template processado
+         * @param string $content
+         * @param string|null $element
+         * @return string
+         */
+        public function load(string $content, string $element = null)
+        {
+            switch($content)
+            {
+                case 'template':
+                    $output = trim($this->template_res);
+                    break;
+
+                case 'debug':
+                    $output = trim($this->debug_res) . "\n";
+                    break;
+
+                case 'element':
+                    $output = trim($this->element($element)) . "\n";
+                    break;
+
+                case 'css':
+                    $output = trim(implode("", array_reverse($this->css))) . "\n";
+                    break;
+
+                case 'js':
+                    $js = isset($this->js[$element]) ? $this->js[$element] : false;
+                    $output = "";
+                    if($js)
+                    {
+                        $output = trim(implode("", array_reverse($js))) . "\n";
+                    }
+                    break;
+
+                case 'js_top':
+                    $output = trim(implode("", array_reverse($this->js_top))) . "\n";
+                    break;
+
+                case 'js_down':
+                    $output = "\n\t\t" . trim(implode("", array_reverse($this->js_down)));
+                    break;
+
+                default:
+                    $output = "";
+            }
+
+            return $output;
+        }
+
+        /**
+         * Monta o css
+         * @param $css
+         */
+        public function setCss($css)
+        {
+            foreach(array_reverse($css) as $key => $line)
+            {
+                $css_file = false;
+
+                if(strstr($line, 'https://') or strstr($line, 'http://'))
+                {
+                    $css_file = $line;
+                    goto external_css;
+                }
+
+                if(file_exists($this->webroot . 'css/' . $line . '.css'))
+                {
+                    $css_file = $this->webroot . 'css/' . $line . '.css';
+                }
+
+                if(file_exists( 'css/' . $line . '.css'))
+                {
+                    $css_file = $this->webroot . 'css/' . $line . '.css';
+                }
+
+                if($css_file !== false)
+                {
+                    $css_file = $css_file . "?" . Utils::getFileTime('css/' . $line . '.css');
+                    external_css:
+                    $css_load = '<link rel="stylesheet" href="' . $css_file . '" type="text/css">' . "\n\t\t";
+                    $this->css[] = $css_load;
+                }
+            }
+        }
+
+        /**
+         * Monta o js
+         * @param array $js
+         * @param string $pos
+         */
+        public function setJs(array $js, string $pos)
+        {
+            $js_to_obj[$pos] = [];
+            foreach(array_reverse($js) as $line)
+            {
+                $js_file = false;
+
+                if(strstr($line, 'https://') or strstr($line, 'http://'))
+                {
+                    $js_file = $line;
+                    goto external_js;
+                }
+
+                if(file_exists($this->webroot . 'js/' . $line . '.js'))
+                {
+                    $js_file = $this->webroot . 'js/' . $line . '.js';
+                }
+
+                if(file_exists('js/' . $line . '.js'))
+                {
+                    $js_file = $this->webroot . 'js/' . $line . '.js';
+                }
+
+                if($js_file !== false)
+                {
+                    $js_file = $js_file . "?" . Utils::getFileTime('js/' . $line . '.js');
+                    external_js:
+                    array_push($js_to_obj[$pos],'<script src="' . $js_file . '"></script>' . "\n\t\t");
+
+                    /**
+                     * Esse mantem por conta do legado, mesmo sendo um erro
+                     * mas assim evita ter de refatorar
+                     */
+                    if($pos == 'top')
+                    {
+                        array_push($this->js_top,'<script src="' . $js_file . '"></script>' . "\n\t\t");
+                    }
+                    else
+                    {
+                        array_push($this->js_down,'<script src="' . $js_file . '"></script>' . "\n\t\t");
+                    }
+                }
+            }
+
+            if($js_to_obj)
+            {
+                $this->js = array_merge($this->js, $js_to_obj);
+            }
+        }
+
+        /**
+         * Load do element
+         * @param $elementPath
+         * @return string
+         */
+        public function element($elementPath = false)
+        {
+            extract($this->render['vars']);
+
+            /**
+             * Mobile interface
+             */
+            $element_default = $element = ($elementPath) ? __DIR_ROOT__ . '/src/' . $this->templateDefaultDir . '/Element/' . $elementPath . '.ctp' : __DIR_ROOT__ . '/src/' . $this->templateDefaultDir . '/Errors/element.ctp';
+            $element_error_default = $element_error = __DIR_ROOT__ . '/src/' . $this->templateDefaultDir . '/Errors/element.ctp';
+
+            if($this->isMobile)
+            {
+                $element = ($elementPath) ? __DIR_ROOT__ . '/src/' . $this->templateMobileDir . '/Element/' . $elementPath . '.ctp' : __DIR_ROOT__ . '/src/' . $this->templateMobileDir . '/Errors/element.ctp';
+                $element_error = __DIR_ROOT__ . '/src/' . $this->templateMobileDir . '/Errors/element.ctp';
+            }
+
+
+
+
+            ob_start();
+            if(file_exists($element))
+            {
+                include $element;
+            }
+            else
+            {
+                if(file_exists($element_default))
+                {
+                    include $element_default;
+                }
+                else
+                {
+                    $error = $element;
+                    if(file_exists($element_error))
+                    {
+                        include $element_error;
+                    }
+                    else
+                    {
+                        include $element_error_default;
+                    }
+                }
+            }
+            $this->element_res = trim(ob_get_contents()) . "\n";
+            ob_end_clean();
+            return $this->element_res;
+        }
+    }
+}

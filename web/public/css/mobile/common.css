@@ -1,0 +1,430 @@
+@media (max-width: 2050px) {
+  #divIconBack {
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    margin-top: 0 !important;
+    cursor: pointer;
+  }
+
+  .slogan {
+    position: absolute;
+    top: 3rem;
+    font-size: 12px;
+  }
+
+  .adjust-menu {
+    display: inline-block;
+    width: 130px;
+  }
+
+  .jconfirm.jconfirm-material .jconfirm-box {
+    width: 90vw !important;
+  }
+
+  .default-container {
+    margin: 0;
+    padding: 1em;
+    min-height: 60vh;
+  }
+
+  .default-container .container {
+    padding: 0 !important;
+  }
+
+  footer.page-footer a {
+    font-size: 0.9em;
+  }
+
+  .header {
+    height: 20vw !important;
+  }
+
+  #top {
+    height: unset;
+  }
+
+  #top h5 {
+    font-weight: 700;
+    line-height: 30px;
+  }
+
+  #header p {
+    margin-left: 27%;
+    font-size: 12px !important;
+    margin-top: -5px;
+    margin-right: 11%;
+  }
+
+  #iconMenu {
+    border: none;
+    color: white;
+    max-height: 1px;
+    background-color: transparent;
+    margin: -6% 0 0 0;
+  }
+
+  /* Iphone 5 640x1136 */
+  @media (min-width: 600px) AND (min-height: 1000px) {
+    .header {
+      height: 14vw !important;
+    }
+
+    .slogan {
+      top: 60px;
+    }
+
+    nav.header a {
+      margin-left: 5px !important;
+    }
+
+    nav.header img {
+      margin-left: 40px !important;
+      margin-right: 45px !important;
+    }
+
+    nav.header a.button {
+      margin: 3vw 0.5vw !important;
+    }
+
+    nav.header a {
+      margin-left: 0;
+      margin-top: 0;
+    }
+
+    .entrar-mobile {
+      display: flex;
+      margin: -35px 0 0 60px;
+      padding: 0 4vw !important;
+    }
+
+    nav.header a.button:first-child {
+      margin: 3vw 50px 3vw -20px !important;
+    }
+
+    nav.header a.button {
+      padding: 0 0 !important;
+      min-width: 45% !important;
+      margin: 3vw 0.5vw !important;
+    }
+  }
+
+  .loading-img span {
+    left: 140px;
+  }
+
+  .divLoadBene.loading-img {
+    background-position: 50% 0 !important;
+    background-image: url("../img/logos/coracaovc.png") !important;
+  }
+
+  .adjust-top {
+    width: 100%;
+    height: 15px;
+  }
+
+  nav.header a {
+    font-size: 5vw;
+    margin-left: -10px;
+    margin-bottom: -10px;
+  }
+
+  @media only screen and (min-width: 768px) and (max-height: 1024px) and (hover: none) and (orientation: portrait) {
+    nav.header a {
+      width: 250px;
+      margin-left: 115px !important;
+      margin-right: 150px;
+    }
+    nav.header img {
+      width: 250px !important;
+    }
+    .slogan {
+      top: 100px;
+    }
+  }
+  @media only screen and (min-width: 1024px) and (max-height: 1366px) and (-webkit-min-device-pixel-ratio: 1.5) and (hover: none) and (orientation: portrait) {
+    nav.header a {
+      width: 250px;
+      margin-left: 115px !important;
+      margin-right: 150px;
+    }
+    nav.header img {
+      width: 250px !important;
+    }
+    .slogan {
+      top: 100px;
+    }
+  }
+  @media only screen and (width: 768px) and (height: 1024px) and (orientation: portrait) {
+    nav.header a {
+      width: 250px;
+      margin-left: 115px !important;
+      margin-right: 150px;
+    }
+    .slogan {
+      top: 70px;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .adjust-top {
+      display: none;
+    }
+
+    #divIconBack {
+      position: absolute;
+      top: 20px;
+      left: 25px;
+      margin-top: 0 !important;
+      cursor: pointer;
+    }
+
+    nav.header img {
+      width: 95px;
+    }
+
+    nav.header a {
+      font-size: 5vw;
+      margin-left: -10px;
+      margin-bottom: -10px;
+    }
+
+    #header p {
+      margin-top: -20px;
+      font-size: 10px !important;
+    }
+
+    .slogan {
+      position: absolute;
+      top: 40px;
+      font-size: 12px;
+    }
+
+    .adjust-menu {
+      display: inline-block;
+      width: 100px;
+    }
+  }
+
+  nav.header img {
+   /* width: 130px; */
+  }
+
+  .entrar-mobile {
+    padding: 15px 4vw !important;
+  }
+
+  nav.header a.button {
+    min-width: 80%;
+    margin: 3vw 8.5vw;
+    text-align: center;
+    display: inline-block;
+  }
+
+  #menuContentExpanded {
+    position: fixed;
+    z-index: 1009;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    margin: 15px;
+    border-radius: 5px;
+    overflow: auto;
+  }
+
+  .menu .itemMenu {
+    padding: 0.92857143em 1.14285714em;
+    text-transform: none;
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 400;
+    -webkit-transition: background 0.1s ease, box-shadow 0.1s ease,
+      color 0.1s ease;
+    transition: background 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;
+  }
+
+  .menu .menu .itemMenu {
+    display: block;
+    background: 0 0;
+    padding: 0.5em 2.73333333em;
+    font-size: 0.85714286em;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  .itemMenu > .menu {
+    margin: 0.5em -1.8em 0;
+  }
+
+  #linkInicio {
+    color: rgba(0, 0, 0, 0.87);
+    margin: -120px 0 0 0;
+    font-weight: 400;
+  }
+
+  .itemMenu.btn-suporte {
+    margin: 0;
+    padding: 0.9em 1.333333em !important;
+  }
+
+  /* Icon 1 */
+  .animated-icon1,
+  .animated-icon2,
+  .animated-icon3 {
+    width: 25px;
+    height: 20px;
+    position: relative;
+    margin: 0px;
+    z-index: 10000001;
+    color: #4ea39f;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: 0.5s ease-in-out;
+    -moz-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
+  }
+
+  .animated-icon1 span,
+  .animated-icon2 span,
+  .animated-icon3 span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: 0.25s ease-in-out;
+    -moz-transition: 0.25s ease-in-out;
+    -o-transition: 0.25s ease-in-out;
+    transition: 0.25s ease-in-out;
+  }
+
+  .animated-icon1 span {
+    background: #e3f2fd;
+  }
+
+  .animated-icon1 span:nth-child(1) {
+    top: 0;
+  }
+
+  .animated-icon1 span:nth-child(2) {
+    top: 10px;
+  }
+
+  .animated-icon1 span:nth-child(3) {
+    top: 20px;
+  }
+
+  .animated-icon1.open span:nth-child(1) {
+    top: 11px;
+    -webkit-transform: rotate(135deg);
+    -moz-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    transform: rotate(135deg);
+  }
+
+  .animated-icon1.open span:nth-child(2) {
+    opacity: 0;
+    left: -60px;
+  }
+
+  .animated-icon1.open span:nth-child(3) {
+    top: 11px;
+    -webkit-transform: rotate(-135deg);
+    -moz-transform: rotate(-135deg);
+    -o-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+  }
+
+  .lupaCep {
+    margin-top: 30px;
+    margin-left: -10px;
+  }
+
+  .naoSeiOCep {
+    margin-top: 25px;
+    min-width: 100px;
+    margin-right: -13px;
+  }
+
+  .naoSeiOCep a {
+    font-size: 12px;
+    margin-right: -16px;
+  }
+
+  .ui.teal.button,
+  .ui.teal.buttons .button {
+    background-color: #00b5ad !important;
+    color: #fff;
+    text-shadow: none;
+    background-image: none;
+  }
+
+  .cart-count {
+    position: fixed !important;
+    margin-top: 4vw !important;
+    z-index: 9999 !important;
+    margin-left: 4vw !important;
+    background-color: #ca7268 !important;
+    color: white !important;
+    min-width: 1em;
+    max-height: 1.4em;
+    padding: 0.3em !important;
+    line-height: 0.9em;
+    text-align: center;
+    border-radius: 30px;
+    font-size: 13px;
+  }
+
+  .left-cart {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    border-radius: 30px !important;
+    width: 45px !important;
+    z-index: 999 !important;
+    text-align: center !important;
+    padding: 10px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  #iconMenu {
+    margin: 5% 0%;
+  }
+}
+
+.saibaMaisMobile {
+  top: -12px;
+}
+
+#modalCampanha .modal-content {
+  background-position-x: 35%;
+}
+
+/* Modal Campanha */
+@media (max-width: 330px) {
+  #modalCampanha .modal-content {
+    height: 330px;
+    border-radius: 25px;
+    background-size: 1000px;
+    background-position-y: bottom;
+    background-position-x: 35%;
+  }
+
+  #modalCampanha .bt-vidaclass, #modalCampanha .bt-vidaclass3 {
+    padding: 10px;
+  }
+}
+
+.partner-185 #head_cadastre {
+  justify-content: center;
+  font-weight: 400;
+}

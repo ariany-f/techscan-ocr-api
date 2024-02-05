@@ -1,0 +1,77 @@
+<?php
+/**
+ * Framework Tecno
+ * @author Anderson Carlos <anderson.carlos@tecnoprog.com.br>
+ * @copyright  Tecnoprog © 2019, Tecnoprog Informatica e Eletronica LTDA - ME.
+ */
+
+namespace Tecno\Lib {
+
+    class Csrf{
+        /**
+         * Cria token id para o form especificado, ou somente a session
+         * @param string $form
+         * @param bool $html
+         * @return string
+         */
+        public static function create(string $form, bool $html = true)
+        {
+            $ip = Utils::getClientIp();
+            $browser = Utils::getBrowser();
+            $browser = isset($browser['browser_name_regex']) ? $browser['browser_name_regex'] : 'none';
+            $token = sha1($ip . $browser . microtime(true));
+            $control = Session::read('form');
+            $new[sha1($form)] = $token;
+            if(is_array($control))
+            {
+                Session::write('form', array_merge($control, $new));
+            }
+            else
+            {
+                Session::write('form', $new);
+            }
+            return ($html) ? '<input type="hidden" name="_token" id="_token" value="' . $token . '">' : $token;
+        }
+
+        /**
+         * Valida Csrf
+         * @param string $form
+         * @return bool
+         */
+        public static function check(string $form)
+        {
+            $csrf = false;
+            $form = sha1($form);
+            $control = Session::read('form');
+            if(isset($control[$form]) and isset($_POST['_token']))
+            {
+                if($control[$form] ==  $_POST['_token'])
+                {
+                    unset($control[$form]);
+                    Session::write('form', $control);
+                    $csrf = true;
+                }
+                else
+                {
+                    unset($control[$form]);
+                    Session::write('form', $control);
+                }
+            }
+
+            return $csrf;
+        }
+
+        /**
+         * Retorna o csrf ativo de um form
+         * @param string $form
+         * @return bool
+         */
+        public static function get(string $form)
+        {
+            $form = sha1($form);
+            $control = Session::read('form');
+            $csrf = isset($control[$form]) ? $control[$form] : false;
+            return $csrf;
+        }
+    }
+}

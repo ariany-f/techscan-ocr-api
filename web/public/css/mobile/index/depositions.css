@@ -1,0 +1,233 @@
+/* Depositions */
+.row.depositions {
+    text-align: center;
+    font-weight: 400;
+    color: #363636;
+    font-size: 1vw;
+    padding: 1.2vw 0;
+    height: auto;
+}
+
+.depositions .swiper-button-next,
+.depositions .swiper-button-prev {
+    color: #07BEBB !important;
+    font-size: 2.5em !important;
+}
+
+.depositions .swiper-button-next::after,
+.depositions .swiper-button-prev::after {
+    font-size: 2.5em !important;
+}
+
+.depositions .swiper-slide{
+    min-height: 350px!important;
+}
+
+.container-depositions{
+    height: 300px!important;
+    cursor: pointer;
+}
+
+.area-profile, .area-depositions{
+    text-align: center;
+    font-size: 1.8em;
+    height: 50%;
+    color: #088D8B;
+    padding-bottom: 10px;
+}
+
+
+.area-profile-picture{
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+}
+
+.area-profile-picture img{
+    width: inherit;
+    height: inherit;
+    border-radius: 45px;
+}
+
+.area-profile-info{
+    text-align: center;
+
+}
+
+.area-profile-info .name-profile{
+    font-size: 3em;
+    margin-top: 10px;
+    font-weight: 700;
+    color: #088D8B;
+}
+
+.area-profile-info .local-profile{
+    font-size: 1.9em;
+}
+
+.area-profile-info img{
+    width: 40%;
+    height: auto!important;
+}
+
+.area-depositions{
+    padding-top: 10px;
+    color: #088D8B;
+}
+
+/* Modal mostrar depoimento completo */
+#modalShowDeposition .modal-body{
+    padding: 25px 35px;
+}
+
+#modalShowDeposition .modal-body .modal-foto{
+    width: 115px;
+    height: 115px;
+    border-radius: 57.5px;
+}
+
+#modalShowDeposition .modal-body span{
+    margin-top: 10px;
+    margin-bottom: 0;
+    color: #000;
+    font-family: 'Montserrat' , sans-serif;
+    text-align: justify;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+#modalShowDeposition .modal-body p{
+    margin-top: 10px;
+    margin-bottom: 0;
+    color: #000;
+    font-family: 'Montserrat' , sans-serif;
+    text-align: justify;
+    max-height: 300px;
+    overflow-y: auto;
+    font-size: 0.9em;
+}
+
+
+@media (min-width: 420px) and (max-width: 700px){ 
+    .container-depositions{
+        height: 320px!important;
+        cursor: pointer;
+    }
+
+    .area-profile-info .name-profile{
+        font-size: 2em;
+        margin-top: 10px;
+        font-weight: 700;
+        color: #088D8B;
+    }
+
+    .area-profile-info .local-profile, .area-depositions{
+        font-size: 1.3em;
+    }
+
+    .area-depositions{
+        margin-top: 15px;
+    }
+}
+
+/* IPAD */
+@media (min-width: 700px) and (max-width: 840px){
+    .depositions .swiper-slide{
+        /* background-color: khaki; */
+        min-height: 300px!important;
+    }
+
+    .container-depositions{
+        height: 250px!important;
+        cursor: pointer;
+    }
+
+    .area-profile-info .name-profile{
+        font-size: 1.5em;
+        margin-top: 10px;
+        font-weight: 700;
+        color: #088D8B;
+    }
+
+    .area-profile-info .local-profile, .area-depositions{
+        font-size: 1em;
+    }
+
+    .area-profile-info img{
+        width: 30%;
+    }
+
+    .area-depositions{
+        margin-top: 15px;
+    }
+    
+    .depositions .swiper-button-next,
+    .depositions .swiper-button-prev {
+        color: #07BEBB !important;
+        font-size: 1.9em !important;
+    }
+
+    .depositions .swiper-button-next::after,
+    .depositions .swiper-button-prev::after {
+        font-size: 1.9em !important;
+    }
+
+    
+}
+
+/* IPAD PRO */
+@media (min-width: 840px){
+    .depositions .swiper-slide{
+        /* background-color: khaki; */
+        
+        min-height: 360px!important;
+    }
+
+    .container-depositions{
+        height: 350px!important;
+        cursor: pointer;
+    }
+
+    .area-profile-info .name-profile{
+        font-size: 1.5em;
+        margin-top: 10px;
+        font-weight: 700;
+        color: #088D8B;
+    }
+
+    .area-profile-info .local-profile, .area-depositions{
+        font-size: 1em;
+    }
+
+    .area-profile-info img{
+        width: 40%;
+    }
+
+    .area-depositions{
+        margin-top: 15px;
+    }
+   
+    .depositions .swiper-button-next,
+    .depositions .swiper-button-prev {
+        color: #07BEBB !important;
+        font-size: 2em !important;
+    }
+
+    .depositions .swiper-button-next::after,
+    .depositions .swiper-button-prev::after {
+        font-size: 2em !important;
+    }
+
+} 
+
+@media (max-width: 780px){
+    .depositions .swiper-button-next,
+    .depositions .swiper-button-prev {
+        display: block;
+    }
+
+    .depositions .swiper-button-next::after,
+    .depositions .swiper-button-prev::after {
+        display: block;
+    }
+}

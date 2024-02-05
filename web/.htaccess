@@ -1,0 +1,14 @@
+# Uncomment the following to prevent the httpoxy vulnerability
+# See: https://httpoxy.org/
+#<IfModule mod_headers.c>
+#    RequestHeader unset Proxy
+#</IfModule>
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    
+	Header set Access-Control-Allow-Origin "*"
+	Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+	Header set Access-Control-Allow-Headers "X-Requested-With, Content-Type, X-Token-Auth, Authorization"
+
+    RewriteRule    ^public/(.*)$ /$1 [R=301,NC,L]
+</IfModule>

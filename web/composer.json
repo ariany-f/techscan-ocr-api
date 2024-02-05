@@ -1,0 +1,17 @@
+{
+    "require": {
+        "php": ">=7.0.0",
+        "swiftmailer/swiftmailer": "^6.0",
+        "gettext/gettext": "^4.6",
+        "gettextdb/gettextdb": "^0.0.1",
+        "egulias/email-validator": "^3.2",
+        "mobiledetect/mobiledetectlib": "^2.8",
+        "ext-json": "*",
+        "ramsey/uuid": "3",
+        "moontoast/math": "^1.2",
+        "ext-pdo": "*",
+        "phpoffice/phpspreadsheet": "^1.16",
+        "fpdf/fpdf": "^1.82",
+        "ext-curl": "*"
+    }
+}

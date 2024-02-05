@@ -1,0 +1,14 @@
+Request
+request0 - Several generic errors
+request1 - Method not allowed or not implemented for this endpoint
+
+
+Authentication
+auth1 - Authentication data not reported
+auth2 - Authorization token invalid format
+auth3 - Token not found
+auth4 - Token expired
+auth5 - Status is not allowed, contact your supervisor
+auth6 - Invalid user or password
+auth7 - Current status does not allow you to sign in
+auth8 - Internal error, contact the administrator

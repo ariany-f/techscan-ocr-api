@@ -1,0 +1,237 @@
+<?php
+/**
+ * Framework Tecno
+ * @author Anderson Carlos <anderson.carlos@tecnoprog.com.br>
+ * @copyright  Tecnoprog © 2019, Tecnoprog Informatica e Eletronica LTDA - ME.
+ */
+
+namespace Tecno\Lib {
+
+    use Config\Config;
+    use Exception;
+    use Swift_Attachment;
+    use Swift_Mailer;
+    use Swift_SmtpTransport;
+    use Swift_Message;
+
+    class Mailer
+    {
+        private $config;
+
+        /**
+         * Mailer constructor
+         * * Load configuracoes
+         */
+        public function __construct()
+        {
+            $modo = (Config::vars('debug')) ? 'debug' : 'default';
+            $this->config = Config::vars('mail')[$modo];
+        }
+
+        /**
+         * $params = [
+         *      'subject' => 'Teste',
+         *      'to' => [
+         *          'anderson.carlos@tecnoprog.com.br' => 'Anderson Carlos'
+         *      ],
+         *      'message' => 'Teste'
+         * ]
+         * @param array $params
+         * @return bool|string
+         */
+        public function send($params = array())
+        {
+            /**
+             * Pode ser usado para enviar email de uma conta do proprio usuario
+             * esses são os dados do proprio app
+             */
+            $server = $this->config['server'];
+            $port = $this->config['port'];
+            $user = $this->config['user'];
+            $passwd = $this->config['passwd'];
+            $from = [$this->config['mail'] => $this->config['name']];
+
+            /**
+             * Config padrao
+             */
+            $server = isset($params['server']) ? $params['server'] : $server;
+            $port = isset($params['port']) ? $params['port'] : $port;
+            $user = isset($params['user']) ? $params['user'] : $user;
+            $passwd = isset($params['passwd']) ? $params['passwd'] : $passwd;
+            $from = isset($params['from']) ? $params['from'] : $from;
+
+            /**
+             * Se nao definir a prioridade, segue com prioridade normal.
+             */
+            $priority = isset($params['priority']) ? $params['priority'] : 3;
+
+            /**
+             * Assunto é obrigatorio
+             */
+            if (isset($params['subject']))
+            {
+                $subject = $params['subject'];
+            }
+            else
+            {
+                Utils::saveLogFile('mailSend.log', ['error' => 'Subject not defined', 'params' => $params]);
+                return false;
+            }
+
+            /**
+             * Destinatario é obrigatorio
+             */
+            if (isset($params['to']))
+            {
+                $to = $params['to'];
+            }
+            else
+            {
+                Utils::saveLogFile('mailSend.log', ['error' => 'To not defined', 'params' => $params]);
+                return false;
+            }
+
+            /**
+             * Mensagem
+             */
+            if(isset($params['template']))
+            {
+                if(!(isset($params['vars']) and is_array($params['vars'])))
+                {
+                    Utils::saveLogFile('mailSend.log', ['error' => 'Vars not defined', 'params' => $params]);
+                    return false;
+                }
+
+                if(!isset($params['layout']))
+                {
+                    Utils::saveLogFile('mailSend.log', ['error' => 'Layout not defined', 'params' => $params]);
+                    return false;
+                }
+
+                extract($params['vars']);
+                $layout = __DIR_ROOT__ . '/src/Template/Mail/' . $params['layout'] . '.ctp';
+                $template = __DIR_ROOT__ . '/src/Template/Mail/Template/' . $params['template'] . '.ctp';
+
+                if(file_exists($layout) and file_exists($template))
+                {
+                    ob_start();
+                    require $template;
+                    $template = ob_get_contents() . "\n";
+                    ob_end_clean();
+
+                    ob_start();
+                    require $layout;
+                    $msg = ob_get_contents();
+                    ob_end_clean();
+                }
+                else
+                {
+                    Utils::saveLogFile('mailSend.log', ['error' => 'Layout or template, file not exists', 'params' => $params]);
+                    return false;
+                }
+            }
+            else
+            {
+                if(isset($params['message']))
+                {
+                    $msg = $params['message'];
+                }
+                else
+                {
+                    Utils::saveLogFile('mailSend.log', ['error' => 'Message not defined', 'params' => $params]);
+                    return false;
+                }
+            }
+
+            /**
+             * Tem anexos
+             */
+            $attach = false;
+            if(isset($params['attach']) and is_array($params['attach']))
+            {
+                $attach = true;
+            }
+
+            /**
+             * Manda o email ou retorna FALSE
+             */
+            try{
+                $transport = (new Swift_SmtpTransport($server, $port))
+                    ->setUsername($user)
+                    ->setPassword($passwd);
+
+                $mailer = new Swift_Mailer($transport);
+
+                if (isset($params['bcc']))
+                {
+                    $message = (new Swift_Message())
+                        ->setPriority($priority)
+                        ->setSubject($subject)
+                        ->setFrom($from)
+                        ->setTo($to)
+                        ->setBcc($params['bcc'])
+                        ->addPart($msg, 'text/html','UTF-8');
+                }
+                else
+                {
+                    $message = (new Swift_Message())
+                        ->setPriority($priority)
+                        ->setSubject($subject)
+                        ->setFrom($from)
+                        ->setTo($to)
+                        ->addPart($msg, 'text/html','UTF-8');
+                }
+
+                /**
+                 * Se tiver anexos agora e a hora
+                 */
+                if($attach)
+                {
+                    foreach ($params['attach'] as $file => $content)
+                    {
+                        $file_path = __DIR_ROOT__ . '/tmp/files/' . sha1(microtime(true) . $file);
+                        $files[] = $file_path;
+                        file_put_contents($file_path, $content);
+                        $message->attach(
+                            Swift_Attachment::fromPath($file_path)->setFilename($file)
+                        );
+                    }
+                }
+
+                /**
+                 * Envia o email
+                 */
+                $mailer->send($message, $error);
+
+                if($attach)
+                {
+                    self::unlinkFile($files);
+                }
+
+                return true;
+            }
+            catch (Exception $e)
+            {
+                if($attach)
+                {
+                    self::unlinkFile($files);
+                }
+
+                Utils::saveLogFile('mailSend.log', $e);
+                return $e->getMessage();
+            }
+        }
+
+        /**
+         * Apagar arquivos criados para anexar
+         * @param array $files
+         */
+        private function unlinkFile(array $files)
+        {
+            foreach ($files as $file)
+            {
+                @unlink($file);
+            }
+        }
+    }
+}

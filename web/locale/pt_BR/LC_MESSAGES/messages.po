@@ -1,0 +1,410 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2021-08-24 16:56-0300\n"
+"PO-Revision-Date: 2021-08-24 16:57-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"X-Poedit-Basepath: ../../../src\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: App.php:364 App.php:424 App.php:445 App.php:467 App.php:489 App.php:509
+#: App.php:528 App.php:547 App.php:566 App.php:586 App.php:605 App.php:623
+#: App.php:641 App.php:660 App.php:679 App.php:699 App.php:718 App.php:772
+#: App.php:788
+msgid "Invalid request, contact the administrator"
+msgstr "Requisição inválido, entre em contato com o administrador"
+
+#: App.php:369
+msgid "Missing parameter :field"
+msgstr "Parâmetro :field ausente"
+
+#: App.php:386
+msgid "Empty field, contact the administrator"
+msgstr "Campo vazio, entre em contato com o administrador"
+
+#: App.php:391
+msgid "Parameter :field can not be empty"
+msgstr "Parâmetro :field não pode estar vázio"
+
+#: App.php:429
+msgid ""
+"The value :var of the parameter :field does not follow the yyyy-mm-dd format "
+"or is not a valid date"
+msgstr ""
+"O valor :var do parâmetro :field não segue o formato aaaa-mm-dd ou não é uma "
+"data válida"
+
+#: App.php:450
+msgid ""
+"The value :var of the parameter :field does not follow the yyyy-mm-dd hh:ii:"
+"ss format or is not a valid datetime"
+msgstr ""
+"O valor :var do parâmetro :field não segue o formato aaaa-mm-dd hh:ii:ss ou "
+"não é uma data hora válida"
+
+#: App.php:472
+msgid "The value :var of the parameter :field is not a valid email"
+msgstr "O valor :var do parâmetro :field não é um email válido"
+
+#: App.php:494
+msgid ""
+"The value :var of the parameter :field does not appear to be a valid phone, "
+"must have between 10 and 15 numbers including the country code"
+msgstr ""
+"O valor :var do parâmetro :field não parece ser um telefone válido, ele deve "
+"ter entre 10 e 15 números, incluindo o código do país"
+
+#: App.php:514
+msgid "The value :var of the parameter :field it's not a number"
+msgstr "O valor :var do parâmetro :field não é um número"
+
+#: App.php:533
+msgid "The value :var of the parameter :field it's not a valid CPF"
+msgstr "O valor :var do parâmetro :field não é um CPF válido"
+
+#: App.php:552
+msgid "The value :var of the parameter :field it's not a valid document"
+msgstr "O valor :var do parâmetro :field não é um documento válido"
+
+#: App.php:571
+msgid "The value :var of the parameter :field it's not an array"
+msgstr "O valor :var do parâmetro :field não é uma array"
+
+#: App.php:591
+msgid ""
+"The value of parameter :field must follow these rules: \n"
+":description"
+msgstr ""
+"O valor do parâmetro :field deve seguir estas regras:\n"
+":description"
+
+#: App.php:610 App.php:761
+msgid "The value of parameter :field it's is not integer number"
+msgstr "O valor do parâmetro :field não é um número inteiro"
+
+#: App.php:628
+msgid ""
+"The value of paramenter :field is not a valid url, make sure url is correct"
+msgstr ""
+"O valor do parâmetro :field não é uma URL válida, verifique se a URL está "
+"correta"
+
+#: App.php:646
+msgid ""
+"The value :var of the parameter :field is not a valid url, make sure url is "
+"correct"
+msgstr ""
+"O valor :var do parâmetro :field não é uma URL válida, verifique se a URL "
+"está correta"
+
+#: App.php:665
+msgid ""
+"The value :var of the parameter :field is not valid, are accepted [F, M]"
+msgstr "O valor :var do parâmetro :field não é válido, são aceitos [F, M]"
+
+#: App.php:684
+msgid "The value :var of the parameter :field is not a boolean"
+msgstr "O valor :var do parâmetro :field não é um booleano"
+
+#: App.php:704
+msgid ""
+"The value :var of the parameter :field is not valid, months are accepted "
+"with 2 numeric digits"
+msgstr ""
+"O valor :var do parâmetro :field não é válido, os meses são aceitos com 2 "
+"dígitos numéricos"
+
+#: App.php:723
+msgid ""
+"The value :var of the parameter :field is not valid, years are accepted with "
+"4 numerical digits greater than 1900"
+msgstr ""
+"O valor :var do parâmetro :field não é válido, os anos são aceitos com 4 "
+"dígitos numéricos maiores que 1900"
+
+#: App.php:742
+msgid ""
+"The payment method :var of the parameter :field is not valid, they are "
+"accepted (credit_card, boleto and debit)"
+msgstr ""
+"O método de pagamento :var do parâmetro :field não é válido, são aceitos "
+"(credit_card, boleto e debit)"
+
+#: App.php:777
+msgid ""
+"Type of provider accepted [1 = Legal Entity or 2 = Individual contributor]"
+msgstr ""
+"Tipo de prestador aceito [1 = Pessoa jurídica ou 2 = Colaborador individual]"
+
+#: App.php:793
+msgid "The country :var is not accepted, countries accepted [':countries']"
+msgstr "O país :var não é aceito, países aceitos [':countries']"
+
+#: App.php:814
+msgid "Request method"
+msgstr "Método de requisição"
+
+#: App.php:819
+msgid "Method not allowed or not implemented for this endpoint"
+msgstr "Método não permitido ou não implementado para este endpoint"
+
+#: Controller/ClientController.php:85 Controller/ClientController.php:109
+msgid "Esta promoção não esta mais ativa."
+msgstr ""
+
+#: Controller/ClientController.php:130 Controller/ClientController.php:167
+#: Controller/ClientController.php:337 Controller/ClientController.php:823
+#: Controller/ClientController.php:861 Controller/DashController.php:220
+#: Controller/DashController.php:284 Controller/DashController.php:340
+#: Controller/FamilyController.php:116 Controller/HealthController.php:202
+#: Controller/SendController.php:89
+msgid "Check your browser, something is wrong with security!"
+msgstr "O tempo de carregamento da página expirou. Recarregue a página!"
+
+#: Controller/ClientController.php:157
+msgid "Framework Tecno"
+msgstr "Framework Tecno"
+
+#: Controller/ClientController.php:425 Controller/ClientController.php:587
+#: Controller/ClientController.php:690 Controller/HealthController.php:890
+#: Controller/HealthController.php:2370
+msgid "Pedido não informado, por favor tente novamente."
+msgstr ""
+
+#: Controller/Component/Client/ClientAuthenticateComponent.php:148
+msgid "Error signing in!"
+msgstr "Erro ao entrar!"
+
+#: Controller/Component/Dash/DashComponent.php:189
+msgid "January"
+msgstr "Janeiro"
+
+#: Controller/Component/Dash/DashComponent.php:190
+msgid "February"
+msgstr "Fevereiro"
+
+#: Controller/Component/Dash/DashComponent.php:191
+msgid "March"
+msgstr "Março"
+
+#: Controller/Component/Dash/DashComponent.php:192
+msgid "April"
+msgstr "Abril"
+
+#: Controller/Component/Dash/DashComponent.php:193
+msgid "May"
+msgstr "Maio"
+
+#: Controller/Component/Dash/DashComponent.php:194
+msgid "Jun"
+msgstr "Junho"
+
+#: Controller/Component/Dash/DashComponent.php:195
+msgid "July"
+msgstr "Julho"
+
+#: Controller/Component/Dash/DashComponent.php:196
+msgid "August"
+msgstr "Agosto"
+
+#: Controller/Component/Dash/DashComponent.php:197
+msgid "September"
+msgstr "Setembro"
+
+#: Controller/Component/Dash/DashComponent.php:198
+msgid "Octuber"
+msgstr "Outubro"
+
+#: Controller/Component/Dash/DashComponent.php:199
+msgid "November"
+msgstr "Novembro"
+
+#: Controller/Component/Dash/DashComponent.php:200
+msgid "December"
+msgstr "Dezembro"
+
+#: Controller/DashController.php:255
+msgid "User or password is wrong! Try again"
+msgstr "Usuário ou Senha incorretos, tente de novo!"
+
+#: Controller/DashController.php:298
+msgid "It was not possible to register the user!"
+msgstr "Não foi possível cadastrar usuário!"
+
+#: Controller/DashController.php:305
+msgid "User registered successfully!"
+msgstr "Usuário cadastrado com sucesso!"
+
+#: Controller/DashController.php:352
+msgid "Unable to edit user!"
+msgstr "Não foi possível editar usuário!"
+
+#: Controller/DashController.php:359
+msgid "User edited successfully!"
+msgstr "Usuário editado com sucesso!"
+
+#: Controller/HealthController.php:248 Controller/HealthController.php:290
+#: Controller/HealthController.php:318
+msgid "Por favor, tente novamente."
+msgstr ""
+
+#: Controller/HealthController.php:1472
+msgid "Nenhum pedido carregado para pagamento"
+msgstr ""
+
+#: Controller/HealthController.php:2384
+msgid "Não foi possível emitir o voucher."
+msgstr ""
+
+#: Controller/PartnerController.php:111
+msgid ""
+"Verifique seus dados ou entre em contato conosco, ocorreu um erro no login!"
+msgstr ""
+
+#: Helper/UtilsHelper.php:71
+msgid "Male"
+msgstr "Masculino"
+
+#: Helper/UtilsHelper.php:75
+msgid "Female"
+msgstr "Feminino"
+
+#: Helper/UtilsHelper.php:150
+msgid "Invalid format:"
+msgstr "Formato inválido:"
+
+#: Template/Element/Header/Dash/auth.ctp:23
+msgid "Select interval"
+msgstr "Selecione o intervalo"
+
+#: Template/Element/Header/Dash/auth.ctp:34
+msgid "Select partner"
+msgstr "Selecione o parceiro"
+
+#: Template/Element/Menu/auth.ctp:13 Template/Element/Menu/public.ctp:13
+#: TemplateMobile/Element/Menu/auth.ctp:13
+#: TemplateMobile/Element/Menu/public.ctp:13
+msgid "Home"
+msgstr "Inicio"
+
+#: Template/Element/Menu/auth.ctp:14 TemplateMobile/Element/Menu/auth.ctp:14
+msgid "Dashboard"
+msgstr "Portal"
+
+#: Template/Element/Menu/auth.ctp:15 TemplateMobile/Element/Menu/auth.ctp:15
+msgid "Support"
+msgstr "Suporte"
+
+#: Template/Element/Menu/auth.ctp:16 Template/Element/Menu/public.ctp:14
+#: TemplateMobile/Element/Menu/auth.ctp:16
+#: TemplateMobile/Element/Menu/public.ctp:14
+msgid "Language"
+msgstr "Idioma"
+
+#: Template/Element/Menu/auth.ctp:17 Template/Element/Menu/public.ctp:15
+#: TemplateMobile/Element/Menu/auth.ctp:17
+#: TemplateMobile/Element/Menu/public.ctp:15
+msgid "Portuguese"
+msgstr "Português "
+
+#: Template/Element/Menu/auth.ctp:18 Template/Element/Menu/public.ctp:16
+#: TemplateMobile/Element/Menu/auth.ctp:18
+#: TemplateMobile/Element/Menu/public.ctp:16
+msgid "English"
+msgstr "Inglês"
+
+#: Template/Element/Menu/auth.ctp:19 TemplateMobile/Element/Menu/auth.ctp:19
+msgid "Logout"
+msgstr "Sair"
+
+#: Template/Element/Menu/public.ctp:17
+#: TemplateMobile/Element/Menu/public.ctp:17
+msgid "Login"
+msgstr "Entrar"
+
+#: Template/Errors/action.ctp:15 Template/Errors/action.ctp:19
+#: Template/Errors/classe.ctp:15 Template/Errors/classe.ctp:19
+#: Template/Errors/controller.ctp:15 Template/Errors/controller.ctp:19
+#: Template/Errors/element.ctp:8 Template/Errors/layout.ctp:15
+#: Template/Errors/layout.ctp:19 Template/Errors/template.ctp:15
+#: Template/Errors/template.ctp:19 TemplateMobile/Errors/action.ctp:15
+#: TemplateMobile/Errors/action.ctp:19 TemplateMobile/Errors/classe.ctp:15
+#: TemplateMobile/Errors/classe.ctp:19 TemplateMobile/Errors/controller.ctp:15
+#: TemplateMobile/Errors/controller.ctp:19 TemplateMobile/Errors/element.ctp:8
+#: TemplateMobile/Errors/layout.ctp:15 TemplateMobile/Errors/layout.ctp:19
+#: TemplateMobile/Errors/template.ctp:15 TemplateMobile/Errors/template.ctp:19
+msgid "not found"
+msgstr "não encontrado"
+
+#: Template/Errors/app.ctp:8 TemplateMobile/Errors/app.ctp:8
+msgid "App with error: "
+msgstr "Aplicativo com erro: "
+
+#: Template/Mail/Template/Client/support.ctp:1
+#: Template/Mail/Template/error.ctp:1
+#: TemplateMobile/Mail/Template/Client/support.ctp:1
+#: TemplateMobile/Mail/Template/error.ctp:1
+msgid "Hi administrator"
+msgstr "Oi administrador"
+
+#: Template/Mail/Template/Client/support.ctp:4
+#: TemplateMobile/Mail/Template/Client/support.ctp:4
+msgid "Customer requests support"
+msgstr "Cliente solicita suporte"
+
+#: Template/Mail/Template/Client/support.ctp:8
+#: TemplateMobile/Mail/Template/Client/support.ctp:8
+msgid "Client name is"
+msgstr "O nome do cliente é"
+
+#: Template/Mail/Template/Client/support.ctp:14
+#: Template/Mail/Template/error.ctp:14
+#: TemplateMobile/Mail/Template/Client/support.ctp:14
+#: TemplateMobile/Mail/Template/error.ctp:14
+msgid "Support Team"
+msgstr "Equipe de Suporte"
+
+#: Template/Mail/Template/error.ctp:4 TemplateMobile/Mail/Template/error.ctp:4
+msgid "The application presented an error, follows the data"
+msgstr "O aplicativo apresentou um erro, segue os dados"
+
+#: TemplateMobile/Client/support.ctp:25
+msgid "Name"
+msgstr "Nome"
+
+#: TemplateMobile/Client/support.ctp:29
+msgid "Describe your question"
+msgstr "Descreva sua duvida"
+
+#: TemplateMobile/Client/support.ctp:33
+msgid "Request"
+msgstr "Solicitar"
+
+#~ msgid "Signin"
+#~ msgstr "Entrar"
+
+#~ msgid "Please help me"
+#~ msgstr "Por favor ajude-me"
+
+#~ msgid "Message sent, we will return soon, thank you!"
+#~ msgstr "Mensagem enviada, retornaremos em breve, obrigado!"
+
+#~ msgid "Attention"
+#~ msgstr "Atenção"
+
+#~ msgid "CPF or Mail"
+#~ msgstr "CPF ou Email"
+
+#~ msgid "Password"
+#~ msgstr "Senha"
+
+#~ msgid "Sign In"
+#~ msgstr "Entrar"
