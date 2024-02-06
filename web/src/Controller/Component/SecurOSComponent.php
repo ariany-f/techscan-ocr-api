@@ -135,6 +135,49 @@ namespace Src\Controller\Component {
             return $response;
         }
 
+         /**
+         * se inscrever para receber eventos
+         * @throws \Exception
+         */
+        public function subscribeToEvents( $websocketaction )
+        {            
+            $action = 'events/subscriptions';
+            $method = 'POST';
+            $body = [
+                
+                "callback" => "http://localhost/api/web/public/event",
+                "filter" => [
+                    "action" => $websocketaction
+                ]
+            ];
+            $response = $this->sendRequest($body, $action, $method, $this->service['url']);
+            return $response;
+        }
+
+        /**
+         * deletar inscrição para receber eventos
+         * @throws \Exception
+         */
+        public function unsubscribeToEvents( $id )
+        {            
+            $action = 'events/subscriptions/'.$id;
+            $method = 'DELETE';
+            $response = $this->sendRequest([], $action, $method, $this->service['url']);
+            return $response;
+        }
+
+        /**
+        * buscar inscrições
+        * @throws \Exception
+        */
+       public function getSubscriptions()
+       {            
+           $action = 'events/subscriptions';
+           $method = 'GET';
+           $response = $this->sendRequest([], $action, $method, $this->service['url']);
+           return $response;
+       }
+
         /**
          * buscar passagens
          * @throws \Exception

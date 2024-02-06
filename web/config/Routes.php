@@ -76,6 +76,26 @@ namespace Config {
                 'controller' => 'Index',
                 'action' => 'imagens',
                 'pass' => []
+            ],
+            'event/*' => [
+                'controller' => 'WebSocket',
+                'action' => 'index',
+                'pass' => []
+            ],
+            'inscrever/*' => [
+                'controller' => 'WebSocket',
+                'action' => 'subscribe',
+                'pass' => []
+            ],
+            'cancelar-inscricao/*' => [
+                'controller' => 'WebSocket',
+                'action' => 'unsubscribe',
+                'pass' => []
+            ],
+            'inscricoes/*' => [
+                'controller' => 'WebSocket',
+                'action' => 'subscriptions',
+                'pass' => []
             ]
         ];
     }
