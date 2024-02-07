@@ -33,6 +33,7 @@ namespace Config {
                 'screen_size_show' => true,
 
                 'api' => 'securos',
+                'public' => 'C:/xampp/htdocs/api/web/public/',
 
                 /**
                  * Ambientes

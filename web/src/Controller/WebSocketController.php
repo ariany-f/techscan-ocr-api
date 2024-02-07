@@ -74,6 +74,7 @@ class WebSocketController extends App
         $this->method = $_SERVER['REQUEST_METHOD'];
 
         $this->api = Config::vars('api');
+        $this->public = Config::vars('public');
     }
 
     /**
@@ -93,7 +94,7 @@ class WebSocketController extends App
             $image = $this->Securos->getBestViewDataImage($camera_id, $best_view_date_time);
             
             $tmp_file = 'img/tmp/';
-            $path = 'C:/xampp/htdocs/api/web/public/'. $tmp_file;
+            $path = $this->public. $tmp_file;
             $file_name = 'securos-'.$passage['params']['tid'].'.jpeg';
             $file_path = $path.$file_name;
             file_put_contents($file_path, $image);

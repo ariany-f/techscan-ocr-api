@@ -69,6 +69,7 @@ class GetOCRDataController extends App
         $this->passageImageModel = new PassageImageModel();
         
         $this->api = Config::vars('api');
+        $this->public = Config::vars('public');
     }
 
     /**

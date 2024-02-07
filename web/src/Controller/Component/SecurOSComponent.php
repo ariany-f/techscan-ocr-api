@@ -37,6 +37,7 @@ namespace Src\Controller\Component {
              */
             $this->service = Config::vars('service')[Config::vars('service_mode')]['securos'];
             $this->token = ('Basic ' . base64_encode($this->service['username'] . ':' . $this->service['password']));
+            $this->public = Config::vars('public');
         }
 
         /*Send Request Serviço when need token*/
@@ -209,7 +210,7 @@ namespace Src\Controller\Component {
                     $image = $this->sendRequest([], $action, $method, $this->service['url2']);
                     
                     $tmp_file = 'img/tmp/';
-                    $path = 'C:/xampp/htdocs/api/web/public/'. $tmp_file;
+                    $path = $this->public. $tmp_file;
                     $file_name = 'securos-'.$passagem['tid'].'.jpeg';
                     $file_path = $path.$file_name;
                     file_put_contents($file_path, $image);
