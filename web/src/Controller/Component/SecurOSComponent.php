@@ -59,7 +59,7 @@ namespace Src\Controller\Component {
                 'securos.log'
             );
 
-            if($response['headers']['Content-Type'] == 'application/octet-stream, image/jpeg')
+            if($response['headers']['Content-Type'] == 'application/octet-stream, image/jpeg' || $response['headers']['Content-Type'] == 'image/jpeg')
             {
                 return $response['body'];
             }
@@ -176,6 +176,13 @@ namespace Src\Controller\Component {
            $method = 'GET';
            $response = $this->sendRequest([], $action, $method, $this->service['url']);
            return $response;
+       }
+
+       public function getBestViewDataImage($camera_id, $best_view_data_time)
+       {
+            $method = 'GET';
+            $action = "cameras/$camera_id/image/".rawurlencode($best_view_data_time);
+            return $this->sendRequest([], $action, $method, $this->service['url3']);
        }
 
         /**

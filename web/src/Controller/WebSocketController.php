@@ -21,6 +21,7 @@ use src\Model\User\UserModel;
 use src\Model\Reason\ReasonModel;
 use src\Model\Camera\CameraModel;
 use src\Model\Passage\PassageModel;
+use src\Model\Passage\PassageImageModel;
 use Tecno\Lib\Csrf;
 use Tecno\Lib\Mailer;
 
@@ -65,6 +66,7 @@ class WebSocketController extends App
         $this->cameraModel = new CameraModel();
         $this->passageModel = new PassageModel();
         $this->reasonModel = new ReasonModel();
+        $this->passageImageModel = new PassageImageModel();
         
         /**
          * Method de request
@@ -82,12 +84,52 @@ class WebSocketController extends App
         $this->setRender('Ajax');
         $this->output->setCode(200);
         $this->output->setData(['WebSocket OCR API']);
-        $params = $this->json;
-        foreach($params as $passage)
+        $request = $this->json;
+        Utils::saveLogFile('webSocketEvent.log', $request);
+        foreach($request as $k => $passage)
         {
+            $best_view_date_time = $passage['params']['best_view_date_time'];
+            $camera_id = $passage['params']['camera_id'];
+            $image = $this->Securos->getBestViewDataImage($camera_id, $best_view_date_time);
             
+            $tmp_file = 'img/tmp/';
+            $path = 'C:/xampp/htdocs/api/web/public/'. $tmp_file;
+            $file_name = 'securos-'.$passage['params']['tid'].'.jpeg';
+            $file_path = $path.$file_name;
+            file_put_contents($file_path, $image);
+
+            $passage['imagens'][] = $tmp_file.$file_name;
+
+            $params['api_origin'] = 2;
+            $params['direction'] = $passage['params']['direction_id'];
+            $params['datetime'] = str_replace('T', ' ', $passage['time']);
+            $params['external_id'] = $passage['params']['uuid'];
+            $params['id_gate'] = $passage['params']['tid'];
+            $params['camera'] = current($this->cameraModel->findIdByExternalId($passage['params']['camera_id']))['id'];
+            if($passage['type'] === 'CNR_CAM_TOP')
+            {
+                $params['container'] = $passage['params']['number'];
+                $exists = $this->passageModel->exists('container', $passage['params']['best_view_date_time'], $passage['params']['number'], $params['camera']);
+            }
+            else
+            {
+                $params['plate'] = $passage['params']['number'];
+                $exists = $this->passageModel->exists('plate', $passage['params']['time_enter'], $passage['params']['number'], $params['camera']);
+            }
+           
+            if(empty($exists))
+            {
+                Utils::saveLogFile('saveDB.log', $params);
+                $id = $this->passageModel->save($params);
+            
+                foreach($passage['imagens'] as $img)
+                {
+                    $passage_image_param['passage_id'] = $id;
+                    $passage_image_param['url'] = $img;
+                    $this->passageImageModel->save($passage_image_param);
+                }
+            }
         }
-        Utils::saveLogFile('webSocketEvent.log', ['params' => $params]);
         $this->output->now();
     }
 

@@ -108,6 +108,7 @@ namespace Config {
                         'securos' => [
                             'url' => '127.0.0.1:8890/api/v1',
                             'url2' => '127.0.0.1:8899/api/v1',
+                            'url3' => '127.0.0.1:8890/api/v2',
                             'username' => 'admin',
                             'password' => 'securos'
                         ]
@@ -121,6 +122,7 @@ namespace Config {
                         'securos' => [
                             'url' => '127.0.0.1:8890/api/v1',
                             'url2' => '127.0.0.1:8899/api/v1',
+                            'url3' => '127.0.0.1:8890/api/v2',
                             'username' => 'admin',
                             'password' => 'securos'
                         ]
@@ -134,6 +136,7 @@ namespace Config {
                         'securos' => [
                             'url' => '127.0.0.1:8890/api/v1',
                             'url2' => '127.0.0.1:8899/api/v1',
+                            'url3' => '127.0.0.1:8890/api/v2',
                             'username' => 'admin',
                             'password' => 'securos'
                         ]
