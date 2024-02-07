@@ -83,6 +83,10 @@ class WebSocketController extends App
         $this->output->setCode(200);
         $this->output->setData(['WebSocket OCR API']);
         $params = $this->json;
+        foreach($params as $passage)
+        {
+            
+        }
         Utils::saveLogFile('webSocketEvent.log', ['params' => $params]);
         $this->output->now();
     }
