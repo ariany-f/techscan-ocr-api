@@ -21,6 +21,9 @@ namespace Tecno\View {
         public function __construct(Views $object)
         {
             $this->view = $object;
+            $this->message = '';
+            $this->success = '';
+            $this->errors = '';
         }
 
         /**
