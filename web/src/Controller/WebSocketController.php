@@ -122,7 +122,7 @@ class WebSocketController extends App
             //Pegar camera
             $params['camera'] = current($this->cameraModel->findIdByExternalId($passage['params']['camera_id']))['id'];
             //Verificar se registro ja existe
-            if($passage['type'] === 'CNR_CAM_TOP')
+            if(str_contains($passage['type'], 'CNR'))
             {
                 $params['container'] = $passage['params']['number'];
                 $exists = $this->passageModel->exists('container', str_replace('T', ' ', $passage['time']), $passage['params']['number'], $params['camera']);
@@ -146,7 +146,7 @@ class WebSocketController extends App
                 foreach($passage['imagens'] as $img)
                 {
                     $params_edit['id'] = current($passages_in_the_meantime)['id'];
-                    if($passage['type'] === 'CNR_CAM_TOP')
+                    if(str_contains($passage['type'], 'CNR'))
                     {
                         $params_edit['container'] = $passage['params']['number'];
                         $params_edit['plate'] = current($passages_in_the_meantime)['plate'];
