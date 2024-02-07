@@ -10,9 +10,6 @@ namespace Tecno\View {
     class View implements Views {
 
         protected $view;
-        protected $message;
-        protected $success;
-        protected $errors;
 
         /**
          * View constructor
@@ -21,9 +18,6 @@ namespace Tecno\View {
         public function __construct(Views $object)
         {
             $this->view = $object;
-            $this->message = '';
-            $this->success = '';
-            $this->errors = '';
         }
 
         /**
