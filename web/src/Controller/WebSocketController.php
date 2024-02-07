@@ -116,7 +116,7 @@ class WebSocketController extends App
 
             $params['api_origin'] = 2;
             $params['direction'] = $passage['params']['direction_id'];
-            $params['datetime'] = str_replace('T', ' ', $passage['time']);
+            $params['datetime'] = isset($passage['params']['time_enter']) ? $passage['params']['time_enter'] : str_replace('T', ' ', $passage['time']);;
             $params['external_id'] = $passage['params']['uuid'];
             $params['id_gate'] = $passage['params']['tid'];
             $params['camera'] = current($this->cameraModel->findIdByExternalId($passage['params']['camera_id']))['id'];
@@ -128,7 +128,7 @@ class WebSocketController extends App
             else
             {
                 $params['plate'] = $passage['params']['number'];
-                $exists = $this->passageModel->exists('plate', str_replace('T', ' ', $passage['time']), $passage['params']['number'], $params['camera']);
+                $exists = $this->passageModel->exists('plate', $passage['params']['time_enter'], $passage['params']['number'], $params['camera']);
             }
 
             $date_enter = isset($passage['params']['time_enter']) ? $passage['params']['time_enter'] : str_replace('T', ' ', $passage['time']);
