@@ -20,6 +20,8 @@ namespace Src\Controller\Component {
          * 
          */
         private $service;
+        private $token;
+        private $public;
 
         /**
          * BiComponent constructor
