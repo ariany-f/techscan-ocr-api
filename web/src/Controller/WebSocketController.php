@@ -116,7 +116,7 @@ class WebSocketController extends App
 
             $params['api_origin'] = 2;
             $params['direction'] = $passage['params']['direction_id'];
-            $params['datetime'] = isset($passage['params']['time_enter']) ? $passage['params']['time_enter'] : str_replace('T', ' ', $passage['time']);;
+            $params['datetime'] = isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']);
             $params['external_id'] = $passage['params']['uuid'];
             $params['id_gate'] = $passage['params']['tid'];
             //Pegar camera
@@ -133,8 +133,8 @@ class WebSocketController extends App
                 $exists = $this->passageModel->exists('plate', $passage['params']['time_enter'], $passage['params']['number'], $params['camera']);
             }
             
-            $date_enter = (isset($passage['params']['time_enter']) ? $passage['params']['time_enter'] : str_replace('T', ' ', $passage['time']));
-            $date_exit = (isset($passage['params']['time_leave']) ? $passage['params']['time_leave'] : str_replace('T', ' ', $passage['time']));
+            $date_enter = (isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']));
+            $date_exit = (isset($passage['params']['time_leave']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_leave']) ) : str_replace('T', ' ', $passage['time']));
             
             //Verificar se passagem coincide com outra passagem pela data e hora da passagem
             $passages_in_the_meantime = $this->passageModel->bindPassage($passage['params']['number'], $params['camera'], $date_enter, $date_exit);
