@@ -23,7 +23,7 @@ namespace Config {
                  * Modo de debug
                  * para exibir erros
                  */
-                'debug' => true,
+                'debug' => false,
 
                 /**
                  * Show detalhes execucao
@@ -41,7 +41,7 @@ namespace Config {
                  * homolog
                  * production
                  */
-                'service_mode' => 'dev',
+                'service_mode' => 'production',
 
                 /**
                  * App name
@@ -102,7 +102,7 @@ namespace Config {
                  'service' => [
                     'dev' => [
                         'wegate' => [
-                            'url' => 'http://10.11.12.109/rest',
+                            'url' => '',
                             'username' => '',
                             'password' => ''
                         ],
@@ -237,9 +237,9 @@ namespace Config {
                             'type' => 'mysql',
                             'host' => '',
                             'port' => 3306,
-                            'username' => '',
+                            'username' => 'root',
                             'password' => '',
-                            'database' => '',
+                            'database' => 'api_ocr',
                             'encoding' => 'utf8',
                             'language' => 'pt_BR',
                             'persistent' => false

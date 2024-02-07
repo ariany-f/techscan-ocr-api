@@ -43,16 +43,6 @@ namespace Tecno\Lib {
         }
 
         /**
-         * Verifica se chave existe na sessão
-         * @param $name
-         * @return bool
-         */
-        public static function check($name)
-        {
-            return isset($_SESSION[$name]) ? true : false;
-        }
-
-        /**
          * Deleta a chave
          * @param $name
          * @return bool

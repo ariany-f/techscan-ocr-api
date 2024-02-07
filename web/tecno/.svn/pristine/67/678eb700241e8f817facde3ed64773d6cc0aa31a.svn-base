@@ -1757,7 +1757,7 @@ namespace Tecno\Lib {
             }
             else
             {
-                $ip = @$_SERVER['REMOTE_ADDR'];
+                $ip = $_SERVER['REMOTE_ADDR'];
             }
             return  $ip;
         }

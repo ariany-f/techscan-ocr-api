@@ -46,7 +46,7 @@ namespace Tecno\Auth {
             $details = Utils::getDetailsExec();
             if(!in_array(strtolower($details['action']), array_map('strtolower', $this->config['allow'])))
             {
-                //self::tokenCheck($details, $this->config);
+                self::tokenCheck($details, $this->config);
             }
             return true;
         }

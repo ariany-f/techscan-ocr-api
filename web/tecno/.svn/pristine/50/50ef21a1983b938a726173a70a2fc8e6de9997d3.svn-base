@@ -279,8 +279,6 @@ namespace Tecno\View {
             foreach(array_reverse($css) as $key => $line)
             {
                 $css_file = false;
-                $defer = ['mobile/common'];
-                $media = ['mdb.min', '_ext/fontawesome.min'];
 
                 if(strstr($line, 'https://') or strstr($line, 'http://'))
                 {
@@ -301,24 +299,8 @@ namespace Tecno\View {
                 if($css_file !== false)
                 {
                     $css_file = $css_file . "?" . Utils::getFileTime('css/' . $line . '.css');
-
                     external_css:
-                    if(in_array($line, $media))
-                    {
-                        $css_load = '<link media="print" onload="this.media=\'all\'" rel="stylesheet" href="' . $css_file . '" type="text/css">' . "\n\t\t";
-                    }
-                    else
-                    {
-                        if(in_array($line, $defer))
-                        {
-                            $css_load = '<link rel="stylesheet" rel="preload" as="style" media="screen" href="' . $css_file . '" type="text/css">' . "\n\t\t";
-                        }
-                        else
-                        {
-                            $css_load = '<link media="screen" rel="stylesheet" href="' . $css_file . '" type="text/css">' . "\n\t\t";
-                        }
-                        
-                    }
+                    $css_load = '<link rel="stylesheet" href="' . $css_file . '" type="text/css">' . "\n\t\t";
                     $this->css[] = $css_load;
                 }
             }
