@@ -119,8 +119,8 @@ namespace src\Model\Passage {
                     INNER JOIN directions ON directions.id = passages.direction
                     INNER JOIN external_apis ON external_apis.id = passages.api_origin
                     LEFT JOIN passage_images ON passage_images.passage_id = passages.id
-                    LEFT JOIN gates ON gates.external_id = passages.id_gate
                     LEFT JOIN cameras ON cameras.id = passages.camera
+                    LEFT JOIN gates ON gates.id = cameras.gate_id
                     LEFT JOIN users ON users.id = passages.updated_by
                     LEFT JOIN reasons ON reasons.id = passages.preset_reason" . $where . " GROUP BY passages.id ORDER BY datetime DESC";
 
@@ -173,6 +173,22 @@ namespace src\Model\Passage {
                 ]
             ];
             return $this->db->update($update_data);
+        }
+
+        public function bindPassage($camera_id, $date_enter, $date_leave)
+        {
+            $gate = $this->db->query('SELECT gate_id FROM cameras WHERE id = :camera_id', [
+                ':camera_id' => $camera_id
+            ]);
+
+            if(!empty($gate))
+            {
+                return $this->db->query('SELECT * FROM passages INNER JOIN cameras ON cameras.id = passages.camera WHERE datetime BETWEEN :date_enter AND :date_leave AND cameras.gate_id = :gate_id', [
+                    ':gate_id' => current($gate)['gate_id'],
+                    ':date_enter' => $date_enter,
+                    ':date_leave' => $date_leave
+                ]);
+            }
         }
 
         /**

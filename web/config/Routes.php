@@ -82,6 +82,11 @@ namespace Config {
                 'action' => 'index',
                 'pass' => []
             ],
+            'popular-cameras/*' => [
+                'controller' => 'getOCRData',
+                'action' => 'cameras',
+                'pass' => []
+            ],
             'inscrever/*' => [
                 'controller' => 'WebSocket',
                 'action' => 'subscribe',

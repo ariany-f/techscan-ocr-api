@@ -22,6 +22,7 @@ use src\Model\Reason\ReasonModel;
 use src\Model\Camera\CameraModel;
 use src\Model\Passage\PassageModel;
 use src\Model\Passage\PassageImageModel;
+use src\Model\Securos\WebsocketModel;
 use Tecno\Lib\Csrf;
 use Tecno\Lib\Mailer;
 
@@ -67,6 +68,7 @@ class WebSocketController extends App
         $this->passageModel = new PassageModel();
         $this->reasonModel = new ReasonModel();
         $this->passageImageModel = new PassageImageModel();
+        $this->websocketModel = new WebsocketModel();
         
         /**
          * Method de request
@@ -85,8 +87,19 @@ class WebSocketController extends App
         $this->setRender('Ajax');
         $this->output->setCode(200);
         $this->output->setData(['WebSocket OCR API']);
+
         $request = $this->json;
-        Utils::saveLogFile('webSocketEvent.log', $request);
+        Utils::saveLogFile('websocketEvent.log', $request);
+        $save['request_json'] = json_encode($request);
+        $save['action'] = $request[0]['action'];
+        $save['number'] = $request[0]['params']['number'];
+        $save['camera'] = $request[0]['params']['camera_id'];
+        $save['recognizer'] = $request[0]['params']['recognizer_id'];
+        $save['time_enter'] = isset($request[0]['params']['time_enter']) ? $request[0]['params']['time_enter'] : str_replace('T', ' ', $request[0]['time']);
+        $save['time_leave'] = isset($request[0]['params']['time_leave']) ? $request[0]['params']['time_leave'] : str_replace('T', ' ', $request[0]['time']);
+        $save['source'] = $request[0]['params']['__source'];
+        $this->websocketModel->save($save);
+        
         foreach($request as $k => $passage)
         {
             $best_view_date_time = $passage['params']['best_view_date_time'];
@@ -117,10 +130,15 @@ class WebSocketController extends App
                 $params['plate'] = $passage['params']['number'];
                 $exists = $this->passageModel->exists('plate', str_replace('T', ' ', $passage['time']), $passage['params']['number'], $params['camera']);
             }
+
+            $date_enter = isset($passage['params']['time_enter']) ? $passage['params']['time_enter'] : str_replace('T', ' ', $passage['time']);
+            $date_exit = isset($passage['params']['time_leave']) ? $passage['params']['time_leave'] : str_replace('T', ' ', $passage['time']);
+            $teste = $this->passageModel->bindPassage($params['camera'],  $date_enter, $date_exit);
            
+            Utils::saveLogFile('bind.log', $teste);
+
             if(empty($exists))
             {
-                Utils::saveLogFile('saveDB.log', $params);
                 $id = $this->passageModel->save($params);
             
                 foreach($passage['imagens'] as $img)
