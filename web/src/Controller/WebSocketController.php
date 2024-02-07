@@ -133,19 +133,44 @@ class WebSocketController extends App
 
             $date_enter = isset($passage['params']['time_enter']) ? $passage['params']['time_enter'] : str_replace('T', ' ', $passage['time']);
             $date_exit = isset($passage['params']['time_leave']) ? $passage['params']['time_leave'] : str_replace('T', ' ', $passage['time']);
-            $teste = $this->passageModel->bindPassage($params['camera'],  $date_enter, $date_exit);
-           
-            Utils::saveLogFile('bind.log', $teste);
-
-            if(empty($exists))
+            $passages_in_the_meantime = $this->passageModel->bindPassage($params['camera'],  $date_enter, $date_exit);
+            if(!empty($passages_in_the_meantime))
             {
-                $id = $this->passageModel->save($params);
-            
+                Utils::saveLogFile('bind.log', $passages_in_the_meantime);
+                
                 foreach($passage['imagens'] as $img)
                 {
-                    $passage_image_param['passage_id'] = $id;
+                    $params_edit['id'] = current($passages_in_the_meantime)['id'];
+                    if($passage['type'] === 'CNR_CAM_TOP')
+                    {
+                        $params_edit['container'] = $passage['params']['number'];
+                        $params_edit['plate'] = current($passages_in_the_meantime)['number'];
+                    }
+                    else
+                    {
+                        $params_edit['plate'] = $passage['params']['number'];
+                        $params_edit['container'] = current($passages_in_the_meantime)['number'];
+                    }
+
+                    $id = $this->passageModel->update($params_edit);
+
+                    $passage_image_param['passage_id'] = $params_edit['id'];
                     $passage_image_param['url'] = $img;
                     $this->passageImageModel->save($passage_image_param);
+                }
+            }
+            else
+            {
+                if(empty($exists))
+                {
+                    $id = $this->passageModel->save($params);
+                
+                    foreach($passage['imagens'] as $img)
+                    {
+                        $passage_image_param['passage_id'] = $id;
+                        $passage_image_param['url'] = $img;
+                        $this->passageImageModel->save($passage_image_param);
+                    }
                 }
             }
         }
