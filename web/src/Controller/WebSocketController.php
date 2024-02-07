@@ -144,12 +144,12 @@ class WebSocketController extends App
                     if($passage['type'] === 'CNR_CAM_TOP')
                     {
                         $params_edit['container'] = $passage['params']['number'];
-                        $params_edit['plate'] = current($passages_in_the_meantime)['number'];
+                        $params_edit['plate'] = current($passages_in_the_meantime)['plate'];
                     }
                     else
                     {
                         $params_edit['plate'] = $passage['params']['number'];
-                        $params_edit['container'] = current($passages_in_the_meantime)['number'];
+                        $params_edit['container'] = current($passages_in_the_meantime)['container'];
                     }
 
                     $id = $this->passageModel->update($params_edit);
