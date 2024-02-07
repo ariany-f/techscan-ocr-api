@@ -10,6 +10,9 @@ namespace Tecno\View {
     class View implements Views {
 
         protected $view;
+        protected $message;
+        protected $success;
+        protected $errors;
 
         /**
          * View constructor
