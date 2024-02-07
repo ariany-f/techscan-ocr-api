@@ -132,11 +132,13 @@ class WebSocketController extends App
                 $params['plate'] = $passage['params']['number'];
                 $exists = $this->passageModel->exists('plate', $passage['params']['time_enter'], $passage['params']['number'], $params['camera']);
             }
-
-            $date_enter = isset($passage['params']['time_enter']) ? $passage['params']['time_enter'] : str_replace('T', ' ', $passage['time']);
-            $date_exit = isset($passage['params']['time_leave']) ? $passage['params']['time_leave'] : str_replace('T', ' ', $passage['time']);
+            
+            $date_enter = (isset($passage['params']['time_enter']) ? $passage['params']['time_enter'] : str_replace('T', ' ', $passage['time']));
+            $date_exit = (isset($passage['params']['time_leave']) ? $passage['params']['time_leave'] : str_replace('T', ' ', $passage['time']));
+            
             //Verificar se passagem coincide com outra passagem pela data e hora da passagem
             $passages_in_the_meantime = $this->passageModel->bindPassage($passage['params']['number'], $params['camera'], $date_enter, $date_exit);
+            
             if(!empty($passages_in_the_meantime))
             {
                 Utils::saveLogFile('bind.log', $passages_in_the_meantime);

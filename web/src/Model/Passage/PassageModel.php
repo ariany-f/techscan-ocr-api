@@ -196,18 +196,22 @@ namespace src\Model\Passage {
         }
 
         public function bindPassage($number, $camera_id, $date_enter, $date_leave)
-        {
-            $gate = $this->db->query('SELECT gate_id FROM cameras WHERE id = :camera_id', [
-                ':camera_id' => $camera_id
-            ]);
+        {  
+            try {
 
-            if(!empty($gate))
-            {
-                return $this->db->query('SELECT * FROM passages INNER JOIN cameras ON cameras.id = passages.camera WHERE datetime BETWEEN :date_enter AND :date_leave AND cameras.gate_id = :gate_id AND plate <> :number AND container <> :number', [
-                    ':gate_id' => current($gate)['gate_id'],
-                    ':date_enter' => $date_enter,
-                    ':number' => $number,
-                    ':date_leave' => $date_leave
+                $gate = $this->db->query('SELECT gate_id FROM cameras WHERE id = :camera_id', [
+                    ':camera_id' => $camera_id
+                ]);
+                
+                if(!empty($gate))
+                {
+                    $sql = 'SELECT * FROM passages INNER JOIN cameras ON cameras.id = passages.camera WHERE datetime BETWEEN "'.$date_enter.'" AND "'.$date_leave.'" AND cameras.gate_id = '.current($gate)['gate_id'].' AND plate <> "'.$number.'" AND container <> "'.$number.'"';
+                    
+                    return $this->db->query($sql);
+                }
+            } catch (Exception $e) {
+                Utils::saveLogFile('catch error.log', [
+                    'errors' => $e->getMessage()
                 ]);
             }
         }
