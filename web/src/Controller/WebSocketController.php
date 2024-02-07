@@ -109,12 +109,12 @@ class WebSocketController extends App
             if($passage['type'] === 'CNR_CAM_TOP')
             {
                 $params['container'] = $passage['params']['number'];
-                $exists = $this->passageModel->exists('container', $passage['params']['best_view_date_time'], $passage['params']['number'], $params['camera']);
+                $exists = $this->passageModel->exists('container', str_replace('T', ' ', $passage['time']), $passage['params']['number'], $params['camera']);
             }
             else
             {
                 $params['plate'] = $passage['params']['number'];
-                $exists = $this->passageModel->exists('plate', $passage['params']['time_enter'], $passage['params']['number'], $params['camera']);
+                $exists = $this->passageModel->exists('plate', str_replace('T', ' ', $passage['time']), $passage['params']['number'], $params['camera']);
             }
            
             if(empty($exists))
