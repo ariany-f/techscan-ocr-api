@@ -27,6 +27,16 @@ use Tecno\Lib\Mailer;
 
 class IndexController extends App
 {
+    
+    public $Wegate;
+    public $Securos;
+    public $userModel;
+    public $gateModel;
+    public $cameraModel;
+    public $passageModel;
+    public $reasonModel;
+    public $method;
+    public $api;
 
     /**
      * IndexController constructor
