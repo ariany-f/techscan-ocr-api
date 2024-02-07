@@ -80,7 +80,7 @@ class WebSocketController extends App
     }
 
     /**
-     * Index
+     * Evento Recebido pelo websocket
      */
     public function index()
     {
@@ -105,7 +105,7 @@ class WebSocketController extends App
             $best_view_date_time = $passage['params']['best_view_date_time'];
             $camera_id = $passage['params']['camera_id'];
             $image = $this->Securos->getBestViewDataImage($camera_id, $best_view_date_time);
-            
+            //Salvar imagem
             $tmp_file = 'img/tmp/';
             $path = $this->public. $tmp_file;
             $file_name = 'securos-'.$passage['params']['tid'].'.jpeg';
@@ -119,7 +119,9 @@ class WebSocketController extends App
             $params['datetime'] = isset($passage['params']['time_enter']) ? $passage['params']['time_enter'] : str_replace('T', ' ', $passage['time']);;
             $params['external_id'] = $passage['params']['uuid'];
             $params['id_gate'] = $passage['params']['tid'];
+            //Pegar camera
             $params['camera'] = current($this->cameraModel->findIdByExternalId($passage['params']['camera_id']))['id'];
+            //Verificar se registro ja existe
             if($passage['type'] === 'CNR_CAM_TOP')
             {
                 $params['container'] = $passage['params']['number'];
@@ -133,6 +135,7 @@ class WebSocketController extends App
 
             $date_enter = isset($passage['params']['time_enter']) ? $passage['params']['time_enter'] : str_replace('T', ' ', $passage['time']);
             $date_exit = isset($passage['params']['time_leave']) ? $passage['params']['time_leave'] : str_replace('T', ' ', $passage['time']);
+            //Verificar se passagem coincide com outra passagem pela data e hora da passagem
             $passages_in_the_meantime = $this->passageModel->bindPassage($params['camera'],  $date_enter, $date_exit);
             if(!empty($passages_in_the_meantime))
             {
@@ -154,6 +157,7 @@ class WebSocketController extends App
 
                     $id = $this->passageModel->update($params_edit);
 
+                    //Salvar nova imagem
                     $passage_image_param['passage_id'] = $params_edit['id'];
                     $passage_image_param['url'] = $img;
                     $this->passageImageModel->save($passage_image_param);
@@ -161,6 +165,7 @@ class WebSocketController extends App
             }
             else
             {
+                //Criar registro da passagem
                 if(empty($exists))
                 {
                     $id = $this->passageModel->save($params);
