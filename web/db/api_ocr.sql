@@ -312,6 +312,22 @@ INSERT INTO `users` (`id`, `email`, `name`, `permission_id`, `created_at`, `stat
 
 -- --------------------------------------------------------
 
+
+CREATE TABLE `securos_websocket` (
+  `id` int(11) NOT NULL,
+  `request_json` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`request_json`)),
+  `action` varchar(255) NOT NULL,
+  `number` varchar(255) NOT NULL,
+  `camera` int(11) NOT NULL,
+  `recognizer` int(11) NOT NULL,
+  `source` varchar(255) NOT NULL,
+  `time_enter` varchar(255) NOT NULL,
+  `time_leave` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+TRUNCATE TABLE `securos_websocket`;
+
 --
 -- Estrutura para tabela `users_status`
 --
@@ -433,6 +449,19 @@ ALTER TABLE `users_status`
 --
 -- AUTO_INCREMENT para tabelas despejadas
 --
+
+--
+-- Índices de tabela `securos_websocket`
+--
+ALTER TABLE `securos_websocket`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de tabela `securos_websocket`
+--
+ALTER TABLE `securos_websocket`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=271;
+COMMIT;
 
 --
 -- AUTO_INCREMENT de tabela `apis_users_status`
