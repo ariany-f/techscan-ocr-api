@@ -34,6 +34,7 @@ class IndexController extends App
     public $userModel;
     public $gateModel;
     public $cameraModel;
+    public $optionModel;
     public $passageModel;
     public $reasonModel;
     public $method;

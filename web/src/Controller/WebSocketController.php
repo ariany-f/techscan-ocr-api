@@ -18,6 +18,7 @@ use Src\Controller\Component\WegateComponent;
 use Src\Controller\Component\SecurOSComponent;
 use src\Model\Gate\GateModel;
 use src\Model\User\UserModel;
+use src\Model\Option\OptionModel;
 use src\Model\Reason\ReasonModel;
 use src\Model\Camera\CameraModel;
 use src\Model\Passage\PassageModel;
@@ -64,6 +65,7 @@ class WebSocketController extends App
          */
         $this->userModel = new UserModel();
         $this->gateModel = new GateModel();
+        $this->optionModel = new OptionModel();
         $this->cameraModel = new CameraModel();
         $this->passageModel = new PassageModel();
         $this->reasonModel = new ReasonModel();
@@ -134,7 +136,9 @@ class WebSocketController extends App
             }
             
             $date_enter = (isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']));
-            $date_exit =  date( 'Y-m-d H:i:s', strtotime($date_enter)+30);
+            $params_time['description'] = 'register_collapse_seconds';
+            $time = current($this->optionModel->get($params_time['description']))['value'];
+            $date_exit =  date( 'Y-m-d H:i:s', strtotime($date_enter)+$time);
             
             //Verificar se passagem coincide com outra passagem pela data e hora da passagem
             $passages_in_the_meantime = $this->passageModel->bindPassage($passage['params']['number'], $params['camera'], $date_enter, $date_exit);
