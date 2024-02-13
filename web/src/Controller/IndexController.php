@@ -146,6 +146,8 @@ class IndexController extends App
             $this->output->setSuccess( true );
             $this->output->setData( $result );
         }
+        
+        $this->output->now();
     }
     
     /**
