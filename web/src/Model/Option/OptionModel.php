@@ -76,7 +76,7 @@ namespace src\Model\Option {
             try {
                 $where = (!empty($description)) ? " options.description = '$description'" : " AND 1 = 1";
                 
-                $sql = "SELECT options.* FROM options WHERE ". $where;
+                $sql = "SELECT * FROM options WHERE ". $where;
 
                 return $this->db->query($sql);
 
