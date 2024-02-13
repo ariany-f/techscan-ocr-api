@@ -74,7 +74,7 @@ namespace src\Model\Option {
         public function get($description = null)
         {
             try {
-                $where = (!empty($description)) ? " AND options.description = $description" : " AND 1 = 1";
+                $where = (!empty($description)) ? " AND options.description = '$description'" : " AND 1 = 1";
                 
                 $sql = "SELECT options.*, FROM options WHERE ". $where;
 
