@@ -101,6 +101,11 @@ namespace Config {
                 'controller' => 'WebSocket',
                 'action' => 'subscriptions',
                 'pass' => []
+            ],
+            'alterar-tempo-vinculo/*' => [
+                'controller' => 'Index',
+                'action' => 'tempo',
+                'pass' => []
             ]
         ];
     }

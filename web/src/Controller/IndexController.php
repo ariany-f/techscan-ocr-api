@@ -19,6 +19,7 @@ use Src\Controller\Component\SecurOSComponent;
 use src\Model\Gate\GateModel;
 use src\Model\User\UserModel;
 use src\Model\Reason\ReasonModel;
+use src\Model\Option\OptionModel;
 use src\Model\Camera\CameraModel;
 use src\Model\Passage\PassageModel;
 use Tecno\Lib\Csrf;
@@ -70,6 +71,7 @@ class IndexController extends App
          * Models
          */
         $this->userModel = new UserModel();
+        $this->optionModel = new OptionModel();
         $this->gateModel = new GateModel();
         $this->cameraModel = new CameraModel();
         $this->passageModel = new PassageModel();
@@ -92,6 +94,57 @@ class IndexController extends App
         $this->output->setCode(200);
         $this->output->setData(['Bem vIndo a API OCR']);
         $this->output->now();
+    }
+
+    /**
+     * Index
+     */
+    public function tempo()
+    {
+        $this->setRender('Ajax');
+
+        if($this->method == 'PUT')
+        {
+            $params = $this->json;
+
+            $params['value'] = $this->checkFieldRequest($params, 'time', false, "integer");
+            $params['description'] = 'register_collapse_seconds';
+            $params['id'] = $this->optionModel->get($params)['id'];
+
+            $result = $this->optionModel->update($params);
+
+            if($result) {
+
+                $return = [
+                    'id'=> $result,
+                    'value' => $params['value']
+                ];
+
+                $this->output->setCode(200);
+                $this->output->setMessage( 'Tempo alterado com sucesso!' );
+                $this->output->setSuccess( true );
+                $this->output->setData( $return );
+            }
+            else
+            {
+                $this->output->setCode(200);
+                $this->output->setMessage( 'Erro ao alterar tempo' );
+                $this->output->setSuccess( false );
+                $this->output->setData( [] );
+            }
+        }
+        else if($this->method == 'GET')
+        {
+            $params = $this->json;
+
+            $params['description'] = 'register_collapse_seconds';
+            $result = $this->optionModel->get($params);
+
+            $this->output->setCode(200);
+            $this->output->setMessage( 'Configuração de tempo' );
+            $this->output->setSuccess( true );
+            $this->output->setData( $result );
+        }
     }
     
     /**
