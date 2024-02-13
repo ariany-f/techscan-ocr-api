@@ -109,7 +109,7 @@ class IndexController extends App
 
             $params['value'] = $this->checkFieldRequest($params, 'time', false, "integer");
             $params['description'] = 'register_collapse_seconds';
-            $params['id'] = $this->optionModel->get($params)['id'];
+            $params['id'] = $this->optionModel->get($params['description'])['id'];
 
             $result = $this->optionModel->update($params);
 
@@ -138,7 +138,7 @@ class IndexController extends App
             $params = $this->json;
 
             $params['description'] = 'register_collapse_seconds';
-            $result = $this->optionModel->get($params);
+            $result = $this->optionModel->get($params['description'] );
 
             $this->output->setCode(200);
             $this->output->setMessage( 'Configuração de tempo' );
