@@ -102,7 +102,7 @@ namespace Config {
                 'action' => 'subscriptions',
                 'pass' => []
             ],
-            'tempo-vinculo/*' => [
+            'tempo-vinculo-passagens/*' => [
                 'controller' => 'Index',
                 'action' => 'tempo',
                 'pass' => []
