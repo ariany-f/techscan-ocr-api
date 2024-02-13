@@ -57,7 +57,8 @@ class IndexController extends App
          * Array do allow actions que nao exigem autenticao
          */
         $this->auth->allow([
-            'index'
+            'index',
+            'tempo'
         ]);
 
         /**
