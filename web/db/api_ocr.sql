@@ -337,6 +337,7 @@ CREATE TABLE `users_status` (
   `descricao` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+
 --
 -- Tabela truncada antes do insert `users_status`
 --
@@ -349,6 +350,39 @@ TRUNCATE TABLE `users_status`;
 INSERT INTO `users_status` (`id`, `descricao`) VALUES
 (1, 'Ativo'),
 (2, 'Desativado');
+
+
+--
+-- Estrutura para tabela `options`
+--
+
+CREATE TABLE `options` (
+  `id` int(11) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `value` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Despejando dados para a tabela `options`
+--
+
+INSERT INTO `options` (`id`, `description`, `value`) VALUES
+(1, 'register_collapse_seconds', '30');
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices de tabela `options`
+--
+ALTER TABLE `options`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
+--
+
 
 --
 -- Índices para tabelas despejadas
@@ -547,6 +581,14 @@ ALTER TABLE `users`
 ALTER TABLE `users_status`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
+
+
+--
+-- AUTO_INCREMENT de tabela `options`
+--
+ALTER TABLE `options`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
 --
 -- Restrições para tabelas despejadas
 --
