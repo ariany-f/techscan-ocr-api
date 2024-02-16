@@ -211,7 +211,8 @@ namespace src\Model\Passage {
                 ],
                 'columns' => [
                       'plate' => $params['plate'],
-                      'container' => $params['container']
+                      'container' => $params['container'],
+                      'bind_id' => $params['bind_id'] ?? null
                 ]
             ];
             return $this->db->update($update_data);
