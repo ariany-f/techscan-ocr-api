@@ -150,12 +150,14 @@ class WebSocketController extends App
             
             if(!empty($passages_in_the_meantime))
             {
-               
                 $params_bind['description'] = '';
                 $id_bind = $this->passageBindModel->save($params_bind);
                 $params['bind_id'] = $id_bind;
                 foreach($passages_in_the_meantime as $meantime)
                 {
+                    Utils::saveLogFile('meantime.log', [
+                        'meantime' => $meantime
+                    ]);
                     $params_edit['id'] = $meantime['id'];
                     $params_edit['plate'] = $meantime['plate'];
                     $params_edit['container'] = $meantime['container'];
@@ -176,7 +178,6 @@ class WebSocketController extends App
                     $this->passageImageModel->save($passage_image_param);
                 }
             }
-
         }
         $this->output->now();
     }
