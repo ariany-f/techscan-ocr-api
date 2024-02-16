@@ -34,11 +34,11 @@ namespace src\Model\Passage {
          * @param array $params
          * @throws Exception
          */
-        public function save()
+        public function save(array $params)
         {
             try
             {
-                $result = $this->db->insert('passage_bind', []);
+                $result = $this->db->insert('passage_bind', $params);
             } 
             catch(Exception $e)
             {

@@ -151,7 +151,7 @@ class WebSocketController extends App
             if(!empty($passages_in_the_meantime))
             {
                 Utils::saveLogFile('bind.log', $passages_in_the_meantime);
-                $id_bind = $this->passageBindModel->save();
+                $id_bind = $this->passageBindModel->save([]);
                 Utils::saveLogFile('id_bind.log', $id_bind);
             }
           
