@@ -156,7 +156,9 @@ class WebSocketController extends App
                 foreach($passages_in_the_meantime as $meantime)
                 {
                     Utils::saveLogFile('meantime.log', [
-                        'meantime' => $meantime
+                        'meantime' => $meantime,
+                        'date_enter' => $date_enter,
+                        'date_exit' => $date_exit
                     ]);
                     $params_edit['id'] = $meantime['id'];
                     $params_edit['plate'] = $meantime['plate'];
