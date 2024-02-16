@@ -113,7 +113,7 @@ namespace src\Model\Passage {
                     dt.direction,
                     dt.gate,
                     GROUP_CONCAT(dt.camera, ' ') as cameras,
-                    GROUP_CONCAT(dt.images, ', ') as images
+                    GROUP_CONCAT(dt.images, ',') as images
             FROM
                 (
                     SELECT 
