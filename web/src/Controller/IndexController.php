@@ -570,8 +570,8 @@ class IndexController extends App
             $params = $this->json;
 
             $params['id'] = $this->checkFieldRequest($params, 'id', false, "integer");
-            $params['plate'] = $this->checkFieldRequest($params, 'plate', false, "integer");
-            $params['container'] = $this->checkFieldRequest($params, 'container', false, "integer");
+            $params['plate'] = $this->checkFieldRequest($params, 'plate', false);
+            $params['container'] = $this->checkFieldRequest($params, 'container', false);
           
             $result = $this->passageModel->update($params);
 
