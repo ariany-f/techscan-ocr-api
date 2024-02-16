@@ -339,6 +339,7 @@ CREATE TABLE `users_status` (
 
 CREATE TABLE `api_ocr`.`passage_bind` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  'description' varchar(255) NULL,
   PRIMARY KEY (`id`));
 
 
@@ -619,6 +620,8 @@ ALTER TABLE `passages`
 ALTER TABLE `passage_images`
   ADD CONSTRAINT `passage_id_fk` FOREIGN KEY (`passage_id`) REFERENCES `passages` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
+
+ALTER TABLE `passages` ADD `bind_id` INT NOT NULL AFTER `updated_by`;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
