@@ -176,6 +176,7 @@ CREATE TABLE `passages` (
   `plate` varchar(45) DEFAULT NULL,
   `datetime` datetime DEFAULT NULL,
   `container` varchar(45) DEFAULT NULL,
+  'bind_id' int(11) DEFAULT NULL,
   `id_gate` varchar(45) DEFAULT NULL,
   `direction` int(11) DEFAULT NULL,
   `external_id` varchar(45) DEFAULT NULL,
