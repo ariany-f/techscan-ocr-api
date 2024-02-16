@@ -7,7 +7,7 @@
     RewriteEngine on
     
 	Header set Access-Control-Allow-Origin "*"
-	Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+	Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS, PATCH"
 	Header set Access-Control-Allow-Headers "X-Requested-With, Content-Type, X-Token-Auth, Authorization"
 
     RewriteRule    ^public/(.*)$ /$1 [R=301,NC,L]
