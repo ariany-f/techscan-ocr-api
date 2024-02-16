@@ -102,7 +102,7 @@ namespace src\Model\Passage {
                 $where .= (!empty($data_final)) ? " AND passages.datetime <= '$data_final'" : "";
                 $sql = "
                 SELECT 
-                    GROUP_CONCAT(dt.id, ' | ') as id,
+                    GROUP_CONCAT(dt.id, '') as id,
                     GROUP_CONCAT(dt.updated_by, ' | ') as updated_by,
                     GROUP_CONCAT(dt.updated_at, ' | ') as updated_at,
                     GROUP_CONCAT(dt.is_ok, ' | ') as status,
@@ -112,8 +112,8 @@ namespace src\Model\Passage {
                     GROUP_CONCAT(dt.container, '') as container,
                     dt.direction,
                     dt.gate,
-                    GROUP_CONCAT(dt.camera, ' | ') as cameras,
-                    GROUP_CONCAT(dt.images, ',') as images
+                    GROUP_CONCAT(dt.camera, ', ') as cameras,
+                    GROUP_CONCAT(dt.images, ', ') as images
             FROM
                 (
                     SELECT 
