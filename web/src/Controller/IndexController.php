@@ -578,7 +578,6 @@ class IndexController extends App
             if($result) {
 
                 $return = [
-                    'id'=> $result,
                     'plate' => $params['plate'],
                     'container' => $params['container']
                 ];

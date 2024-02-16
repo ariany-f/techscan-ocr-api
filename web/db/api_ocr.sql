@@ -322,7 +322,15 @@ CREATE TABLE `securos_websocket` (
   `recognizer` int(11) NOT NULL,
   `source` varchar(255) NOT NULL,
   `time_enter` varchar(255) NOT NULL,
-  `time_leave` varchar(255) NOT NULL
+  `time_leave` varchar(255) NOT NULL,
+  'weight' varchar(255) NOT NULL,
+  'uuid' varchar(255) NOT NULL,
+  'image_path' varchar(255) NOT NULL,
+  'direction_id' int(11) NOT NULL,
+  'integracao_status' BOOLEAN(1),
+  'type' varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 

@@ -98,10 +98,19 @@ class WebSocketController extends App
         $save['action'] = $request[0]['action'];
         $save['number'] = $request[0]['params']['number'];
         $save['camera'] = $request[0]['params']['camera_id'];
+        $save['uuid'] = $request[0]['params']['uuid'];
+        $save['direction_id'] = $request[0]['params']['direction_id'];
+        $save['weight'] = $request[0]['params']['weight'];
         $save['recognizer'] = $request[0]['params']['recognizer_id'];
         $save['time_enter'] = isset($request[0]['params']['time_enter']) ? $request[0]['params']['time_enter'] : str_replace('T', ' ', $request[0]['time']);
         $save['time_leave'] = isset($request[0]['params']['time_leave']) ? $request[0]['params']['time_leave'] : str_replace('T', ' ', $request[0]['time']);
         $save['source'] = $request[0]['params']['__source'];
+        $tmp_file = 'img/tmp/';
+        $path = $this->public. $tmp_file;
+        $file_name = 'securos-'.$request[0]['params']['tid'].'.jpeg';
+        $file_path = $path.$file_name;
+        $save['image_path'] = $file_path;
+        $save['type'] =  $request[0]['type'];
         $this->websocketModel->save($save);
         
         foreach($request as $k => $passage)
