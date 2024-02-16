@@ -166,7 +166,7 @@ namespace src\Model\Passage {
                     GROUP BY passages.container, passages.id
                 ) AS dt
             -- GROUP BY HOUR(dt.datetime), MINUTE(dt.datetime), CONCAT(LEFT(SECOND(dt.datetime), 1), 0), dt.direction, dt.gate
-            GROUP BY IFNULL(dt.bind_id, dt.gate_id)
+            GROUP BY IFNULL(dt.bind_id, dt.id)
             ORDER BY dt.datetime DESC;";
 
                 return $this->db->query($sql);
