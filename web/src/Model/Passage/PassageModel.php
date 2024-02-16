@@ -107,7 +107,7 @@ namespace src\Model\Passage {
                     GROUP_CONCAT(dt.updated_at, ' | ') as updated_at,
                     GROUP_CONCAT(dt.is_ok, ' | ') as status,
                     GROUP_CONCAT(dt.error_reason, ' | ') as error_reason,
-                    GROUP_CONCAT(COALESCE(dt.plate, NULL), ', ') as plate,
+                    GROUP_CONCAT(COALESCE(dt.plate, NULL), '') as plate,
                     GROUP_CONCAT(dt.datetime, ' | ') as datetime,
                     GROUP_CONCAT(dt.container, '') as container,
                     dt.direction,
