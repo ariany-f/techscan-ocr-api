@@ -105,6 +105,7 @@ namespace src\Model\Passage {
                     GROUP_CONCAT(dt.id, '') as id,
                     MAX(dt.updated_by) as updated_by,
                     MAX(dt.updated_at) as updated_at,
+                    dt.bind_id, 
                     GROUP_CONCAT(dt.is_ok, ' | ') as status,
                     MAX(dt.error_reason) as error_reason,
                     GROUP_CONCAT(COALESCE(dt.plate, NULL), '') as plate,
@@ -121,6 +122,7 @@ namespace src\Model\Passage {
                         passages.is_ok, 
                         passages.plate, 
                         passages.datetime, 
+                        passages.bind_id, 
                         passages.container, 
                         cameras.name as camera,
                         gates.name as gate,
@@ -145,6 +147,7 @@ namespace src\Model\Passage {
                         passages.is_ok, 
                         passages.plate,
                         passages.datetime, 
+                        passages.bind_id, 
                         passages.container, 
                         cameras.name as camera,
                         gates.name as gate,
@@ -163,7 +166,8 @@ namespace src\Model\Passage {
                     ".$where." AND  passages.plate IS NULL
                     GROUP BY passages.container, passages.id
                 ) AS dt
-            GROUP BY HOUR(dt.datetime), MINUTE(dt.datetime), CONCAT(LEFT(SECOND(dt.datetime), 1), 0), dt.direction, dt.gate
+            -- GROUP BY HOUR(dt.datetime), MINUTE(dt.datetime), CONCAT(LEFT(SECOND(dt.datetime), 1), 0), dt.direction, dt.gate
+            GROUP BY dt.bind_id
             ORDER BY dt.datetime DESC;";
 
                 return $this->db->query($sql);
