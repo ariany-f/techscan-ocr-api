@@ -23,6 +23,7 @@ use src\Model\Reason\ReasonModel;
 use src\Model\Camera\CameraModel;
 use src\Model\Passage\PassageModel;
 use src\Model\Passage\PassageImageModel;
+use src\Model\Passage\PassageBindModel;
 use src\Model\Securos\WebsocketModel;
 use Tecno\Lib\Csrf;
 use Tecno\Lib\Mailer;
@@ -70,6 +71,7 @@ class WebSocketController extends App
         $this->passageModel = new PassageModel();
         $this->reasonModel = new ReasonModel();
         $this->passageImageModel = new PassageImageModel();
+        $this->passageBindModel = new PassageBindModel();
         $this->websocketModel = new WebsocketModel();
         
         /**
@@ -144,38 +146,15 @@ class WebSocketController extends App
             $date_exit =  date( 'Y-m-d H:i:s', strtotime($date_enter)+$time);
             
             //Verificar se passagem coincide com outra passagem pela data e hora da passagem
-            // $passages_in_the_meantime = $this->passageModel->bindPassage($passage['params']['number'], $params['camera'], $date_enter, $date_exit);
+            $passages_in_the_meantime = $this->passageModel->bindPassage($passage['params']['number'], $params['direction'], $params['camera'], $date_enter, $date_exit);
             
-            // if(!empty($passages_in_the_meantime) and 1 === 0)
-            // {
-            //     Utils::saveLogFile('bind.log', $passages_in_the_meantime);
-                
-            //     foreach($passage['imagens'] as $img)
-            //     {
-            //         $params_edit['id'] = current($passages_in_the_meantime)['id'];
-            //         if(str_contains($passage['type'], 'CNR'))
-            //         {
-            //             $params_edit['container'] = $passage['params']['number'];
-            //             $params_edit['plate'] = current($passages_in_the_meantime)['plate'];
-            //         }
-            //         else
-            //         {
-            //             $params_edit['plate'] = $passage['params']['number'];
-            //             $params_edit['container'] = current($passages_in_the_meantime)['container'];
-            //         }
-
-            //         $id = $this->passageModel->update($params_edit);
-
-            //         //Salvar nova imagem
-            //         $passage_image_param['passage_id'] = $params_edit['id'];
-            //         $passage_image_param['url'] = $img;
-            //         $this->passageImageModel->save($passage_image_param);
-            //     }
-            // }
-            // else
-            // {
-
-
+            if(!empty($passages_in_the_meantime))
+            {
+                Utils::saveLogFile('bind.log', $passages_in_the_meantime);
+                $id_bind = $this->passageBindModel->save();
+                Utils::saveLogFile('id_bind.log', $id_bind);
+            }
+          
             //Criar registro da passagem
             if(empty($exists))
             {
@@ -188,9 +167,6 @@ class WebSocketController extends App
                     $this->passageImageModel->save($passage_image_param);
                 }
             }
-
-
-           // }
 
         }
         $this->output->now();

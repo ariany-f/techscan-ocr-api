@@ -237,7 +237,7 @@ namespace src\Model\Passage {
             return $this->db->update($update_data);
         }
 
-        public function bindPassage($number, $camera_id, $date_enter, $date_leave)
+        public function bindPassage($number, $camera_id, $direction, $date_enter, $date_leave)
         {  
             try {
 
@@ -247,7 +247,7 @@ namespace src\Model\Passage {
                 
                 if(!empty($gate))
                 {
-                    $sql = 'SELECT * FROM passages INNER JOIN cameras ON cameras.id = passages.camera WHERE datetime BETWEEN "'.$date_enter.'" AND "'.$date_leave.'" AND cameras.gate_id = '.current($gate)['gate_id'].' AND plate <> "'.$number.'" AND container <> "'.$number.'"';
+                    $sql = 'SELECT * FROM passages INNER JOIN cameras ON cameras.id = passages.camera WHERE datetime BETWEEN "'.$date_enter.'" AND "'.$date_leave.'" AND cameras.gate_id = '.current($gate)['gate_id'].'';
                     
                     return $this->db->query($sql);
                 }

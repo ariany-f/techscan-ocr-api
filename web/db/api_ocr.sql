@@ -337,6 +337,11 @@ CREATE TABLE `users_status` (
   `descricao` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE `api_ocr`.`passage_bind` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`));
+
+
 
 --
 -- Tabela truncada antes do insert `users_status`
