@@ -318,6 +318,7 @@ CREATE TABLE `securos_websocket` (
   `request_json` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`request_json`)),
   `action` varchar(255) NOT NULL,
   `number` varchar(255) NOT NULL,
+  `new_number` varchar(255) NOT NULL,
   `camera` int(11) NOT NULL,
   `recognizer` int(11) NOT NULL,
   `source` varchar(255) NOT NULL,
