@@ -150,9 +150,10 @@ class WebSocketController extends App
             
             if(!empty($passages_in_the_meantime))
             {
-                Utils::saveLogFile('bind.log', $passages_in_the_meantime);
+               
                 $params_bind['description'] = '';
                 $id_bind = $this->passageBindModel->save($params_bind);
+                $params['bind_id'] = $id_bind;
                 foreach($passages_in_the_meantime as $meantime)
                 {
                     $params_edit['id'] = $meantime['id'];
