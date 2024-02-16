@@ -91,7 +91,7 @@ class WebSocketController extends App
         $this->output->setData(['WebSocket OCR API']);
 
         $request = $this->json;
-        Utils::saveLogFile('websocketEvent.log', $request);
+        
         $save['request_json'] = json_encode($request);
         $save['action'] = $request[0]['action'];
         $save['number'] = $request[0]['params']['number'];
@@ -107,6 +107,7 @@ class WebSocketController extends App
             $best_view_date_time = $passage['params']['best_view_date_time'];
             $camera_id = $passage['params']['camera_id'];
             $image = $this->Securos->getBestViewDataImage($camera_id, $best_view_date_time);
+            
             //Salvar imagem
             $tmp_file = 'img/tmp/';
             $path = $this->public. $tmp_file;
@@ -121,8 +122,10 @@ class WebSocketController extends App
             $params['datetime'] = isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']);
             $params['external_id'] = $passage['params']['uuid'];
             $params['id_gate'] = $passage['params']['tid'];
+
             //Pegar camera
             $params['camera'] = current($this->cameraModel->findIdByExternalId($passage['params']['camera_id']))['id'];
+            
             //Verificar se registro ja existe
             if(str_contains($passage['type'], 'CNR'))
             {
@@ -141,49 +144,54 @@ class WebSocketController extends App
             $date_exit =  date( 'Y-m-d H:i:s', strtotime($date_enter)+$time);
             
             //Verificar se passagem coincide com outra passagem pela data e hora da passagem
-            $passages_in_the_meantime = $this->passageModel->bindPassage($passage['params']['number'], $params['camera'], $date_enter, $date_exit);
+            // $passages_in_the_meantime = $this->passageModel->bindPassage($passage['params']['number'], $params['camera'], $date_enter, $date_exit);
             
-            if(!empty($passages_in_the_meantime))
-            {
-                Utils::saveLogFile('bind.log', $passages_in_the_meantime);
+            // if(!empty($passages_in_the_meantime) and 1 === 0)
+            // {
+            //     Utils::saveLogFile('bind.log', $passages_in_the_meantime);
                 
+            //     foreach($passage['imagens'] as $img)
+            //     {
+            //         $params_edit['id'] = current($passages_in_the_meantime)['id'];
+            //         if(str_contains($passage['type'], 'CNR'))
+            //         {
+            //             $params_edit['container'] = $passage['params']['number'];
+            //             $params_edit['plate'] = current($passages_in_the_meantime)['plate'];
+            //         }
+            //         else
+            //         {
+            //             $params_edit['plate'] = $passage['params']['number'];
+            //             $params_edit['container'] = current($passages_in_the_meantime)['container'];
+            //         }
+
+            //         $id = $this->passageModel->update($params_edit);
+
+            //         //Salvar nova imagem
+            //         $passage_image_param['passage_id'] = $params_edit['id'];
+            //         $passage_image_param['url'] = $img;
+            //         $this->passageImageModel->save($passage_image_param);
+            //     }
+            // }
+            // else
+            // {
+
+
+            //Criar registro da passagem
+            if(empty($exists))
+            {
+                $id = $this->passageModel->save($params);
+            
                 foreach($passage['imagens'] as $img)
                 {
-                    $params_edit['id'] = current($passages_in_the_meantime)['id'];
-                    if(str_contains($passage['type'], 'CNR'))
-                    {
-                        $params_edit['container'] = $passage['params']['number'];
-                        $params_edit['plate'] = current($passages_in_the_meantime)['plate'];
-                    }
-                    else
-                    {
-                        $params_edit['plate'] = $passage['params']['number'];
-                        $params_edit['container'] = current($passages_in_the_meantime)['container'];
-                    }
-
-                    $id = $this->passageModel->update($params_edit);
-
-                    //Salvar nova imagem
-                    $passage_image_param['passage_id'] = $params_edit['id'];
+                    $passage_image_param['passage_id'] = $id;
                     $passage_image_param['url'] = $img;
                     $this->passageImageModel->save($passage_image_param);
                 }
             }
-            else
-            {
-                //Criar registro da passagem
-                if(empty($exists))
-                {
-                    $id = $this->passageModel->save($params);
-                
-                    foreach($passage['imagens'] as $img)
-                    {
-                        $passage_image_param['passage_id'] = $id;
-                        $passage_image_param['url'] = $img;
-                        $this->passageImageModel->save($passage_image_param);
-                    }
-                }
-            }
+
+
+           // }
+
         }
         $this->output->now();
     }

@@ -101,28 +101,70 @@ namespace src\Model\Passage {
                 $where .= (!empty($data_inicial)) ? " AND passages.datetime >= '$data_inicial'" : "";
                 $where .= (!empty($data_final)) ? " AND passages.datetime <= '$data_final'" : "";
                 $sql = "
+                SELECT 
+                    GROUP_CONCAT(dt.id, ' | ') as id,
+                    GROUP_CONCAT(dt.updated_by, ' | ') as updated_by,
+                    GROUP_CONCAT(dt.updated_at, ' | ') as updated_at,
+                    GROUP_CONCAT(dt.is_ok, ' | ') as status,
+                    GROUP_CONCAT(dt.error_reason, ' | ') as error_reason,
+                    GROUP_CONCAT(COALESCE(dt.plate, NULL), ', ') as plate,
+                    GROUP_CONCAT(dt.datetime, ' | ') as datetime,
+                    GROUP_CONCAT(dt.container, '') as container,
+                    dt.direction,
+                    dt.gate,
+                    GROUP_CONCAT(dt.camera, ' | ') as cameras,
+                    GROUP_CONCAT(dt.images, ',') as images
+            FROM
+                (
                     SELECT 
                         passages.id, 
+                        passages.is_ok, 
                         passages.plate, 
                         passages.datetime, 
                         passages.container, 
-                        directions.description as direction,
-                        gates.name as gate,
-                        external_apis.name as api_origin,
                         cameras.name as camera,
-                        passages.is_ok AS status,
-                        COALESCE(reasons.description, passages.description_reason) as error_reason,
+                        gates.name as gate,
+                        directions.description as direction,
                         users.name AS updated_by,
                         passages.updated_at AS updated_at,
+                        COALESCE(reasons.description, passages.description_reason) as error_reason,
                         GROUP_CONCAT(passage_images.url, ',') as images
                     FROM passages
-                    INNER JOIN directions ON directions.id = passages.direction
-                    INNER JOIN external_apis ON external_apis.id = passages.api_origin
-                    LEFT JOIN passage_images ON passage_images.passage_id = passages.id
-                    LEFT JOIN cameras ON cameras.id = passages.camera
-                    LEFT JOIN gates ON gates.id = cameras.gate_id
-                    LEFT JOIN users ON users.id = passages.updated_by
-                    LEFT JOIN reasons ON reasons.id = passages.preset_reason" . $where . " GROUP BY passages.id ORDER BY datetime DESC";
+                        INNER JOIN directions ON directions.id = passages.direction
+                        LEFT JOIN passage_images ON passage_images.passage_id = passages.id
+                        LEFT JOIN cameras ON cameras.id = passages.camera
+                        LEFT JOIN gates ON gates.id = cameras.gate_id
+                        LEFT JOIN users ON users.id = passages.updated_by
+                        LEFT JOIN reasons ON reasons.id = passages.preset_reason 
+                    ".$where." AND  passages.container IS NULL
+                    GROUP BY passages.id
+            UNION 
+            
+                    SELECT 
+                        passages.id, 
+                        passages.is_ok, 
+                        passages.plate,
+                        passages.datetime, 
+                        passages.container, 
+                        cameras.name as camera,
+                        gates.name as gate,
+                        directions.description as direction,
+                        users.name AS updated_by,
+                        passages.updated_at AS updated_at,
+                        COALESCE(reasons.description, passages.description_reason) as error_reason,
+                        GROUP_CONCAT(passage_images.url, ',') as images
+                    FROM passages
+                        INNER JOIN directions ON directions.id = passages.direction
+                        LEFT JOIN passage_images ON passage_images.passage_id = passages.id
+                        LEFT JOIN cameras ON cameras.id = passages.camera
+                        LEFT JOIN gates ON gates.id = cameras.gate_id
+                        LEFT JOIN users ON users.id = passages.updated_by
+                        LEFT JOIN reasons ON reasons.id = passages.preset_reason 
+                    ".$where." AND  passages.plate IS NULL
+                    GROUP BY passages.id
+                ) AS dt
+            GROUP BY HOUR(dt.datetime), MINUTE(dt.datetime), CONCAT(LEFT(SECOND(dt.datetime), 1), 0), dt.direction, dt.gate
+            ORDER BY dt.datetime DESC;";
 
                 return $this->db->query($sql);
 
