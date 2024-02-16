@@ -565,6 +565,37 @@ class IndexController extends App
                 $this->output->setData( [] );
             }
         }
+        else if($this->method == 'PATCH')
+        {
+            $params = $this->json;
+
+            $params['id'] = $this->checkFieldRequest($params, 'id', false, "integer");
+            $params['plate'] = $this->checkFieldRequest($params, 'plate', false, "integer");
+            $params['container'] = $this->checkFieldRequest($params, 'container', false, "integer");
+          
+            $result = $this->passageModel->update($params);
+
+            if($result) {
+
+                $return = [
+                    'id'=> $result,
+                    'plate' => $params['plate'],
+                    'container' => $params['container']
+                ];
+
+                $this->output->setCode(200);
+                $this->output->setMessage( 'Passagem alterada com sucesso!' );
+                $this->output->setSuccess( true );
+                $this->output->setData( $return );
+            }
+            else
+            {
+                $this->output->setCode(200);
+                $this->output->setMessage( 'Erro ao alterar passagem' );
+                $this->output->setSuccess( false );
+                $this->output->setData( [] );
+            }
+        }
 
         $this->output->now();
     }
