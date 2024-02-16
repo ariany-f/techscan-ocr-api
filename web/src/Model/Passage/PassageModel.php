@@ -103,7 +103,7 @@ namespace src\Model\Passage {
                 $sql = "
                 SELECT 
                     GROUP_CONCAT(dt.id, '') as id,
-                    GROUP_CONCAT(dt.updated_by, ' ') as updated_by,
+                    dt.updated_by as updated_by,
                     GROUP_CONCAT(dt.updated_at, ' ') as updated_at,
                     GROUP_CONCAT(dt.is_ok, ' | ') as status,
                     GROUP_CONCAT(dt.error_reason, ' ') as error_reason,
