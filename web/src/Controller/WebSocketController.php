@@ -108,7 +108,7 @@ class WebSocketController extends App
         {
             $best_view_date_time = $passage['params']['best_view_date_time'];
             $camera_id = $passage['params']['camera_id'];
-            $image = $this->Securos->getBestViewDataImage($camera_id, $best_view_date_time);
+            $image = $this->Securos->getBestViewDataImage($camera_id, $save['time_enter']);
             
             //Salvar imagem
             $tmp_file = 'img/tmp/';
