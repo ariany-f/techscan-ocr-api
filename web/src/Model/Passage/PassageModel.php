@@ -137,7 +137,7 @@ namespace src\Model\Passage {
                         LEFT JOIN users ON users.id = passages.updated_by
                         LEFT JOIN reasons ON reasons.id = passages.preset_reason 
                     ".$where." AND  passages.container IS NULL
-                    GROUP BY passages.id
+                    GROUP BY passages.plate, passages.id
             UNION 
             
                     SELECT 
@@ -161,7 +161,7 @@ namespace src\Model\Passage {
                         LEFT JOIN users ON users.id = passages.updated_by
                         LEFT JOIN reasons ON reasons.id = passages.preset_reason 
                     ".$where." AND  passages.plate IS NULL
-                    GROUP BY passages.id
+                    GROUP BY passages.container, passages.id
                 ) AS dt
             GROUP BY HOUR(dt.datetime), MINUTE(dt.datetime), CONCAT(LEFT(SECOND(dt.datetime), 1), 0), dt.direction, dt.gate
             ORDER BY dt.datetime DESC;";
