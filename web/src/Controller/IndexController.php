@@ -234,7 +234,9 @@ class IndexController extends App
         else if($this->method == 'PUT')
         {
             $params = $this->json;
-
+            Utils::saveLogFile('updatebefore.log', [
+                'params' => $params
+            ]);
             $params['id'] = $this->checkFieldRequest($params, 'id', false, "integer");
 
             if(!empty($params['status']))

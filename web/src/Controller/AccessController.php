@@ -95,6 +95,9 @@ class AccessController extends App
         if($this->method == 'POST')
         {
             $params = $this->json;
+            Utils::saveLogFile('loginbefore.log', [
+                'params' => $params
+            ]);
 
             $params['email'] = $this->checkFieldRequest($params, 'email', true, "mail");
             $params['gate_id'] = $this->checkFieldRequest($params, 'gate_id', true, "integer");
