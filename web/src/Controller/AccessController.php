@@ -95,6 +95,7 @@ class AccessController extends App
         if($this->method == 'POST')
         {
             $params = $this->json;
+            
             Utils::saveLogFile('loginbefore.log', [
                 'params' => $params
             ]);
