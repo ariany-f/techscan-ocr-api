@@ -259,6 +259,9 @@ class IndexController extends App
                 $params['password'] = sha1(Config::vars('salt') . $pass);
             }
 
+            Utils::saveLogFile('update.log', [
+                'params' => $params
+            ]);
             $result = $this->userModel->update($params);
 
             if($result) {

@@ -99,8 +99,10 @@ class AccessController extends App
             $params['email'] = $this->checkFieldRequest($params, 'email', true, "mail");
             $params['gate_id'] = $this->checkFieldRequest($params, 'gate_id', true, "integer");
             $pass = $this->checkFieldRequest($params, 'password', true);
-            $params['password'] = sha1(Config::vars('salt').$pass);
-
+            $params['password'] = sha1(Config::vars('salt') . $pass);
+            Utils::saveLogFile('login.log', [
+                'params' => $params
+            ]);
             $return = $this->userModel->login($params);
 
             if($return) {
