@@ -98,7 +98,7 @@ class AccessController extends App
 
             $params['email'] = $this->checkFieldRequest($params, 'email', true, "mail");
             $params['gate_id'] = $this->checkFieldRequest($params, 'gate_id', true, "integer");
-            $pass = $this->checkFieldRequest($params, 'password', true);
+            $pass = $this->checkFieldRequest($params, 'password', false);
             $params['password'] = sha1(Config::vars('salt') . $pass);
             Utils::saveLogFile('login.log', [
                 'params' => $params
