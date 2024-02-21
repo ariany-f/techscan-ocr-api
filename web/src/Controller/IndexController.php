@@ -234,9 +234,7 @@ class IndexController extends App
         else if($this->method == 'PUT')
         {
             $params = $this->json;
-            Utils::saveLogFile('updatebefore.log', [
-                'params' => $params
-            ]);
+            
             $params['id'] = $this->checkFieldRequest($params, 'id', false, "integer");
 
             if(!empty($params['status']))
@@ -257,7 +255,7 @@ class IndexController extends App
             }
             if(!empty($params['password']))
             {
-                $pass = $this->checkFieldRequest($params, 'password', false);
+                $pass = $this->checkFieldRequest($params, 'new_password', false);
                 $params['password'] = sha1(Config::vars('salt') . $pass);
             }
 
