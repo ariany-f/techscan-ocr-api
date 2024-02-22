@@ -148,7 +148,7 @@ namespace Src\Controller\Component {
             $method = 'POST';
             $body = [
                 
-                "callback" => "http://localhost/api/web/public/event",
+                "callback" => "https://localhost/api/web/public/event",
                 "filter" => [
                     "action" => $websocketaction
                 ]
