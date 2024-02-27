@@ -234,8 +234,8 @@ namespace src\Model\Passage {
                       'id' => $params['id']
                 ],
                 'columns' => [
-                      'plate' => $params['plate'],
-                      'container' => $params['container']
+                      'plate' => $params['plate'] ?? null,
+                      'container' => $params['container'] ?? null
                 ]
             ];
             return $this->db->update($update_data);
