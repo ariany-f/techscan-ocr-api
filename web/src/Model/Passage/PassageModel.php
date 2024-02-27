@@ -205,7 +205,7 @@ namespace src\Model\Passage {
          * @param array $params
          * @throws Exception
          */
-        public function update(array $params)
+        public function updateBind(array $params)
         {
             $update_data = [
                 'table' => 'passages',
@@ -216,6 +216,26 @@ namespace src\Model\Passage {
                       'plate' => $params['plate'],
                       'container' => $params['container'],
                       'bind_id' => $params['bind_id'] ?? null
+                ]
+            ];
+            return $this->db->update($update_data);
+        }
+        
+        /**
+         * Altera passagem
+         * @param array $params
+         * @throws Exception
+         */
+        public function update(array $params)
+        {
+            $update_data = [
+                'table' => 'passages',
+                'id' => [
+                      'id' => $params['id']
+                ],
+                'columns' => [
+                      'plate' => $params['plate'],
+                      'container' => $params['container']
                 ]
             ];
             return $this->db->update($update_data);

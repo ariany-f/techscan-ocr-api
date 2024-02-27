@@ -202,7 +202,7 @@ class WebSocketController extends App
                     $params_edit['plate'] = $meantime['plate'];
                     $params_edit['container'] = $meantime['container'];
                     $params_edit['bind_id'] = $id_bind;
-                    $this->passageModel->update($params_edit);
+                    $this->passageModel->updateBind($params_edit);
                 }
             }
           
