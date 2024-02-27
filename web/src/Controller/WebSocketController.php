@@ -119,7 +119,6 @@ class WebSocketController extends App
         
         foreach($request as $k => $passage)
         {
-            $best_view_date_time = $passage['params']['best_view_date_time'];
             $camera_id = $passage['params']['camera_id'];
             $image = $this->Securos->getBestViewDataImage($camera_id, $save['time_leave']);
             
@@ -131,6 +130,36 @@ class WebSocketController extends App
             file_put_contents($file_path, $image);
 
             $passage['imagens'][] = $tmp_file.$file_name;
+
+            
+            $date_enter = (isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']));
+            $params_time['description'] = 'register_collapse_seconds';
+            $time = 2;
+            $date_exit =  date( 'Y-m-d H:i:s', strtotime($date_enter)+$time);
+            $image = $this->Securos->getBestViewDataImage($camera_id, $date_exit);
+            
+            //Salvar imagem
+            $tmp_file = 'img/tmp/';
+            $path = $this->public. $tmp_file;
+            $file_name = 'securos-'.$passage['params']['tid'].'.jpeg';
+            $file_path = $path.$file_name;
+            file_put_contents($file_path, $image);
+
+            $passage['imagens'][] = $tmp_file.$file_name;
+
+            
+            $best_view_date_time = $passage['params']['best_view_date_time'];
+            $image = $this->Securos->getBestViewDataImage($camera_id, $best_view_date_time);
+            
+            //Salvar imagem
+            $tmp_file = 'img/tmp/';
+            $path = $this->public. $tmp_file;
+            $file_name = 'securos-'.$passage['params']['tid'].'.jpeg';
+            $file_path = $path.$file_name;
+            file_put_contents($file_path, $image);
+
+            $passage['imagens'][] = $tmp_file.$file_name;
+
 
             $params['api_origin'] = 2;
             $params['direction'] = $passage['params']['direction_id'];
