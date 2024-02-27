@@ -182,29 +182,30 @@ class GetOCRDataController extends App
         {
             case 'securos':
                 $result = $this->Securos->getPassagens();
-                $params['api_origin'] = 2;
-                foreach(current($result) as $passagem)
-                {
-                    $params['direction'] = $passagem['direction_id'];
-                    $params['datetime'] = $passagem['time_enter'];
-                    $params['external_id'] = $passagem['uuid'];
-                    $params['id_gate'] = $passagem['tid'];
-                    $params['plate'] = $passagem['number'];
-                    $params['camera'] = current($this->cameraModel->findIdByExternalId($passagem['camera_id']))['id'];
+
+                // $params['api_origin'] = 2;
+                // foreach(current($result) as $passagem)
+                // {
+                //     $params['direction'] = $passagem['direction_id'];
+                //     $params['datetime'] = $passagem['time_enter'];
+                //     $params['external_id'] = $passagem['uuid'];
+                //     $params['id_gate'] = $passagem['tid'];
+                //     $params['plate'] = $passagem['number'];
+                //     $params['camera'] = current($this->cameraModel->findIdByExternalId($passagem['camera_id']))['id'];
 					
-					$exists = $this->passageModel->exists('plate', $passagem['time_enter'], $passagem['number'], $params['camera']);
-					if(empty($exists))
-					{
-						$id = $this->passageModel->save($params);
+				// 	$exists = $this->passageModel->exists('plate', $passagem['time_enter'], $passagem['number'], $params['camera']);
+				// 	if(empty($exists))
+				// 	{
+				// 		$id = $this->passageModel->save($params);
                     
-						foreach($passagem['imagens'] as $img)
-						{
-							$passage_image_param['passage_id'] = $id;
-							$passage_image_param['url'] = $img;
-							$this->passageImageModel->save($passage_image_param);
-						}
-					}
-                }
+				// 		foreach($passagem['imagens'] as $img)
+				// 		{
+				// 			$passage_image_param['passage_id'] = $id;
+				// 			$passage_image_param['url'] = $img;
+				// 			$this->passageImageModel->save($passage_image_param);
+				// 		}
+				// 	}
+                // }
                 break;
             case 'wegate':
                 $result = $this->Wegate->getPassagens();
