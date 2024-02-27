@@ -42,6 +42,11 @@ namespace Config {
                 'action' => 'cameras',
                 'pass' => []
             ],
+            'ocr-passagens/*' => [
+                'controller' => 'GetOcrData',
+                'action' => 'passagens',
+                'pass' => []
+            ],
             'passagens/*' => [
                 'controller' => 'Index',
                 'action' => 'passagens',
