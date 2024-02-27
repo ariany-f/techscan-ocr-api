@@ -43,7 +43,7 @@ namespace Config {
                 'pass' => []
             ],
             'ocr-passagens/*' => [
-                'controller' => 'GetOcrData',
+                'controller' => 'GetOCRData',
                 'action' => 'passagens',
                 'pass' => []
             ],
