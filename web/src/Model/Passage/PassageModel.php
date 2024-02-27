@@ -250,7 +250,7 @@ namespace src\Model\Passage {
                 $columns['updated_by'] = $params['updated_by'];
             }
 
-            $dont_need_update = $this->get($columns['id']);
+            $dont_need_update = $this->get($params['id']);
 
             
             Utils::saveLogFile('dont_need_update.log', [
