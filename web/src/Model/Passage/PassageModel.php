@@ -185,17 +185,27 @@ namespace src\Model\Passage {
          */
         public function alterar(array $params)
         {
+            $columns = [];
+
+            if($params['is_ok']) {
+                $columns['is_ok'] = $params['is_ok'];
+            }
+            if($params['updated_by']) {
+                $columns['updated_by'] = $params['updated_by'];
+            }
+            if($params['preset_reason']) {
+                $columns['preset_reason'] = $params['preset_reason'];
+            }
+            if($params['description_reason']) {
+                $columns['description_reason'] = $params['description_reason'];
+            }
+            
             $update_data = [
                 'table' => 'passages',
                 'id' => [
                       'id' => $params['id']
                 ],
-                'columns' => [
-                      'is_ok' => $params['is_ok'],
-                      'updated_by' => $params['updated_by'],
-                      'preset_reason' => $params['preset_reason'],
-                      'description_reason' => $params['description_reason']
-                ]
+                'columns' => $columns
             ];
             return $this->db->update($update_data);
         }
