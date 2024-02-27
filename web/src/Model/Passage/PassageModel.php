@@ -242,9 +242,7 @@ namespace src\Model\Passage {
                 'id' => [
                       'id' => $params['id']
                 ],
-                'columns' => [
-                    $columns
-                ]
+                'columns' => $columns
             ];
             return $this->db->update($update_data);
         }
