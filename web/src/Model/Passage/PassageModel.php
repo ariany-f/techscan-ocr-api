@@ -250,6 +250,13 @@ namespace src\Model\Passage {
                 $columns['updated_by'] = $params['updated_by'];
             }
 
+            $dont_need_update = $this->get($columns['id']);
+
+            
+            Utils::saveLogFile('dont_need_update.log', [
+                'dont_need_update' => $dont_need_update,
+            ]);
+
             $update_data = [
                 'table' => 'passages',
                 'id' => [
