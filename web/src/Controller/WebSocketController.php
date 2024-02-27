@@ -139,9 +139,7 @@ class WebSocketController extends App
             $image = $this->Securos->getBestViewDataImage($camera_id, $date_exit);
             
             //Salvar imagem
-            $tmp_file = 'img/tmp/';
-            $path = $this->public. $tmp_file;
-            $file_name = 'securos-'.$passage['params']['tid'].'.jpeg';
+            $file_name = 'securos-'.$passage['params']['tid'].'-2.jpeg';
             $file_path = $path.$file_name;
             file_put_contents($file_path, $image);
 
@@ -152,9 +150,7 @@ class WebSocketController extends App
             $image = $this->Securos->getBestViewDataImage($camera_id, $best_view_date_time);
             
             //Salvar imagem
-            $tmp_file = 'img/tmp/';
-            $path = $this->public. $tmp_file;
-            $file_name = 'securos-'.$passage['params']['tid'].'.jpeg';
+            $file_name = 'securos-'.$passage['params']['tid'].'-3.jpeg';
             $file_path = $path.$file_name;
             file_put_contents($file_path, $image);
 
