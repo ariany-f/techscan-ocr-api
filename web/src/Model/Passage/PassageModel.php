@@ -228,14 +228,22 @@ namespace src\Model\Passage {
          */
         public function update(array $params)
         {
+            $columns = [];
+
+            if($params['plate']) {
+                $columns['plate'] = $params['plate'];
+            }
+            if($params['container']) {
+                $columns['container'] = $params['container'];
+            }
+
             $update_data = [
                 'table' => 'passages',
                 'id' => [
                       'id' => $params['id']
                 ],
                 'columns' => [
-                      'plate' => $params['plate'] ?? null,
-                      'container' => $params['container'] ?? null
+                    $columns
                 ]
             ];
             return $this->db->update($update_data);
