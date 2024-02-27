@@ -575,6 +575,7 @@ class IndexController extends App
             $params['id'] = $this->checkFieldRequest($params, 'id', false, "integer");
             $params['plate'] = $this->checkFieldRequest($params, 'plate', false);
             $params['container'] = $this->checkFieldRequest($params, 'container', false);
+            $params['updated_by'] = isset($params['updated_by']) ? $this->checkFieldRequest($params, 'updated_by', false) : null;
           
             $result = $this->passageModel->update($params);
 

@@ -199,7 +199,7 @@ namespace src\Model\Passage {
             if($params['description_reason']) {
                 $columns['description_reason'] = $params['description_reason'];
             }
-            
+
             $update_data = [
                 'table' => 'passages',
                 'id' => [
@@ -246,11 +246,14 @@ namespace src\Model\Passage {
             if($params['container']) {
                 $columns['container'] = $params['container'];
             }
+            if($params['updated_by']) {
+                $columns['updated_by'] = $params['updated_by'];
+            }
 
             $update_data = [
                 'table' => 'passages',
                 'id' => [
-                      'id' => $params['id']
+                    'id' => $params['id']
                 ],
                 'columns' => $columns
             ];
