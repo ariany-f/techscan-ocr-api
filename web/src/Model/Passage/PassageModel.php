@@ -58,7 +58,7 @@ namespace src\Model\Passage {
                     $sql = "SELECT
                         cameras.position AS Camera,
                         representative_img.url AS Posicao,
-                        sum(case when preset_reason IS NULL AND description_reason IS NULL then 1 else 0 end) AS Acertos,
+                        sum(case when preset_reason IS NULL AND description_reason IS NULL AND updated_at IS NULL then 1 else 0 end) AS Acertos,
                         sum(case when preset_reason IS NOT NULL OR description_reason IS NOT NULL OR updated_at IS NOT NULL then 1 else 0 end) AS Erros
                     FROM passages
                         INNER JOIN cameras ON cameras.id = passages.camera
