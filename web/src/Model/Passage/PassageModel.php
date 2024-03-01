@@ -137,7 +137,7 @@ namespace src\Model\Passage {
                         LEFT JOIN gates ON gates.id = cameras.gate_id
                         LEFT JOIN users ON users.id = passages.updated_by
                         LEFT JOIN reasons ON reasons.id = passages.preset_reason 
-                    ".$where." AND  passages.container IS NULL
+                    ".$where." 
                     GROUP BY passages.id
             UNION 
             
@@ -162,7 +162,7 @@ namespace src\Model\Passage {
                         LEFT JOIN gates ON gates.id = cameras.gate_id
                         LEFT JOIN users ON users.id = passages.updated_by
                         LEFT JOIN reasons ON reasons.id = passages.preset_reason 
-                    ".$where." AND  passages.plate IS NULL
+                    ".$where." 
                     GROUP BY passages.id
                 ) AS dt
             -- GROUP BY HOUR(dt.datetime), MINUTE(dt.datetime), CONCAT(LEFT(SECOND(dt.datetime), 1), 0), dt.direction, dt.gate
