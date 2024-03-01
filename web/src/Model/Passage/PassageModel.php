@@ -58,12 +58,12 @@ namespace src\Model\Passage {
                     $sql = "SELECT
                         cameras.position AS Camera,
                         representative_img.url AS Posicao,
-                        sum(case when is_ok = 1 then 1 else 0 end) AS Acertos,
+                        sum(case when preset_reason IS NULL AND description_reason IS NULL then 1 else 0 end) AS Acertos,
                         sum(case when preset_reason IS NOT NULL OR description_reason IS NOT NULL then 1 else 0 end) AS Erros
                     FROM passages
                         INNER JOIN cameras ON cameras.id = passages.camera
                         INNER JOIN representative_img ON representative_img.id = cameras.representative_img_id
-                    " . $where . " AND (passages.is_ok = 1 OR (preset_reason IS NOT NULL OR description_reason IS NOT NULL))
+                    " . $where . "
                     GROUP BY representative_img.url";
 
                 return $this->db->query($sql);
