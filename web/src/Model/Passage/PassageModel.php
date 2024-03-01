@@ -109,7 +109,7 @@ namespace src\Model\Passage {
                     MAX(dt.error_reason) as error_reason,
                     GROUP_CONCAT(DISTINCT COALESCE(dt.plate, NULL), '') as plate,
                     GROUP_CONCAT(dt.datetime, ' | ') as datetime,
-                    GROUP_CONCAT(DISTINCT dt.container, ' ') as container,
+                    GROUP_CONCAT(DISTINCT COALESCE(dt.container, NULL), '') as container,
                     dt.direction,
                     dt.gate,
                     GROUP_CONCAT(dt.camera, ' ') as cameras,
