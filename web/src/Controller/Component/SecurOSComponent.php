@@ -127,7 +127,7 @@ namespace Src\Controller\Component {
                 default:
                     if($response['errors'])
                     {
-                        return json_decode($response['errors'], true);
+                        return $response['errors'];
                     }
                     return json_decode($response['body'], true);
             }
