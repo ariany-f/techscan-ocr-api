@@ -256,8 +256,8 @@ class WebSocketController extends App
         else
         {
             $this->output->setCode(200);
+            $this->output->setData([]);
             $this->output->setErrors([$result]);
-            $this->output->setData([$result]);
             $this->output->now();
         }
     }
