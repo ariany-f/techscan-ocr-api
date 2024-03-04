@@ -136,6 +136,7 @@ namespace src\Model\Passage {
                         LEFT JOIN users ON users.id = passages.updated_by
                         LEFT JOIN reasons ON reasons.id = passages.preset_reason 
                         WHERE bind_id = ".$passage['id']."
+                        GROUP BY passages.id
                     ";
 
                     $passages[$key]['itens'] = $this->db->query($passage_sql);
