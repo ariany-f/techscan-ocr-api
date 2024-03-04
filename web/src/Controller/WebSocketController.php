@@ -247,7 +247,7 @@ class WebSocketController extends App
     {
         $this->setRender('Ajax');
         $result = $this->Securos->getSubscriptions();
-        if($result)
+        if(is_array($result))
         {
             $this->output->setCode(200);
             $this->output->setData($result);
@@ -256,6 +256,7 @@ class WebSocketController extends App
         else
         {
             $this->output->setCode(200);
+            $this->output->setErrors([$result]);
             $this->output->setData([]);
             $this->output->now();
         }
