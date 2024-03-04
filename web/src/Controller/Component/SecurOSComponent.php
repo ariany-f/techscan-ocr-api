@@ -125,6 +125,10 @@ namespace Src\Controller\Component {
                     return json_decode($response['body'], true);
                     break;
                 default:
+                    if($response['errors'])
+                    {
+                        return json_decode($response['errors'], true);
+                    }
                     return json_decode($response['body'], true);
             }
         }
