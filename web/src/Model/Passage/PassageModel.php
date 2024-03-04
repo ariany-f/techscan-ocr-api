@@ -103,6 +103,7 @@ namespace src\Model\Passage {
                 $sql = "
                     SELECT * FROM passage_bind
                     ".$where." 
+                    ORDER BY id DESC
                 ";
 
                 $passages = $this->db->query($sql);
