@@ -165,7 +165,6 @@ namespace src\Model\Passage {
                     ".$where." 
                     GROUP BY passages.id
                 ) AS dt
-            -- GROUP BY HOUR(dt.datetime), MINUTE(dt.datetime), CONCAT(LEFT(SECOND(dt.datetime), 1), 0), dt.direction, dt.gate
             GROUP BY DAY(dt.datetime), MONTH(dt.datetime), HOUR(dt.datetime), IFNULL(dt.bind_id, dt.id)
             ORDER BY dt.datetime DESC;";
 
