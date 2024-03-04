@@ -190,11 +190,23 @@ class WebSocketController extends App
             {
                 foreach($passages_in_the_meantime as $meantime)
                 {
-                    $params_edit['id'] = $meantime['id'];
-                    $params_edit['plate'] = $meantime['plate'];
-                    $params_edit['container'] = $meantime['container'];
-                    $params_edit['bind_id'] = $meantime['bind_id'];
-                    $this->passageModel->updateBind($params_edit);
+                    if(!empty($meantime['bind_id']))
+                    {
+                        $params['bind_id'] = $meantime['bind_id'];
+                    }
+                    else
+                    {
+                        $params_bind['description'] = '';
+                        $id_bind = $this->passageBindModel->save($params_bind);
+                        
+                        $params_edit['id'] = $meantime['id'];
+                        $params_edit['plate'] = $meantime['plate'];
+                        $params_edit['container'] = $meantime['container'];
+                        $params_edit['bind_id'] = $meantime['bind_id'];
+                        $this->passageModel->updateBind($params_edit);
+                        
+                        $params['bind_id'] = $id_bind;
+                    }
                 }
             }
             else
