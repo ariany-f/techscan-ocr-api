@@ -294,6 +294,9 @@ namespace src\Model\Passage {
             if($params['updated_by']) {
                 $columns['updated_by'] = $params['updated_by'];
             }
+            if($params['bind_id']) {
+                $columns['bind_id'] = $params['bind_id'];
+            }
 
             $update_data = [
                 'table' => 'passages',

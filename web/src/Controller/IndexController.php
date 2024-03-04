@@ -488,6 +488,46 @@ class IndexController extends App
         
         $this->output->now();
     }
+
+    /**
+     * Desvincular passagem das outras
+     */
+    public function desvincular()
+    {
+        $this->setRender('Ajax');
+        if($this->method == 'PATCH')
+        {
+            $params = $this->json;
+
+            $params['id'] = $this->checkFieldRequest($params, 'id', false, "integer");
+            $params['updated_by'] = isset($params['updated_by']) ? $this->checkFieldRequest($params, 'updated_by', false) : null;
+            $params['bind_id'] = null;
+            
+            $result = $this->passageModel->update($params);
+
+            if($result) {
+
+                $return = [
+                    'plate' => $params['plate'],
+                    'container' => $params['container']
+                ];
+
+                $this->output->setCode(200);
+                $this->output->setMessage( 'Passagem alterada com sucesso!' );
+                $this->output->setSuccess( true );
+                $this->output->setData( $return );
+            }
+            else
+            {
+                $this->output->setCode(200);
+                $this->output->setMessage( 'Erro ao alterar passagem' );
+                $this->output->setSuccess( false );
+                $this->output->setData( [] );
+            }
+        }
+
+        $this->output->now();
+    }
     
     /**
      * Passagens registradas

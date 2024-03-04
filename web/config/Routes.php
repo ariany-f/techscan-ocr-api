@@ -47,6 +47,11 @@ namespace Config {
                 'action' => 'passagens',
                 'pass' => []
             ],
+            'passagens/desvincular/*' => [
+                'controller' => 'Index',
+                'action' => 'desvincular',
+                'pass' => []
+            ],
             'passagens/*' => [
                 'controller' => 'Index',
                 'action' => 'passagens',
