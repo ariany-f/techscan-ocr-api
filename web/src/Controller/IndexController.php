@@ -520,7 +520,7 @@ class IndexController extends App
             $id = $this->params[0] ?? null;
             $result = $this->passageModel->get($id);
 
-            foreach($result as $k => $rs)
+            foreach($result['itens'] as $k => $rs)
             {
                 $result[$k]['images'] = array_values(array_filter(explode(",", $rs['images']), 'strlen'));
             }
