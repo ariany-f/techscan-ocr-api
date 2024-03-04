@@ -350,6 +350,8 @@ CREATE TABLE `users_status` (
 CREATE TABLE `api_ocr`.`passage_bind` (
   `id` INT NOT NULL AUTO_INCREMENT,
   'description' varchar(255) NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
   PRIMARY KEY (`id`));
 
 
