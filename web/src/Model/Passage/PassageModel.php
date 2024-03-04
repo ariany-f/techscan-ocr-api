@@ -101,9 +101,10 @@ namespace src\Model\Passage {
                 $where .= (!empty($data_inicial)) ? " AND passage_bind.created_at >= '$data_inicial'" : "";
                 $where .= (!empty($data_final)) ? " AND ((passage_bind.updated_at IS NOT NULL AND passage_bind.updated_at <= '$data_final') OR passage_bind.created_at <= '$data_final')" : "";
                 $sql = "
-                    SELECT * FROM passage_bind
+                    SELECT passage_bind.* FROM passage_bind
+                        INNER JOIN passages ON passages.bind_id = passage_bind.id
                     ".$where." 
-                    ORDER BY id DESC
+                    ORDER BY passage_bind.id DESC
                 ";
 
                 $passages = $this->db->query($sql);
