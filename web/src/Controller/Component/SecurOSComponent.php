@@ -128,6 +128,7 @@ namespace Src\Controller\Component {
                     if($response['errors'])
                     {
                         return $response['errors'];
+                        break;
                     }
                     return json_decode($response['body'], true);
             }
