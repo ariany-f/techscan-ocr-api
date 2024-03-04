@@ -57,7 +57,7 @@ namespace src\Model\Passage {
                     $where .= (!empty($data_final)) ? " AND passages.datetime <= '$data_final'" : "";
                     $sql = "SELECT
                         cameras.position AS Camera,
-                        representative_img.url AS Posicao,
+                        IF(representative_img.url = 'placa', 'frente', representative_img.url) AS Posicao,
                         sum(case when ((updated_at IS NULL AND is_ok = 0) OR is_ok = 1) then 1 else 0 end) AS Acertos,
                         sum(case when (updated_at IS NOT NULL AND is_ok <> 1) then 1 else 0 end) AS Erros
                     FROM passages
