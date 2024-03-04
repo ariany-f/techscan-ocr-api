@@ -122,7 +122,7 @@ namespace src\Model\Passage {
                             users.name AS updated_by,
                             passages.updated_at AS updated_at,
                             COALESCE(reasons.description, passages.description_reason) as error_reason,
-                            GROUP_CONCAT(passage_images.url, ',') as images
+                            GROUP_CONCAT(passage_images.url, '') as images
                         FROM 
                             passages 
                         INNER JOIN directions ON directions.id = passages.direction
