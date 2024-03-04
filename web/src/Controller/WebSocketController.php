@@ -182,7 +182,8 @@ class WebSocketController extends App
             $params_time['description'] = 'register_collapse_seconds';
             $time = current($this->optionModel->get($params_time['description']))['value'];
             $date_exit = date( 'Y-m-d H:i:s', strtotime($date_enter)-$time);
-            
+
+            sleep(2);
             //Verificar se passagem coincide com outra passagem pela data e hora da passagem
             $passages_in_the_meantime = $this->passageModel->bindPassage($passage['params']['number'], $params['direction'], $params['camera'], $date_exit, $date_enter);
             
