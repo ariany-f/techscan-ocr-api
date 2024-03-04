@@ -505,9 +505,12 @@ class IndexController extends App
             $data_final = $params['dataFinal'] ?? null;
             $result = $this->passageModel->get($id, $data_inicial, $data_final);
             
-            foreach($result['itens'] as $k => $rs)
+            if(isset($result['itens']) and !empty($result['itens']))
             {
-                $result[$k]['images'] = array_values(array_filter(explode(",", $rs['images']), 'strlen'));
+                foreach($result['itens'] as $k => $rs)
+                {
+                    $result[$k]['images'] = array_values(array_filter(explode(",", $rs['images']), 'strlen'));
+                }
             }
 
             $this->output->setCode(200);
@@ -520,9 +523,12 @@ class IndexController extends App
             $id = $this->params[0] ?? null;
             $result = $this->passageModel->get($id);
 
-            foreach($result['itens'] as $k => $rs)
+            if(isset($result['itens']) and !empty($result['itens']))
             {
-                $result[$k]['images'] = array_values(array_filter(explode(",", $rs['images']), 'strlen'));
+                foreach($result['itens'] as $k => $rs)
+                {
+                    $result[$k]['images'] = array_values(array_filter(explode(",", $rs['images']), 'strlen'));
+                }
             }
 
             $this->output->setCode(200);
