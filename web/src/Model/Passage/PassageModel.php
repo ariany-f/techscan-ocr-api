@@ -110,8 +110,6 @@ namespace src\Model\Passage {
 
 
                 foreach($passages as $key => $passage) {
-                    
-                    $passages[$key]['itens'] = [];
                     $passage_sql = "
                         SELECT 
                             passages.id, 
@@ -140,7 +138,7 @@ namespace src\Model\Passage {
                         WHERE bind_id = ".$passage['id']."
                     ";
 
-                    $passages[$key]['itens'][] = $this->db->query($passage_sql);
+                    $passages[$key]['itens'] = $this->db->query($passage_sql);
                 }
 
                 return $passages;
