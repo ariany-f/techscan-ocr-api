@@ -511,7 +511,7 @@ class IndexController extends App
                 {
                     foreach($rs['itens'] as $key => $item)
                     {
-                        $result[$k]['itens'][$key]['images'] = (object) explode(",", $item['images']);
+                        $result[$k]['itens'][$key]['images'] = explode(",", $item['images']);
                     }
                 }
             }
@@ -532,7 +532,7 @@ class IndexController extends App
                 {
                     foreach($rs['itens'] as $key => $item)
                     {
-                        $result[$k]['itens'][$key]['images'] = (object) explode(",", $item['images']);
+                        $result[$k]['itens'][$key]['images'] = explode(",", $item['images']);
                     }
                 }
             }
