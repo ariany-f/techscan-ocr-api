@@ -247,9 +247,18 @@ class WebSocketController extends App
     {
         $this->setRender('Ajax');
         $result = $this->Securos->getSubscriptions();
-        $this->output->setCode(200);
-        $this->output->setData($result);
-        $this->output->now();
+        if($result)
+        {
+            $this->output->setCode(200);
+            $this->output->setData($result);
+            $this->output->now();
+        }
+        else
+        {
+            $this->output->setCode(200);
+            $this->output->setData([]);
+            $this->output->now();
+        }
     }
 
     public function unsubscribe()
