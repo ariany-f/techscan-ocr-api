@@ -527,7 +527,7 @@ class IndexController extends App
             {
                 foreach($result['itens'] as $k => $rs)
                 {
-                    $result[$k]['images'] = array_filter(explode(",", explode(",", $rs['images'])));
+                    $result['itens'][$k]['images'] = array_filter(explode(",,", $rs['images']));
                 }
             }
 
