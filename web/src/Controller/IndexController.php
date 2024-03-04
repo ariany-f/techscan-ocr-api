@@ -525,7 +525,9 @@ class IndexController extends App
         {
             $id = $this->params[0] ?? null;
             $result = $this->passageModel->get($id);
-
+            Utils::saveLogFile('result.log', [
+                'result' => $result
+            ]);
             if(isset($result) and !empty($result))
             {
                 foreach($result as $k => $rs)
