@@ -101,7 +101,7 @@ namespace src\Model\Passage {
                 $where .= (!empty($data_inicial)) ? " AND passages.datetime >= '$data_inicial'" : "";
                 $where .= (!empty($data_final)) ? " AND passages.datetime <= '$data_final'" : "";
                 $sql = "
-                    SELECT * FROM passages_bind
+                    SELECT * FROM passage_bind
                     ".$where." 
                 ";
 
