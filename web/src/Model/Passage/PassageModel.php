@@ -350,6 +350,22 @@ namespace src\Model\Passage {
             }
         }
 
+        
+        public function getBindPassages($number)
+        {  
+            try {
+                
+                $sql = 'SELECT passages.id FROM passages WHERE bind_id = '.$number.' GROUP BY passages.id';
+                    
+                return $this->db->query($sql);
+
+            } catch (Exception $e) {
+                Utils::saveLogFile('catch error.log', [
+                    'errors' => $e->getMessage()
+                ]);
+            }
+        }
+
         /**
          * Pega as Passagens
          * @throws Exception
