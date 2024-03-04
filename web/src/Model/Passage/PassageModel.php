@@ -107,8 +107,7 @@ namespace src\Model\Passage {
                 ";
 
                 $passages = $this->db->query($sql);
-
-
+                
                 foreach($passages as $key => $passage) {
                     $passage_sql = "
                         SELECT 
