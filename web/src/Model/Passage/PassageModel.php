@@ -296,6 +296,7 @@ namespace src\Model\Passage {
             }
             if($params['bind_id']) {
                 $columns['bind_id'] = $params['bind_id'];
+                unset($columns['updated_by']);
             }
 
             $update_data = [

@@ -22,6 +22,7 @@ use src\Model\Reason\ReasonModel;
 use src\Model\Option\OptionModel;
 use src\Model\Camera\CameraModel;
 use src\Model\Passage\PassageModel;
+use src\Model\Passage\PassageBindModel;
 use Tecno\Lib\Csrf;
 use Tecno\Lib\Mailer;
 
@@ -77,6 +78,7 @@ class IndexController extends App
         $this->gateModel = new GateModel();
         $this->cameraModel = new CameraModel();
         $this->passageModel = new PassageModel();
+        $this->passageBindModel = new PassageBindModel();
         $this->reasonModel = new ReasonModel();
         
         /**
@@ -501,8 +503,12 @@ class IndexController extends App
 
             $params['id'] = $this->checkFieldRequest($params, 'id', false, "integer");
             $params['updated_by'] = isset($params['updated_by']) ? $this->checkFieldRequest($params, 'updated_by', false) : null;
-            $params['bind_id'] = null;
             
+            $params_bind['description'] = '';
+            $id_bind = $this->passageBindModel->save($params_bind);
+
+            $params['bind_id'] =  $id_bind;
+
             $result = $this->passageModel->update($params);
 
             if($result) {
