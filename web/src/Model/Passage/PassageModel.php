@@ -108,6 +108,8 @@ namespace src\Model\Passage {
 
                 $passages = $this->db->query($sql);
 
+                $passages[$key]['itens'] = [];
+                
                 foreach($passages as $key => $passage) {
                     $passage_sql = "
                         SELECT 
