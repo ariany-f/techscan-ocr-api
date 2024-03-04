@@ -97,9 +97,9 @@ namespace src\Model\Passage {
         {
             try {
 
-                $where = !empty($id) ? " WHERE passages.id = $id" : " WHERE 1 = 1";
-                $where .= (!empty($data_inicial)) ? " AND passages.datetime >= '$data_inicial'" : "";
-                $where .= (!empty($data_final)) ? " AND passages.datetime <= '$data_final'" : "";
+                $where = !empty($id) ? " WHERE passage_bind.id = $id" : " WHERE 1 = 1";
+                $where .= (!empty($data_inicial)) ? " AND passage_bind.created_at >= '$data_inicial'" : "";
+                $where .= (!empty($data_final)) ? " AND passage_bind.updated_at <= '$data_final'" : "";
                 $sql = "
                     SELECT * FROM passage_bind
                     ".$where." 
