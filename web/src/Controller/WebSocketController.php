@@ -186,10 +186,6 @@ class WebSocketController extends App
             //Verificar se passagem coincide com outra passagem pela data e hora da passagem
             $passages_in_the_meantime = $this->passageModel->bindPassage($passage['params']['number'], $params['direction'], $params['camera'], $date_exit, $date_enter);
             
-            $params_bind['description'] = '';
-            $id_bind = $this->passageBindModel->save($params_bind);
-            $params['bind_id'] = $id_bind;
-
             if(!empty($passages_in_the_meantime))
             {
                 foreach($passages_in_the_meantime as $meantime)
@@ -197,9 +193,15 @@ class WebSocketController extends App
                     $params_edit['id'] = $meantime['id'];
                     $params_edit['plate'] = $meantime['plate'];
                     $params_edit['container'] = $meantime['container'];
-                    $params_edit['bind_id'] = $id_bind;
+                    $params_edit['bind_id'] = $meantime['bind_id'];
                     $this->passageModel->updateBind($params_edit);
                 }
+            }
+            else
+            {
+                $params_bind['description'] = '';
+                $id_bind = $this->passageBindModel->save($params_bind);
+                $params['bind_id'] = $id_bind;
             }
           
             //Criar registro da passagem
