@@ -99,7 +99,7 @@ namespace src\Model\Passage {
 
                 $where = !empty($id) ? " WHERE passage_bind.id = $id" : " WHERE 1 = 1";
                 $where .= (!empty($data_inicial)) ? " AND passage_bind.created_at >= '$data_inicial'" : "";
-                $where .= (!empty($data_final)) ? " AND passage_bind.updated_at <= '$data_final'" : "";
+                $where .= (!empty($data_final)) ? " AND ((passage_bind.updated_at IS NOT NULL AND passage_bind.updated_at <= '$data_final') OR passage_bind.created_at <= '$data_final')" : "";
                 $sql = "
                     SELECT * FROM passage_bind
                     ".$where." 
