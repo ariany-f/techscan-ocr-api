@@ -62,9 +62,12 @@ namespace Src\Controller\Component {
                 'securos.log'
             );
 
-            if($response['headers']['Content-Type'] == 'application/octet-stream, image/jpeg' || $response['headers']['Content-Type'] == 'image/jpeg')
+            if(isset($response['headers']['Content-Type']))
             {
-                return $response['body'];
+                if($response['headers']['Content-Type'] == 'application/octet-stream, image/jpeg' || $response['headers']['Content-Type'] == 'image/jpeg')
+                {
+                    return $response['body'];
+                }
             }
 
             switch($response['headers']['StatusCode'])
