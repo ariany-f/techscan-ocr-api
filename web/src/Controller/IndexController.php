@@ -505,11 +505,14 @@ class IndexController extends App
             $data_final = $params['dataFinal'] ?? null;
             $result = $this->passageModel->get($id, $data_inicial, $data_final);
             
-            if(isset($result['itens']) and !empty($result['itens']))
+            if(isset($result) and !empty($result))
             {
-                foreach($result['itens'] as $k => $rs)
+                foreach($result as $k => $rs)
                 {
-                    $result[$k]['images'] = array_values(array_filter(explode(",", $rs['images']), 'strlen'));
+                    foreach($rs['itens'] as $key => $item)
+                    {
+                        $result[$k]['itens'][$key]['images'] = (object) explode(",", $item['images']);
+                    }
                 }
             }
 
