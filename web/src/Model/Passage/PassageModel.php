@@ -138,6 +138,7 @@ namespace src\Model\Passage {
                         LEFT JOIN reasons ON reasons.id = passages.preset_reason 
                         WHERE bind_id = ".$passage['id']."
                         GROUP BY passages.id
+                        ORDER BY passages.id DESC
                     ";
 
                     $passages[$key]['itens'] = $this->db->query($passage_sql);
