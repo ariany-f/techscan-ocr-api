@@ -119,6 +119,7 @@ namespace src\Model\Passage {
                             cameras.name as camera,
                             gates.name as gate,
                             directions.description as direction,
+                            representative_img.url as position,
                             users.name AS updated_by,
                             passages.updated_at AS updated_at,
                             COALESCE(reasons.description, passages.description_reason) as error_reason,
@@ -128,6 +129,7 @@ namespace src\Model\Passage {
                         INNER JOIN directions ON directions.id = passages.direction
                         LEFT JOIN passage_images ON passage_images.passage_id = passages.id
                         LEFT JOIN cameras ON cameras.id = passages.camera
+                        LEFT JOIN representative_img ON cameras.representative_img_id = representative_img.id
                         LEFT JOIN gates ON gates.id = cameras.gate_id
                         LEFT JOIN users ON users.id = passages.updated_by
                         LEFT JOIN reasons ON reasons.id = passages.preset_reason 
