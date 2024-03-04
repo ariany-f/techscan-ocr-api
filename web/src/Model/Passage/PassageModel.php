@@ -331,7 +331,7 @@ namespace src\Model\Passage {
                 
                 if(!empty($gate))
                 {
-                    $sql = 'SELECT passages.id, passages.plate, passages.container FROM passages INNER JOIN cameras ON cameras.id = passages.camera WHERE datetime BETWEEN "'.$date_enter.'" AND "'.$date_leave.'" AND cameras.gate_id = '.current($gate)['gate_id'].' GROUP BY passages.id';
+                    $sql = 'SELECT passages.id, passages.plate, passages.container, passages.bind_id FROM passages INNER JOIN cameras ON cameras.id = passages.camera WHERE datetime BETWEEN "'.$date_enter.'" AND "'.$date_leave.'" AND cameras.gate_id = '.current($gate)['gate_id'].' GROUP BY passages.id';
                     
                     return $this->db->query($sql);
                 }
