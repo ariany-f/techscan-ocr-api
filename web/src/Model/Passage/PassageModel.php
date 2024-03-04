@@ -104,6 +104,7 @@ namespace src\Model\Passage {
                     SELECT passage_bind.* FROM passage_bind
                         INNER JOIN passages ON passages.bind_id = passage_bind.id
                     ".$where." 
+                    GROUP BY passage_bind.id
                     ORDER BY passage_bind.id DESC
                 ";
 
