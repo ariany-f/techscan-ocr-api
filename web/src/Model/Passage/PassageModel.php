@@ -64,7 +64,7 @@ namespace src\Model\Passage {
                         INNER JOIN cameras ON cameras.id = passages.camera
                         INNER JOIN representative_img ON representative_img.id = cameras.representative_img_id
                     " . $where . "
-                    GROUP BY representative_img.url";
+                    GROUP BY Posicao";
 
                 return $this->db->query($sql);
             } catch (Exception $e) {
