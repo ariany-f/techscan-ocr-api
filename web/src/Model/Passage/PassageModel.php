@@ -121,7 +121,7 @@ namespace src\Model\Passage {
                             passages.container, 
                             cameras.name as camera,
                             gates.name as gate,
-                            directions.description as direction,
+                            COALESCE(directions.description, 'Não definida') as direction,
                             representative_img.url as position,
                             users.name AS updated_by,
                             passages.updated_at AS updated_at,
@@ -129,7 +129,7 @@ namespace src\Model\Passage {
                             GROUP_CONCAT(passage_images.url, '') as images
                         FROM 
                             passages 
-                        INNER JOIN directions ON directions.id = passages.direction
+                        LEFT JOIN directions ON directions.id = passages.direction
                         LEFT JOIN passage_images ON passage_images.passage_id = passages.id
                         LEFT JOIN cameras ON cameras.id = passages.camera
                         LEFT JOIN representative_img ON cameras.representative_img_id = representative_img.id
