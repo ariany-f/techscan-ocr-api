@@ -601,27 +601,25 @@ class IndexController extends App
 
             $id = $this->checkFieldRequest($params, 'id', false, "integer");
             $binded_passages = $this->passageModel->getBindPassages($id);
-            Utils::saveLogFile('binded_passages.log', [
-                'binded_passages' => $binded_passages,
-            ]);
-            // foreach($binded_passages as $bind_passage)
-            // {
-            //     $params['id'] = $bind_passage['id'];
-            //     $params['is_ok'] = $params['is_ok'] ?? null;
-            //     $params['preset_reason'] = isset($params['preset_reason']) ? $this->checkFieldRequest($params, 'preset_reason', false, "integer") : null;
-            //     $params['description_reason'] = isset($params['description_reason']) ? $this->checkFieldRequest($params, 'description_reason', false) : null;
-            //     $params['updated_by'] = isset($params['updated_by']) ? $this->checkFieldRequest($params, 'updated_by', false) : null;
+           
+            foreach($binded_passages as $bind_passage)
+            {
+                $params['id'] = $bind_passage['id'];
+                $params['is_ok'] = $params['is_ok'] ?? null;
+                $params['preset_reason'] = isset($params['preset_reason']) ? $this->checkFieldRequest($params, 'preset_reason', false, "integer") : null;
+                $params['description_reason'] = isset($params['description_reason']) ? $this->checkFieldRequest($params, 'description_reason', false) : null;
+                $params['updated_by'] = isset($params['updated_by']) ? $this->checkFieldRequest($params, 'updated_by', false) : null;
     
-            //     $result = $this->passageModel->alterar($params);
+                $result = $this->passageModel->alterar($params);
                 
-            //     if($result) {
+                if($result) {
 
-            //         $return[] = [
-            //             'id'=> $result,
-            //             'is_ok' => $params['is_ok']
-            //         ];
-            //     }
-            // }
+                    $return[] = [
+                        'id'=> $result,
+                        'is_ok' => $params['is_ok']
+                    ];
+                }
+            }
 
             $this->output->setCode(200);
             $this->output->setMessage( 'Passagem alterada com sucesso!' );
