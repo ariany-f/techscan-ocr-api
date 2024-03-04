@@ -137,7 +137,7 @@ namespace src\Model\Passage {
                         WHERE bind_id = ".$passage['id']."
                     ";
 
-                    $passages[$key]['itens'] = $this->db->query($passage_sql);
+                    $passages[$key]['itens'][] = $this->db->query($passage_sql);
                 }
 
                 return $passages;
