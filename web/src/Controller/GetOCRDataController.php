@@ -120,7 +120,10 @@ class GetOCRDataController extends App
         switch($this->api)
         {
             case 'securos':
-                $result = $this->Securos->getCameras()['data'];
+                $result = $this->Securos->getCameras();
+                Utils::validate($result);
+
+                $result = $result['data'];
                 $params['api_origin'] = 1;
                 foreach($result as $camera)
                 {
