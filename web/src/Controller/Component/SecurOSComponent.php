@@ -108,6 +108,18 @@ namespace Src\Controller\Component {
                     ];
                     return json_decode(json_encode($error), true);
                     break;
+                // Aplication timeout
+                case 408:
+                    $error = [
+                        'errors' => [
+                            [
+                                'code' => '408',
+                                'description' => 'TimeOut'
+                            ]
+                        ]
+                    ];
+                    return json_decode(json_encode($error), true);
+                    break;
                 //Internal Server Error
                 case 500:
                     $error = [
