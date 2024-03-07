@@ -350,7 +350,7 @@ CREATE TABLE `users_status` (
 
 CREATE TABLE `passage_bind` (
   `id` int(11) NOT NULL,
-  'description' varchar(255) NULL,
+  `description` varchar(255) NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
