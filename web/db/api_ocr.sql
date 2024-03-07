@@ -347,12 +347,13 @@ CREATE TABLE `users_status` (
   `descricao` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `api_ocr`.`passage_bind` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+
+CREATE TABLE `passage_bind` (
+  `id` int(11) NOT NULL,
   'description' varchar(255) NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
-  PRIMARY KEY (`id`));
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
@@ -387,9 +388,19 @@ CREATE TABLE `options` (
 INSERT INTO `options` (`id`, `description`, `value`) VALUES
 (1, 'register_collapse_seconds', '30');
 
+
+
 --
 -- Índices para tabelas despejadas
 --
+
+
+
+--
+-- Índices de tabela `options`
+--
+ALTER TABLE `passage_bind`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices de tabela `options`
@@ -514,6 +525,14 @@ ALTER TABLE `securos_websocket`
 ALTER TABLE `securos_websocket`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=271;
 COMMIT;
+
+--
+-- AUTO_INCREMENT de tabela `passage_bind`
+--
+ALTER TABLE `passage_bind`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=271;
+COMMIT;
+
 
 --
 -- AUTO_INCREMENT de tabela `apis_users_status`
