@@ -162,7 +162,7 @@ class WebSocketController extends App
                 $passage['imagens'][] = $tmp_file.$file_name;
             }
 
-            if(empty($passage['imagens']))
+            if((!isset($passage['imagens'])) or empty($passage['imagens']))
             {
                 $image = $this->Securos->getBestViewDataImage($camera_id, $save['time_enter']);
                 if(!isset($image['errors']))
