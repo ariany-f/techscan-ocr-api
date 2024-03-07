@@ -121,9 +121,19 @@ class GetOCRDataController extends App
         {
             case 'securos':
                 $result = $this->Securos->getCameras();
-                Utils::validate($result);
+                
+                if(isset($result['data']))
+                {
+                    $result = $result['data'];
+                }
+                else
+                {
+                    $result = [
+                        'Não há OCR configurado, por favor contate o administrador'
+                    ];
+                    break;
+                }
 
-                $result = $result['data'];
                 $params['api_origin'] = 1;
                 foreach($result as $camera)
                 {
