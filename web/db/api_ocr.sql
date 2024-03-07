@@ -329,7 +329,6 @@ CREATE TABLE `securos_websocket` (
   `uuid` varchar(255) NOT NULL,
   `image_path` varchar(255) NOT NULL,
   `direction_id` int(11) NOT NULL,
-  `integracao_status` BOOLEAN(1) NOT NULL,
   `type` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
