@@ -270,12 +270,13 @@ class WebSocketController extends App
 
                 if(!empty($out))
                 {
-                    $moda_direction = array_keys($out, max($out));
+                    arsort($out);
+                    reset($out);
     
                     Utils::saveLogFile('moda.log', [
                         'result' => [
                             'id' => $bind_id,
-                            'moda' => $moda_direction
+                            'moda' => $out
                         ]
                     ]);
                 }
