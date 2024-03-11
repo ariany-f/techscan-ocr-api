@@ -276,7 +276,7 @@ class WebSocketController extends App
                     Utils::saveLogFile('moda.log', [
                         'result' => [
                             'id' => $bind_id,
-                            'moda' => $out
+                            'moda' =>  key($out)
                         ]
                     ]);
                 }
