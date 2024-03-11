@@ -201,7 +201,7 @@ class WebSocketController extends App
             
             $date_enter = (isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']));
             $params_time['description'] = 'register_collapse_seconds';
-            $time = (parseInt(current($this->optionModel->get($params_time['description']))['value'])+4);
+            $time = (current($this->optionModel->get($params_time['description']))['value']+4);
             $date_exit = date('Y-m-d H:i:s', strtotime($date_enter)-$time);
 
             sleep(4);
