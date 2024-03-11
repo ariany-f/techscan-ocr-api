@@ -244,6 +244,12 @@ class WebSocketController extends App
             Utils::saveLogFile('passages_direction_not_calculated.log', [
                 'result' => $passages_direction_not_calculated
             ]);
+
+            $grouped_by_bind_id = _group_by($passages_direction_not_calculated, 'bind_id');
+
+            Utils::saveLogFile('passages_direction_not_calculated_grouped.log', [
+                'result' => $grouped_by_bind_id
+            ]);
           
             //Criar registro da passagem
             if(empty($exists))
@@ -261,6 +267,14 @@ class WebSocketController extends App
 
         }
         $this->output->now();
+    }
+
+    function _group_by($array, $key) {
+        $return = array();
+        foreach($array as $val) {
+            $return[$val[$key]][] = $val;
+        }
+        return $return;
     }
 
     public function subscribe()

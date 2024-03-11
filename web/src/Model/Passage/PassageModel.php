@@ -370,7 +370,7 @@ namespace src\Model\Passage {
         {  
             try {
                 
-                $sql = 'SELECT passages.direction FROM passages WHERE datetime < "'.$date_enter.'" AND direction_calculated = 0 GROUP BY passages.id';
+                $sql = 'SELECT passages.id, passages.direction, passages.bind_id FROM passages WHERE datetime < "'.$date_enter.'" AND direction_calculated = 0 GROUP BY passages.id';
                     
                 return $this->db->query($sql);
 
