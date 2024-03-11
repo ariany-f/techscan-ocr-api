@@ -254,14 +254,14 @@ class WebSocketController extends App
             foreach($grouped_by_bind_id as $binded_passage)
             {
                 
-                $onlyKeys = ['direction'];
+                // $onlyKeys = ['direction'];
                 
-                $filteredArray = array_filter($binded_passage, function($v) use ($onlyKeys) {
-                    return in_array($v, $onlyKeys);
-                }, ARRAY_FILTER_USE_KEY);
+                // $filteredArray = array_filter($binded_passage, function($v) use ($onlyKeys) {
+                //     return in_array($v, $onlyKeys);
+                // }, ARRAY_FILTER_USE_KEY);
 
                 Utils::saveLogFile('passages_direction_not_calculated_filtered.log', [
-                    'result' => $filteredArray
+                    'result' => array_count_values($binded_passage)
                 ]);
             }
           
