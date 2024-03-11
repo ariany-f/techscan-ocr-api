@@ -546,7 +546,8 @@ class IndexController extends App
             $id = $this->params[0] ?? null;
             $data_inicial = $params['dataInicial'] ?? null;
             $data_final = $params['dataFinal'] ?? null;
-            $result = $this->passageModel->get($id, $data_inicial, $data_final);
+            $direcao = $params['direction'] ?? null;
+            $result = $this->passageModel->get($id, $data_inicial, $data_final, $direcao);
             
             if(isset($result) and !empty($result))
             {
