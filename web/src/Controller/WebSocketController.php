@@ -245,7 +245,7 @@ class WebSocketController extends App
                 'result' => $passages_direction_not_calculated
             ]);
 
-            $grouped_by_bind_id = _group_by($passages_direction_not_calculated, 'bind_id');
+            $grouped_by_bind_id = $this->_group_by($passages_direction_not_calculated, 'bind_id');
 
             Utils::saveLogFile('passages_direction_not_calculated_grouped.log', [
                 'result' => $grouped_by_bind_id
