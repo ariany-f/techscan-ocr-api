@@ -49,12 +49,13 @@ namespace src\Model\Passage {
             return $result;
         }
 
-        public function getStatistics($id = null, $data_inicial = null, $data_final = null){
+        public function getStatistics($id = null, $data_inicial = null, $data_final = null, $direcao = null){
             
             try {
                     $where = !empty($id) ? " WHERE passages.id = $id" : " WHERE 1 = 1";
                     $where .= (!empty($data_inicial)) ? " AND passages.datetime >= '$data_inicial'" : "";
                     $where .= (!empty($data_final)) ? " AND passages.datetime <= '$data_final'" : "";
+                    $where .= (!empty($direcao)) ? " AND passages.direction = $direcao" : "";
                     $sql = "SELECT
                         cameras.position AS Camera,
                         IF(representative_img.url = 'placa', 'frente', representative_img.url) AS Posicao,
