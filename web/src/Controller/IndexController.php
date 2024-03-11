@@ -513,10 +513,7 @@ class IndexController extends App
 
             if($result) {
 
-                $return = [
-                    'plate' => $params['plate'],
-                    'container' => $params['container']
-                ];
+                $return = [];
 
                 $this->output->setCode(200);
                 $this->output->setMessage( 'Passagem alterada com sucesso!' );
