@@ -251,29 +251,27 @@ class WebSocketController extends App
                 'result' => $grouped_by_bind_id
             ]);
 
-            foreach($grouped_by_bind_id as $binded_passage)
+            foreach($grouped_by_bind_id as $bind_id => $binded_passage)
             {
-                
-                // $onlyKeys = ['direction'];
-                
-                // $filteredArray = array_filter($binded_passage, function($v) use ($onlyKeys) {
-                //     return in_array($v, $onlyKeys);
-                // }, ARRAY_FILTER_USE_KEY);
                 $out = array();
                 foreach ($binded_passage as $key => $value){
-                    foreach ($value as $key2 => $value2){
-                        $index = $key2.'-'.$value2;
+                    if($key === 'direction')
+                    {
                         if (array_key_exists($index, $out)){
-                            $out[$index]++;
+                            $out[$$value]++;
                         } else {
-                            $out[$index] = 1;
+                            $out[$$value] = 1;
                         }
                     }
                 }
-                
 
-                Utils::saveLogFile('passages_direction_not_calculated_filtered.log', [
-                    'result' => $out
+                $moda_direction = array_keys($out, max($out));
+
+                Utils::saveLogFile('moda.log', [
+                    'result' => [
+                        'id' => $bind_id,
+                        'moda' => $moda_direction
+                    ]
                 ]);
             }
           
