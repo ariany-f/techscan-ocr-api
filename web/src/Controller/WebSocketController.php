@@ -99,23 +99,28 @@ class WebSocketController extends App
         ]);
 
         $save['request_json'] = json_encode($request);
-        $save['action'] = $request[0]['action'];
-        $save['number'] = $request[0]['params']['number'];
-        $save['camera'] = $request[0]['params']['camera_id'];
-        $save['uuid'] = $request[0]['params']['uuid'];
-        $save['direction_id'] = $request[0]['params']['direction_id'];
-        $save['weight'] = $request[0]['params']['weight'];
-        $save['recognizer'] = $request[0]['params']['recognizer_id'];
-        $save['time_enter'] = isset($request[0]['params']['time_enter']) ? $request[0]['params']['time_enter'] : str_replace('T', ' ', $request[0]['time']);
-        $save['time_leave'] = isset($request[0]['params']['time_leave']) ? $request[0]['params']['time_leave'] : str_replace('T', ' ', $request[0]['time']);
-        $save['source'] = $request[0]['params']['__source'];
-        $tmp_file = 'img/tmp/';
-        $path = $this->public. $tmp_file;
-        $file_name = 'securos-'.$request[0]['params']['tid'].'.jpeg';
-        $file_path = $path.$file_name;
-        $save['image_path'] = $file_path;
-        $save['type'] =  $request[0]['type'];
-        $this->websocketModel->save($save);
+
+        foreach($request as $event)
+        {
+            $save['action'] = $event['action'];
+            $save['number'] = $event['params']['number'];
+            $save['camera'] = $event['params']['camera_id'];
+            $save['uuid'] = $event['params']['uuid'];
+            $save['direction_id'] = $event['params']['direction_id'];
+            $save['weight'] = $event['params']['weight'];
+            $save['recognizer'] = $event['params']['recognizer_id'];
+            $save['time_enter'] = isset($event['params']['time_enter']) ? $event['params']['time_enter'] : str_replace('T', ' ', $event['time']);
+            $save['time_leave'] = isset($event['params']['time_leave']) ? $event['params']['time_leave'] : str_replace('T', ' ', $event['time']);
+            $save['source'] = $event['params']['__source'];
+            $tmp_file = 'img/tmp/';
+            $path = $this->public. $tmp_file;
+            $file_name = 'securos-'.$event['params']['tid'].'.jpeg';
+            $file_path = $path.$file_name;
+            $save['image_path'] = $file_path;
+            $save['type'] =  $event['type'];
+            $this->websocketModel->save($save);
+        }
+        
         
         foreach($request as $k => $passage)
         {
@@ -196,12 +201,12 @@ class WebSocketController extends App
             if(str_contains($passage['type'], 'CNR'))
             {
                 $params['container'] = $passage['params']['number'];
-                $exists = $this->passageModel->exists('container', str_replace('T', ' ', $passage['time']), $passage['params']['number'], $params['camera']);
+              //  $exists = $this->passageModel->exists('container', str_replace('T', ' ', $passage['time']), $passage['params']['number'], $params['camera']);
             }
             else
             {
                 $params['plate'] = $passage['params']['number'];
-                $exists = $this->passageModel->exists('plate', $passage['params']['time_enter'], $passage['params']['number'], $params['camera']);
+                //$exists = $this->passageModel->exists('plate', $passage['params']['time_enter'], $passage['params']['number'], $params['camera']);
             }
             
             $date_enter = (isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']));
@@ -287,17 +292,17 @@ class WebSocketController extends App
             }
           
             //Criar registro da passagem
-            if(empty($exists))
+            // if(empty($exists))
+            // {
+            $id = $this->passageModel->save($params);
+        
+            foreach($passage['imagens'] as $img)
             {
-                $id = $this->passageModel->save($params);
-            
-                foreach($passage['imagens'] as $img)
-                {
-                    $passage_image_param['passage_id'] = $id;
-                    $passage_image_param['url'] = $img;
-                    $this->passageImageModel->save($passage_image_param);
-                }
+                $passage_image_param['passage_id'] = $id;
+                $passage_image_param['url'] = $img;
+                $this->passageImageModel->save($passage_image_param);
             }
+            // }
         }
         $this->output->now();
     }
