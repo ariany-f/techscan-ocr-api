@@ -266,14 +266,17 @@ class WebSocketController extends App
                     }
                 }
 
-                $moda_direction = array_keys($out, max($out));
-
-                Utils::saveLogFile('moda.log', [
-                    'result' => [
-                        'id' => $bind_id,
-                        'moda' => $moda_direction
-                    ]
-                ]);
+                if(!empty($out))
+                {
+                    $moda_direction = array_keys($out, max($out));
+    
+                    Utils::saveLogFile('moda.log', [
+                        'result' => [
+                            'id' => $bind_id,
+                            'moda' => $moda_direction
+                        ]
+                    ]);
+                }
             }
           
             //Criar registro da passagem
