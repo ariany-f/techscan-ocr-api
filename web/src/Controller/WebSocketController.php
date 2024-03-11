@@ -255,6 +255,9 @@ class WebSocketController extends App
             {
                 $out = array();
                 foreach ($binded_passage as $key => $value){
+                    Utils::saveLogFile('key.log', [
+                        'key' => $key
+                    ]);
                     if($key === 'direction')
                     {
                         if (array_key_exists($value, $out)){
