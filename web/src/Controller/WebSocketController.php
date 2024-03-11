@@ -142,6 +142,10 @@ class WebSocketController extends App
             $date_enter = (isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']));
             $params_time['description'] = 'register_collapse_seconds';
             $time = 2;
+            if(str_contains($passage['type'], 'CNR'))
+            {
+                $time = 200;
+            }
             $date_exit =  date( 'Y-m-d H:i:s', strtotime($date_enter)+$time);
             $image = $this->Securos->getBestViewDataImage($camera_id, $date_exit);
             if(!isset($image['errors']))
