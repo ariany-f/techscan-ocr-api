@@ -177,6 +177,11 @@ class WebSocketController extends App
                     $passage['imagens'][] = $tmp_file.$file_name;
                 }
             }
+            
+            if((!isset($passage['imagens'])) or empty($passage['imagens']))
+            {
+               $passage['imagens'] = [];
+            }
 
             $params['api_origin'] = 2;
             $params['direction'] = $passage['params']['direction_id'];
@@ -283,8 +288,6 @@ class WebSocketController extends App
                     $this->passageImageModel->save($passage_image_param);
                 }
             }
-
-
         }
         $this->output->now();
     }
