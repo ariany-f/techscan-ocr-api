@@ -246,11 +246,10 @@ class WebSocketController extends App
             //Pegar passagens ainda sem calculo de direção
             $passages_direction_not_calculated = $this->passageModel->getNotCalculatedDirectionPassages($date_exit, $date_enter);
 
-            Utils::saveLogFile('passages_direction_not_calculated.log', [
-                'result' => $passages_direction_not_calculated
-            ]);
-
             $grouped_by_bind_id = $this->_group_by($passages_direction_not_calculated, 'bind_id');
+            Utils::saveLogFile('passages_direction_not_calculated.log', [
+                'result' => $grouped_by_bind_id
+            ]);
 
             foreach($grouped_by_bind_id as $bind_id => $binded_passage)
             {
