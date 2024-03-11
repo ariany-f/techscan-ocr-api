@@ -260,7 +260,7 @@ class WebSocketController extends App
                         if($key2 === 'direction')
                         {
                             if (array_key_exists($value2, $out)){
-                                $out[$value]++;
+                                $out[$value] = $out[$value]+1;
                             } else {
                                 $out[$value2] = 1;
                             }
