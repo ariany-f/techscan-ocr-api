@@ -255,17 +255,17 @@ class WebSocketController extends App
             {
                 $out = array();
                 foreach ($binded_passage as $key => $value){
-                    Utils::saveLogFile('key.log', [
-                        'key' => $key
-                    ]);
-                    if($key === 'direction')
+                    foreach($value as $key2 => $value2)
                     {
-                        if (array_key_exists($value, $out)){
-                            $out[$value]++;
-                        } else {
-                            $out[$value] = 1;
+                        if($key2 === 'direction')
+                        {
+                            if (array_key_exists($value2, $out)){
+                                $out[$value]++;
+                            } else {
+                                $out[$value2] = 1;
+                            }
                         }
-                    }
+                    }                    
                 }
 
                 Utils::saveLogFile('out.log', [
