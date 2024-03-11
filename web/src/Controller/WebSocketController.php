@@ -258,10 +258,10 @@ class WebSocketController extends App
                 foreach ($binded_passage as $key => $value){
                     if($key == 'direction')
                     {
-                        if (array_key_exists($index, $out)){
-                            $out[$$value]++;
+                        if (array_key_exists($value, $out)){
+                            $out[$value]++;
                         } else {
-                            $out[$$value] = 1;
+                            $out[$value] = 1;
                         }
                     }
                 }
