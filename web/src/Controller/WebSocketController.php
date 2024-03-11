@@ -272,13 +272,17 @@ class WebSocketController extends App
                 {
                     arsort($out);
                     reset($out);
-    
-                    Utils::saveLogFile('moda.log', [
-                        'result' => [
-                            'id' => $bind_id,
-                            'moda' =>  key($out)
-                        ]
-                    ]);
+
+                    $alterar = $this->passageModel->getBindPassages($bind_id);
+
+                    foreach($alterar as $psg)
+                    {
+                        $prms['id'] = $psg['id'];
+                        $prms['direction_calculated'] = 1;
+                        $prms['direction'] = key($out);
+                       
+                        $result = $this->passageModel->alterar($prms);
+                    }
                 }
             }
           

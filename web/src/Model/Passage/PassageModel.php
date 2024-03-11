@@ -238,11 +238,17 @@ namespace src\Model\Passage {
             if($params['updated_by']) {
                 $columns['updated_by'] = $params['updated_by'];
             }
+            if($params['direction']) {
+                $columns['direction'] = $params['direction'];
+            }
             if($params['preset_reason']) {
                 $columns['preset_reason'] = $params['preset_reason'];
             }
             if($params['description_reason']) {
                 $columns['description_reason'] = $params['description_reason'];
+            }
+            if($params['direction_calculated']) {
+                $columns['direction_calculated'] = $params['direction_calculated'];
             }
 
             $update_data = [
@@ -262,16 +268,24 @@ namespace src\Model\Passage {
          */
         public function updateBind(array $params)
         {
+            if($params['direction_calculated']) {
+                $columns['direction_calculated'] = $params['direction_calculated'];
+            }
+            if($params['plate']) {
+                $columns['plate'] = $params['plate'];
+            }
+            if($params['container']) {
+                $columns['container'] = $params['container'];
+            }
+            if($params['bind_id']) {
+                $columns['bind_id'] = $params['bind_id'];
+            }
             $update_data = [
                 'table' => 'passages',
                 'id' => [
                       'id' => $params['id']
                 ],
-                'columns' => [
-                      'plate' => $params['plate'],
-                      'container' => $params['container'],
-                      'bind_id' => $params['bind_id'] ?? null
-                ]
+                'columns' => $columns
             ];
             return $this->db->update($update_data);
         }
