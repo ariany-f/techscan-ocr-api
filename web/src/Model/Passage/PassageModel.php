@@ -365,6 +365,21 @@ namespace src\Model\Passage {
                 ]);
             }
         }
+                
+        public function getNotCalculatedDirectionPassages($date_enter, $date_leave)
+        {  
+            try {
+                
+                $sql = 'SELECT passages.direction FROM passages WHERE datetime < "'.$date_enter.'" AND direction_calculated = 0 GROUP BY passages.id';
+                    
+                return $this->db->query($sql);
+
+            } catch (Exception $e) {
+                Utils::saveLogFile('catch error.log', [
+                    'errors' => $e->getMessage()
+                ]);
+            }
+        }
 
         /**
          * Pega as Passagens

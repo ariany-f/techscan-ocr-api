@@ -178,7 +178,6 @@ class WebSocketController extends App
                 }
             }
 
-
             $params['api_origin'] = 2;
             $params['direction'] = $passage['params']['direction_id'];
             $params['datetime'] = isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']);
@@ -202,8 +201,8 @@ class WebSocketController extends App
             
             $date_enter = (isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']));
             $params_time['description'] = 'register_collapse_seconds';
-            $time = current($this->optionModel->get($params_time['description']))['value'];
-            $date_exit = date( 'Y-m-d H:i:s', strtotime($date_enter)-$time);
+            $time = (parseInt(current($this->optionModel->get($params_time['description']))['value'])+4);
+            $date_exit = date('Y-m-d H:i:s', strtotime($date_enter)-$time);
 
             sleep(4);
             //Verificar se passagem coincide com outra passagem pela data e hora da passagem
@@ -238,6 +237,13 @@ class WebSocketController extends App
                 $id_bind = $this->passageBindModel->save($params_bind);
                 $params['bind_id'] = $id_bind;
             }
+
+            //Pegar passagens ainda sem calculo de direção
+            $passages_direction_not_calculated = $this->passageModel->getNotCalculatedDirectionPassages($date_exit, $date_enter);
+
+            Utils::saveLogFile('passages_direction_not_calculated.log', [
+                'result' => $passages_direction_not_calculated
+            ]);
           
             //Criar registro da passagem
             if(empty($exists))
@@ -251,6 +257,8 @@ class WebSocketController extends App
                     $this->passageImageModel->save($passage_image_param);
                 }
             }
+
+
         }
         $this->output->now();
     }
