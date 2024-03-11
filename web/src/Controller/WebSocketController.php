@@ -268,10 +268,6 @@ class WebSocketController extends App
                     }                    
                 }
 
-                Utils::saveLogFile('out.log', [
-                    'result' => $out
-                ]);
-
                 if(!empty($out))
                 {
                     $moda_direction = array_keys($out, max($out));
