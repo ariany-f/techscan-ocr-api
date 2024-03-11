@@ -100,11 +100,10 @@ namespace src\Model\Passage {
                 $where = !empty($id) ? " WHERE passage_bind.id = $id" : " WHERE 1 = 1";
                 $where .= (!empty($data_inicial)) ? " AND passage_bind.created_at >= '$data_inicial'" : "";
                 $where .= (!empty($data_final)) ? " AND ((passage_bind.updated_at IS NOT NULL AND passage_bind.updated_at <= '$data_final') OR passage_bind.created_at <= '$data_final')" : "";
-                $where .= (!empty($direcao)) ? " AND directions.description = '$direcao'" : "";
+                $where .= (!empty($direcao)) ? " AND passages.direction = $direcao" : "";
                 $sql = "
                     SELECT passage_bind.* FROM passage_bind
                         INNER JOIN passages ON passages.bind_id = passage_bind.id
-                        INNER JOIN directions ON directions.id = passages.direction
                     ".$where." 
                     GROUP BY passage_bind.id
                     ORDER BY passage_bind.id DESC
