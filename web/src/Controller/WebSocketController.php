@@ -250,6 +250,20 @@ class WebSocketController extends App
             Utils::saveLogFile('passages_direction_not_calculated_grouped.log', [
                 'result' => $grouped_by_bind_id
             ]);
+
+            foreach($grouped_by_bind_id as $binded_passage)
+            {
+                
+                $onlyKeys = ['direction'];
+                
+                $filteredArray = array_filter($binded_passage, function($v) use ($onlyKeys) {
+                    return in_array($v, $onlyKeys);
+                }, ARRAY_FILTER_USE_KEY);
+
+                Utils::saveLogFile('passages_direction_not_calculated_filtered.log', [
+                    'result' => $filteredArray
+                ]);
+            }
           
             //Criar registro da passagem
             if(empty($exists))
