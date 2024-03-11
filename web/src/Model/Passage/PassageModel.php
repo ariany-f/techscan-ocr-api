@@ -232,22 +232,22 @@ namespace src\Model\Passage {
         {
             $columns = [];
 
-            if($params['is_ok']) {
+            if(isset($params['is_ok'])) {
                 $columns['is_ok'] = $params['is_ok'];
             }
-            if($params['updated_by']) {
+            if(isset($params['updated_by'])) {
                 $columns['updated_by'] = $params['updated_by'];
             }
-            if($params['direction']) {
+            if(isset($params['direction'])) {
                 $columns['direction'] = $params['direction'];
             }
-            if($params['preset_reason']) {
+            if(isset($params['preset_reason'])) {
                 $columns['preset_reason'] = $params['preset_reason'];
             }
-            if($params['description_reason']) {
+            if(isset($params['description_reason'])) {
                 $columns['description_reason'] = $params['description_reason'];
             }
-            if($params['direction_calculated']) {
+            if(isset($params['direction_calculated'])) {
                 $columns['direction_calculated'] = $params['direction_calculated'];
             }
 
