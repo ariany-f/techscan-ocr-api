@@ -126,6 +126,7 @@ namespace src\Model\Passage {
                             COALESCE(directions.description, 'Não definida') as direction,
                             representative_img.url as position,
                             users.name AS updated_by,
+                            IF(passages.is_ok, IF(users.name, 'Erro', 'Aprovada'), 'Pendente') as status,
                             passages.updated_at AS updated_at,
                             COALESCE(reasons.description, passages.description_reason) as error_reason,
                             GROUP_CONCAT(passage_images.url, '') as images
