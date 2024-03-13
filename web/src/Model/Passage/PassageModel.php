@@ -105,10 +105,13 @@ namespace src\Model\Passage {
                 $sql = "
                     SELECT 
                         passage_bind.*, 
+                        COALESCE(gates.name, 'Não encontrado') as gate,
                         IF(passages.is_ok, IF(users.name, 'Erro', 'Aprovada'), 'Pendente') as status
                      FROM passage_bind
                         INNER JOIN passages ON passages.bind_id = passage_bind.id
                         LEFT JOIN users ON users.id = passages.updated_by
+                        LEFT JOIN cameras ON cameras.id = passages.camera
+                        LEFT JOIN gates ON gates.id = cameras.gate_id
                     ".$where." 
                     GROUP BY passage_bind.id
                     ORDER BY passage_bind.id DESC
