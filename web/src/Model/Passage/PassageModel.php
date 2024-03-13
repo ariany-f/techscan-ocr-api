@@ -103,8 +103,12 @@ namespace src\Model\Passage {
                 $where .= (!empty($data_final)) ? " AND ((passage_bind.updated_at IS NOT NULL AND passage_bind.updated_at <= '$data_final') OR passage_bind.created_at <= '$data_final')" : "";
                 $where .= (!empty($direcao)) ? " AND passages.direction = $direcao" : "";
                 $sql = "
-                    SELECT passage_bind.* FROM passage_bind
+                    SELECT 
+                        passage_bind.*, 
+                        IF(passages.is_ok, IF(users.name, 'Erro', 'Aprovada'), 'Pendente') as status,
+                     FROM passage_bind
                         INNER JOIN passages ON passages.bind_id = passage_bind.id
+                        LEFT JOIN users ON users.id = passages.updated_by
                     ".$where." 
                     GROUP BY passage_bind.id
                     ORDER BY passage_bind.id DESC
