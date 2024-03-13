@@ -105,7 +105,7 @@ namespace src\Model\Passage {
                 $sql = "
                     SELECT 
                         passage_bind.*, 
-                        IF(passages.is_ok, IF(users.name, 'Erro', 'Aprovada'), 'Pendente') as status,
+                        IF(passages.is_ok, IF(users.name, 'Erro', 'Aprovada'), 'Pendente') as status
                      FROM passage_bind
                         INNER JOIN passages ON passages.bind_id = passage_bind.id
                         LEFT JOIN users ON users.id = passages.updated_by
