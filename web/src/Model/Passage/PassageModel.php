@@ -157,6 +157,7 @@ namespace src\Model\Passage {
                         LEFT JOIN users u ON u.id = p.updated_by
                         LEFT JOIN reasons r ON r.id = p.preset_reason 
                         WHERE p.bind_id = ".$passage['id']."
+                        GROUP BY p.id
                         ORDER BY p.id DESC;
                     ";
 
