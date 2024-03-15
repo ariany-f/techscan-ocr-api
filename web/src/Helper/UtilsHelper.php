@@ -34,8 +34,8 @@ namespace src\Helper {
 
             return $mobile;
         }
-        
-        function verificarString($string, $array) {
+
+        public static function verificarString($string, $array) {
             // Usa array_reduce() para verificar se algum elemento do array está presente na string
             return array_reduce($array, function($carry, $elemento) use ($string) {
                 // Verifica se o elemento está presente na string
