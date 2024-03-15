@@ -95,7 +95,7 @@ class WebSocketController extends App
         $blacklist = [
             '1111',
             '44444',
-            'III'
+            'IIII'
         ];
 
         $request = $this->json;
