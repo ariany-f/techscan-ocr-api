@@ -106,7 +106,14 @@ namespace src\Model\Passage {
                     SELECT 
                         passage_bind.*, 
                         COALESCE(gates.name, 'Não encontrado') as gate,
-                        IF(passages.is_ok, IF(users.name, 'Erro', 'Aprovada'), 'Pendente') as status
+                        CASE
+                            WHEN passages.is_ok THEN
+                                CASE
+                                    WHEN users.name THEN 'Erro'
+                                    ELSE 'Aprovada'
+                                END
+                            ELSE 'Pendente'
+                        END as status
                      FROM passage_bind
                         INNER JOIN passages ON passages.bind_id = passage_bind.id
                         LEFT JOIN users ON users.id = passages.updated_by
@@ -122,109 +129,41 @@ namespace src\Model\Passage {
                 foreach($passages as $key => $passage) {
                     $passage_sql = "
                         SELECT 
-                            passages.id, 
-                            passages.is_ok, 
-                            passages.plate, 
-                            passages.datetime, 
-                            passages.bind_id, 
-                            passages.container, 
-                            COALESCE(cameras.name, 'Não encontrada') as camera,
-                            COALESCE(gates.name, 'Não encontrado') as gate,
-                            COALESCE(directions.description, 'Não definida') as direction,
-                            representative_img.url as position,
-                            users.name AS updated_by,
-                            IF(passages.is_ok, IF(users.name, 'Erro', 'Aprovada'), 'Pendente') as status,
-                            passages.updated_at AS updated_at,
-                            COALESCE(reasons.description, passages.description_reason) as error_reason,
-                            GROUP_CONCAT(passage_images.url, '') as images
+                            p.id, 
+                            p.is_ok, 
+                            p.plate, 
+                            p.datetime, 
+                            p.bind_id, 
+                            p.container, 
+                            COALESCE(c.name, 'Não encontrada') as camera,
+                            COALESCE(g.name, 'Não encontrado') as gate,
+                            COALESCE(d.description, 'Não definida') as direction,
+                            ri.url as position,
+                            u.name AS updated_by,
+                            CASE
+                                WHEN p.is_ok AND u.name THEN 'Erro'
+                                WHEN p.is_ok THEN 'Aprovada'
+                                ELSE 'Pendente'
+                            END as status,
+                            p.updated_at AS updated_at,
+                            COALESCE(r.description, p.description_reason) as error_reason,
+                            (SELECT GROUP_CONCAT(pi.url, '') FROM passage_images pi WHERE pi.passage_id = p.id) as images
                         FROM 
-                            passages 
-                        LEFT JOIN directions ON directions.id = passages.direction
-                        LEFT JOIN passage_images ON passage_images.passage_id = passages.id
-                        LEFT JOIN cameras ON cameras.id = passages.camera
-                        LEFT JOIN representative_img ON cameras.representative_img_id = representative_img.id
-                        LEFT JOIN gates ON gates.id = cameras.gate_id
-                        LEFT JOIN users ON users.id = passages.updated_by
-                        LEFT JOIN reasons ON reasons.id = passages.preset_reason 
-                        WHERE bind_id = ".$passage['id']."
-                        GROUP BY passages.id
-                        ORDER BY passages.id DESC
+                            passages p
+                        LEFT JOIN directions d ON d.id = p.direction
+                        LEFT JOIN cameras c ON c.id = p.camera
+                        LEFT JOIN representative_img ri ON c.representative_img_id = ri.id
+                        LEFT JOIN gates g ON g.id = c.gate_id
+                        LEFT JOIN users u ON u.id = p.updated_by
+                        LEFT JOIN reasons r ON r.id = p.preset_reason 
+                        WHERE p.bind_id =  ".$passage['id']."
+                        ORDER BY p.id DESC;
                     ";
 
                     $passages[$key]['itens'] = $this->db->query($passage_sql);
                 }
 
                 return $passages;
-
-                $sql = "
-                    SELECT 
-                        GROUP_CONCAT(dt.id, '') as id,
-                        MAX(dt.updated_by) as updated_by,
-                        MAX(dt.updated_at) as updated_at,
-                        GROUP_CONCAT(dt.is_ok, ' | ') as status,
-                        MAX(dt.error_reason) as error_reason,
-                        GROUP_CONCAT(DISTINCT COALESCE(dt.plate, NULL), '') as plate,
-                        GROUP_CONCAT(dt.datetime, ' | ') as datetime,
-                        GROUP_CONCAT(DISTINCT COALESCE(dt.container, NULL), '') as container,
-                        dt.direction,
-                        dt.gate,
-                        GROUP_CONCAT(dt.camera, ' ') as cameras,
-                        GROUP_CONCAT(dt.images, ',') as images
-                FROM
-                    (
-                        SELECT 
-                            passages.id, 
-                            passages.is_ok, 
-                            passages.plate, 
-                            passages.datetime, 
-                            passages.bind_id, 
-                            passages.container, 
-                            cameras.name as camera,
-                            gates.name as gate,
-                            directions.description as direction,
-                            users.name AS updated_by,
-                            passages.updated_at AS updated_at,
-                            COALESCE(reasons.description, passages.description_reason) as error_reason,
-                            GROUP_CONCAT(passage_images.url, ',') as images
-                        FROM passages
-                            INNER JOIN directions ON directions.id = passages.direction
-                            LEFT JOIN passage_images ON passage_images.passage_id = passages.id
-                            LEFT JOIN cameras ON cameras.id = passages.camera
-                            LEFT JOIN gates ON gates.id = cameras.gate_id
-                            LEFT JOIN users ON users.id = passages.updated_by
-                            LEFT JOIN reasons ON reasons.id = passages.preset_reason 
-                        ".$where." 
-                        GROUP BY passages.id
-                UNION 
-                
-                        SELECT 
-                            passages.id, 
-                            passages.is_ok, 
-                            passages.plate,
-                            passages.datetime, 
-                            passages.bind_id, 
-                            passages.container, 
-                            cameras.name as camera,
-                            gates.name as gate,
-                            directions.description as direction,
-                            users.name AS updated_by,
-                            passages.updated_at AS updated_at,
-                            COALESCE(reasons.description, passages.description_reason) as error_reason,
-                            GROUP_CONCAT(passage_images.url, ',') as images
-                        FROM passages
-                            INNER JOIN directions ON directions.id = passages.direction
-                            LEFT JOIN passage_images ON passage_images.passage_id = passages.id
-                            LEFT JOIN cameras ON cameras.id = passages.camera
-                            LEFT JOIN gates ON gates.id = cameras.gate_id
-                            LEFT JOIN users ON users.id = passages.updated_by
-                            LEFT JOIN reasons ON reasons.id = passages.preset_reason 
-                        ".$where." 
-                        GROUP BY passages.id
-                    ) AS dt
-                GROUP BY DAY(dt.datetime), MONTH(dt.datetime), HOUR(dt.datetime), IFNULL(dt.bind_id, dt.id)
-                ORDER BY dt.datetime DESC;";
-
-                return $this->db->query($sql);
 
             } catch (Exception $e) {
                 Utils::saveLogFile('catch error.log', [
