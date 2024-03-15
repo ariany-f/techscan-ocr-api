@@ -92,6 +92,12 @@ class WebSocketController extends App
         $this->output->setCode(200);
         $this->output->setData(['WebSocket OCR API']);
 
+        $blacklist = [
+            '1111',
+            '44444',
+            'III'
+        ];
+
         $request = $this->json;
 
         Utils::saveLogFile('websocket_event.log', [
@@ -124,56 +130,10 @@ class WebSocketController extends App
         
         foreach($request as $k => $passage)
         {
-            $camera_id = $passage['params']['camera_id'];
-            $image = $this->Securos->getBestViewDataImage($camera_id, $save['time_leave']);
-            if(!isset($image['errors']))
+            if(UtilsHelper::verificarString($event['params']['number'], $blacklist))
             {
-                //Salvar imagem
-                $tmp_file = 'img/tmp/';
-                $path = $this->public. $tmp_file;
-                $file_name = 'securos-'.$passage['params']['tid'].'.jpeg';
-                $file_path = $path.$file_name;
-                file_put_contents($file_path, $image);
-    
-                $passage['imagens'][] = $tmp_file.$file_name;
-            }
-
-            
-            $date_enter = (isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']));
-            $params_time['description'] = 'register_collapse_seconds';
-            $time = 2;
-            if(str_contains($passage['type'], 'CNR'))
-            {
-                $time = 200;
-            }
-            $date_exit =  date( 'Y-m-d H:i:s', strtotime($date_enter)+$time);
-            $image = $this->Securos->getBestViewDataImage($camera_id, $date_exit);
-            if(!isset($image['errors']))
-            {
-                //Salvar imagem
-                $file_name = 'securos-'.$passage['params']['tid'].'-2.jpeg';
-                $file_path = $path.$file_name;
-                file_put_contents($file_path, $image);
-
-                $passage['imagens'][] = $tmp_file.$file_name;
-            }
-
-            
-            $best_view_date_time = $passage['params']['best_view_date_time'];
-            $image = $this->Securos->getBestViewDataImage($camera_id, $best_view_date_time);
-            if(!isset($image['errors']))
-            {
-                //Salvar imagem
-                $file_name = 'securos-'.$passage['params']['tid'].'-3.jpeg';
-                $file_path = $path.$file_name;
-                file_put_contents($file_path, $image);
-
-                $passage['imagens'][] = $tmp_file.$file_name;
-            }
-
-            if((!isset($passage['imagens'])) or empty($passage['imagens']))
-            {
-                $image = $this->Securos->getBestViewDataImage($camera_id, $save['time_enter']);
+                $camera_id = $passage['params']['camera_id'];
+                $image = $this->Securos->getBestViewDataImage($camera_id, $save['time_leave']);
                 if(!isset($image['errors']))
                 {
                     //Salvar imagem
@@ -185,128 +145,177 @@ class WebSocketController extends App
         
                     $passage['imagens'][] = $tmp_file.$file_name;
                 }
-            }
-            
-            if((!isset($passage['imagens'])) or empty($passage['imagens']))
-            {
-               $passage['imagens'] = [];
-            }
 
-            $params['api_origin'] = 2;
-            $params['direction'] = $passage['params']['direction_id'];
-            $params['datetime'] = isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']);
-            $params['external_id'] = $passage['params']['uuid'];
-            $params['id_gate'] = $passage['params']['tid'];
-
-            //Pegar camera
-            $params['camera'] = current($this->cameraModel->findIdByExternalId($passage['params']['camera_id']))['id'];
-            
-            //Verificar se registro ja existe
-            if(str_contains($passage['type'], 'CNR'))
-            {
-                $params['container'] = $passage['params']['number'];
-              //  $exists = $this->passageModel->exists('container', str_replace('T', ' ', $passage['time']), $passage['params']['number'], $params['camera']);
-            }
-            else
-            {
-                $params['plate'] = $passage['params']['number'];
-                //$exists = $this->passageModel->exists('plate', $passage['params']['time_enter'], $passage['params']['number'], $params['camera']);
-            }
-            
-            $date_enter = (isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']));
-            $params_time['description'] = 'register_collapse_seconds';
-            $time = (current($this->optionModel->get($params_time['description']))['value']+4);
-            $date_exit = date('Y-m-d H:i:s', strtotime($date_enter)-$time);
-
-            sleep(4);
-            //Verificar se passagem coincide com outra passagem pela data e hora da passagem
-            $passages_in_the_meantime = $this->passageModel->bindPassage($passage['params']['number'], $params['direction'], $params['camera'], $date_exit, $date_enter);
-            
-            if(!empty($passages_in_the_meantime))
-            {
-                foreach($passages_in_the_meantime as $meantime)
+                
+                $date_enter = (isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']));
+                $params_time['description'] = 'register_collapse_seconds';
+                $time = 2;
+                if(str_contains($passage['type'], 'CNR'))
                 {
-                    if(!empty($meantime['bind_id']))
-                    {
-                        $params['bind_id'] = $meantime['bind_id'];
-                    }
-                    else
-                    {
-                        $params_bind['description'] = '';
-                        $id_bind = $this->passageBindModel->save($params_bind);
-                        
-                        $params_edit['id'] = $meantime['id'];
-                        $params_edit['plate'] = $meantime['plate'];
-                        $params_edit['container'] = $meantime['container'];
-                        $params_edit['bind_id'] = $id_bind;
-                        $this->passageModel->updateBind($params_edit);
+                    $time = 200;
+                }
+                $date_exit =  date( 'Y-m-d H:i:s', strtotime($date_enter)+$time);
+                $image = $this->Securos->getBestViewDataImage($camera_id, $date_exit);
+                if(!isset($image['errors']))
+                {
+                    //Salvar imagem
+                    $file_name = 'securos-'.$passage['params']['tid'].'-2.jpeg';
+                    $file_path = $path.$file_name;
+                    file_put_contents($file_path, $image);
 
-                        $params['bind_id'] = $id_bind;
+                    $passage['imagens'][] = $tmp_file.$file_name;
+                }
+
+                
+                $best_view_date_time = $passage['params']['best_view_date_time'];
+                $image = $this->Securos->getBestViewDataImage($camera_id, $best_view_date_time);
+                if(!isset($image['errors']))
+                {
+                    //Salvar imagem
+                    $file_name = 'securos-'.$passage['params']['tid'].'-3.jpeg';
+                    $file_path = $path.$file_name;
+                    file_put_contents($file_path, $image);
+
+                    $passage['imagens'][] = $tmp_file.$file_name;
+                }
+
+                if((!isset($passage['imagens'])) or empty($passage['imagens']))
+                {
+                    $image = $this->Securos->getBestViewDataImage($camera_id, $save['time_enter']);
+                    if(!isset($image['errors']))
+                    {
+                        //Salvar imagem
+                        $tmp_file = 'img/tmp/';
+                        $path = $this->public. $tmp_file;
+                        $file_name = 'securos-'.$passage['params']['tid'].'.jpeg';
+                        $file_path = $path.$file_name;
+                        file_put_contents($file_path, $image);
+            
+                        $passage['imagens'][] = $tmp_file.$file_name;
                     }
                 }
-            }
-            else
-            {
-                $params_bind['description'] = '';
-                $id_bind = $this->passageBindModel->save($params_bind);
-                $params['bind_id'] = $id_bind;
-            }
+                
+                if((!isset($passage['imagens'])) or empty($passage['imagens']))
+                {
+                $passage['imagens'] = [];
+                }
 
-            //Pegar passagens ainda sem calculo de direção
-            $passages_direction_not_calculated = $this->passageModel->getNotCalculatedDirectionPassages($date_exit, $date_enter);
+                $params['api_origin'] = 2;
+                $params['direction'] = $passage['params']['direction_id'];
+                $params['datetime'] = isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']);
+                $params['external_id'] = $passage['params']['uuid'];
+                $params['id_gate'] = $passage['params']['tid'];
 
-            $grouped_by_bind_id = $this->_group_by($passages_direction_not_calculated, 'bind_id');
-            Utils::saveLogFile('passages_direction_not_calculated.log', [
-                'result' => $grouped_by_bind_id
-            ]);
+                //Pegar camera
+                $params['camera'] = current($this->cameraModel->findIdByExternalId($passage['params']['camera_id']))['id'];
+                
+                //Verificar se registro ja existe
+                if(str_contains($passage['type'], 'CNR'))
+                {
+                    $params['container'] = $passage['params']['number'];
+                //  $exists = $this->passageModel->exists('container', str_replace('T', ' ', $passage['time']), $passage['params']['number'], $params['camera']);
+                }
+                else
+                {
+                    $params['plate'] = $passage['params']['number'];
+                    //$exists = $this->passageModel->exists('plate', $passage['params']['time_enter'], $passage['params']['number'], $params['camera']);
+                }
+                
+                $date_enter = (isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']));
+                $params_time['description'] = 'register_collapse_seconds';
+                $time = (current($this->optionModel->get($params_time['description']))['value']+4);
+                $date_exit = date('Y-m-d H:i:s', strtotime($date_enter)-$time);
 
-            foreach($grouped_by_bind_id as $bind_id => $binded_passage)
-            {
-                $out = array();
-                foreach ($binded_passage as $key => $value){
-                    foreach($value as $key2 => $value2)
+                sleep(4);
+                //Verificar se passagem coincide com outra passagem pela data e hora da passagem
+                $passages_in_the_meantime = $this->passageModel->bindPassage($passage['params']['number'], $params['direction'], $params['camera'], $date_exit, $date_enter);
+                
+                if(!empty($passages_in_the_meantime))
+                {
+                    foreach($passages_in_the_meantime as $meantime)
                     {
-                        if($key2 === 'direction')
+                        if(!empty($meantime['bind_id']))
                         {
-                            if (array_key_exists($value2, $out)){
-                                $out[$value2] = $out[$value2]+1;
-                            } else {
-                                $out[$value2] = 1;
-                            }
+                            $params['bind_id'] = $meantime['bind_id'];
                         }
-                    }                    
-                }
+                        else
+                        {
+                            $params_bind['description'] = '';
+                            $id_bind = $this->passageBindModel->save($params_bind);
+                            
+                            $params_edit['id'] = $meantime['id'];
+                            $params_edit['plate'] = $meantime['plate'];
+                            $params_edit['container'] = $meantime['container'];
+                            $params_edit['bind_id'] = $id_bind;
+                            $this->passageModel->updateBind($params_edit);
 
-                if(!empty($out))
-                {
-                    arsort($out);
-                    reset($out);
-
-                    $alterar = $this->passageModel->getBindPassages($bind_id);
-
-                    foreach($alterar as $psg)
-                    {
-                        $prms['id'] = $psg['id'];
-                        $prms['direction_calculated'] = 1;
-                        $prms['direction'] = key($out);
-                       
-                        $result = $this->passageModel->alterar($prms);
+                            $params['bind_id'] = $id_bind;
+                        }
                     }
                 }
+                else
+                {
+                    $params_bind['description'] = '';
+                    $id_bind = $this->passageBindModel->save($params_bind);
+                    $params['bind_id'] = $id_bind;
+                }
+
+                //Pegar passagens ainda sem calculo de direção
+                $passages_direction_not_calculated = $this->passageModel->getNotCalculatedDirectionPassages($date_exit, $date_enter);
+
+                $grouped_by_bind_id = $this->_group_by($passages_direction_not_calculated, 'bind_id');
+                Utils::saveLogFile('passages_direction_not_calculated.log', [
+                    'result' => $grouped_by_bind_id
+                ]);
+
+                foreach($grouped_by_bind_id as $bind_id => $binded_passage)
+                {
+                    $out = array();
+                    foreach ($binded_passage as $key => $value){
+                        foreach($value as $key2 => $value2)
+                        {
+                            if($key2 === 'direction')
+                            {
+                                if (array_key_exists($value2, $out)){
+                                    $out[$value2] = $out[$value2]+1;
+                                } else {
+                                    $out[$value2] = 1;
+                                }
+                            }
+                        }                    
+                    }
+
+                    if(!empty($out))
+                    {
+                        arsort($out);
+                        reset($out);
+
+                        $alterar = $this->passageModel->getBindPassages($bind_id);
+
+                        foreach($alterar as $psg)
+                        {
+                            $prms['id'] = $psg['id'];
+                            $prms['direction_calculated'] = 1;
+                            $prms['direction'] = key($out);
+                        
+                            $result = $this->passageModel->alterar($prms);
+                        }
+                    }
+                }
+            
+                //Criar registro da passagem
+                // if(empty($exists))
+                // {
+                $id = $this->passageModel->save($params);
+            
+                foreach($passage['imagens'] as $img)
+                {
+                    $passage_image_param['passage_id'] = $id;
+                    $passage_image_param['url'] = $img;
+                    $this->passageImageModel->save($passage_image_param);
+                }
+                //}
             }
-          
-            //Criar registro da passagem
-            // if(empty($exists))
-            // {
-            $id = $this->passageModel->save($params);
-        
-            foreach($passage['imagens'] as $img)
-            {
-                $passage_image_param['passage_id'] = $id;
-                $passage_image_param['url'] = $img;
-                $this->passageImageModel->save($passage_image_param);
-            }
-            // }
         }
         $this->output->now();
     }
