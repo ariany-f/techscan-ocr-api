@@ -117,8 +117,8 @@ namespace src\Model\Passage {
                      FROM passage_bind
                         INNER JOIN passages ON passages.bind_id = passage_bind.id
                         LEFT JOIN users ON users.id = passages.updated_by
-                        LEFT JOIN cameras ON cameras.id = passages.camera
-                        LEFT JOIN gates ON gates.id = cameras.gate_id
+                        INNER JOIN cameras ON cameras.id = passages.camera
+                        INNER JOIN gates ON gates.id = cameras.gate_id
                     ".$where." 
                     GROUP BY passage_bind.id
                     ORDER BY passage_bind.id DESC
@@ -151,12 +151,12 @@ namespace src\Model\Passage {
                         FROM 
                             passages p
                         LEFT JOIN directions d ON d.id = p.direction
-                        LEFT JOIN cameras c ON c.id = p.camera
+                        INNER JOIN cameras c ON c.id = p.camera
                         LEFT JOIN representative_img ri ON c.representative_img_id = ri.id
-                        LEFT JOIN gates g ON g.id = c.gate_id
+                        INNER JOIN gates g ON g.id = c.gate_id
                         LEFT JOIN users u ON u.id = p.updated_by
                         LEFT JOIN reasons r ON r.id = p.preset_reason 
-                        WHERE p.bind_id =  ".$passage['id']."
+                        WHERE p.bind_id = ".$passage['id']."
                         ORDER BY p.id DESC;
                     ";
 
