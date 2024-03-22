@@ -102,6 +102,7 @@ namespace src\Model\Passage {
                 $where .= (!empty($data_inicial)) ? " AND passage_bind.created_at >= '$data_inicial'" : "";
                 $where .= (!empty($data_final)) ? " AND ((passage_bind.updated_at IS NOT NULL AND passage_bind.updated_at <= '$data_final') OR passage_bind.created_at <= '$data_final')" : "";
                 $where .= (!empty($direcao)) ? " AND passages.direction = $direcao" : "";
+                $limit = ((!empty($where)) and $where !== ' WHERE 1 = 1') ? "" : "LIMIT 500";
                 $sql = "
                     SELECT 
                         passage_bind.*, 
@@ -122,7 +123,7 @@ namespace src\Model\Passage {
                     ".$where." 
                     GROUP BY passage_bind.id
                     ORDER BY passage_bind.id DESC
-                    LIMIT 500
+                    $limit
                 ";
 
                 $passages = $this->db->query($sql);

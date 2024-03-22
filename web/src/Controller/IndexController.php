@@ -255,7 +255,12 @@ class IndexController extends App
             {
                 $params['permission_id'] = $this->checkFieldRequest($params, 'permission_id', false);
             }
-            if(!empty($params['password']))
+            // if(!empty($params['password']))
+            // {
+            //     $pass = $this->checkFieldRequest($params, 'new_password', false);
+            //     $params['password'] = sha1(Config::vars('salt') . $pass);
+            // }
+            if(!empty($params['new_password']))
             {
                 $pass = $this->checkFieldRequest($params, 'new_password', false);
                 $params['password'] = sha1(Config::vars('salt') . $pass);
@@ -264,6 +269,7 @@ class IndexController extends App
             Utils::saveLogFile('update.log', [
                 'params' => $params
             ]);
+            
             $result = $this->userModel->update($params);
 
             if($result) {
