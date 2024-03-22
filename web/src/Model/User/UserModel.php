@@ -36,7 +36,16 @@ namespace src\Model\User {
          */
         public function save(array $params)
         {
-            return $this->db->insert('users', $params);
+            $result = $this->db->query("SELECT id FROM users WHERE email = '". $params['email'] . "'");
+            
+            if(empty($result))
+            {
+                return $this->db->insert('users', $params);
+            }
+            else
+            {
+                return;
+            }
         }
 
         /**
