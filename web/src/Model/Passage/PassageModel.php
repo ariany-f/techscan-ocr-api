@@ -122,6 +122,7 @@ namespace src\Model\Passage {
                     ".$where." 
                     GROUP BY passage_bind.id
                     ORDER BY passage_bind.id DESC
+                    LIMIT 500
                 ";
 
                 $passages = $this->db->query($sql);

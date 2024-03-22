@@ -123,9 +123,9 @@ namespace src\Model\User {
             {
                 $columns['email'] = $params['email'];
             }
-            if(isset($params['password']))
+            if(isset($params['new_password']))
             {
-                $columns['password'] = $params['password'];
+                $columns['password'] = $params['new_password'];
             }
             if(isset($params['permission_id']))
             {
