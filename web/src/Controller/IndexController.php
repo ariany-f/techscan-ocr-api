@@ -540,7 +540,7 @@ class IndexController extends App
             $params['bind'] = $this->checkFieldRequest($params, 'bind', false);
             $params['updated_by'] = isset($params['updated_by']) ? $this->checkFieldRequest($params, 'updated_by', false) : null;
             
-            if($params['bind'] == "true")
+            if($params['bind'] = true)
             {
                 $params_bind['description'] = '';
                 $id_bind = $this->passageBindModel->save($params_bind);
@@ -549,7 +549,7 @@ class IndexController extends App
 
             foreach($passagens as $passage)
             {
-                if($params['bind'] == "false")
+                if($params['bind'] = false)
                 {
                     $params_bind['description'] = '';
                     $id_bind = $this->passageBindModel->save($params_bind);
