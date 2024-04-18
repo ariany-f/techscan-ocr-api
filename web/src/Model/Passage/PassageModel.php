@@ -113,7 +113,7 @@ namespace src\Model\Passage {
                                     WHEN MAX(users.name) IS NOT NULL THEN 'Erro'
                                     ELSE 'Aprovada'
                                 END
-                            WHEN MAX(users.name) IS NOT NULL THEN 'Aprovada'
+                            WHEN MAX(users.name) IS NOT NULL THEN 'Erro'
                             ELSE 'Pendente'
                         END as status
                      FROM passage_bind
