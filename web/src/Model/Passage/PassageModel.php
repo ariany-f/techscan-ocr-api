@@ -144,9 +144,9 @@ namespace src\Model\Passage {
                             ri.url as position,
                             u.name AS updated_by,
                             CASE
-                                WHEN p.is_ok AND u.name THEN 'Erro'
+                                WHEN p.is_ok AND u.name IS NOT NULL THEN 'Erro'
                                 WHEN p.is_ok THEN 'Aprovada'
-                                WHEN u.name THEN 'Erro'
+                                WHEN u.name IS NOT NULL THEN 'Erro'
                                 ELSE 'Pendente'
                             END as status,
                             p.updated_at AS updated_at,
