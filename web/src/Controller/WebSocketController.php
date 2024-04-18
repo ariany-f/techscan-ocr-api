@@ -172,7 +172,7 @@ class WebSocketController extends App
                 if(!isset($image['errors']))
                 {
                     //Salvar imagem
-                    $file_name = 'securos-'.$passage['params']['tid'].'-3.jpeg';
+                    $file_name = 'securos-'.$passage['params']['tid'].'.jpeg';
                     $file_path = $path.$file_name;
                     file_put_contents($file_path, $image);
 
