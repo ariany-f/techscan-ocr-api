@@ -251,16 +251,19 @@ namespace src\Model\Passage {
         {
             $columns = [];
 
-            if($params['plate']) {
+            if(isset($params['plate'])) {
                 $columns['plate'] = $params['plate'];
             }
-            if($params['container']) {
+            if(isset($params['status'])) {
+                $columns['status'] = $params['status'];
+            }
+            if(isset($params['container'])) {
                 $columns['container'] = $params['container'];
             }
-            if($params['updated_by']) {
+            if(isset($params['updated_by'])) {
                 $columns['updated_by'] = $params['updated_by'];
             }
-            if($params['bind_id']) {
+            if(isset($params['bind_id'])) {
                 $columns['bind_id'] = $params['bind_id'];
                 unset($columns['updated_by']);
             }
