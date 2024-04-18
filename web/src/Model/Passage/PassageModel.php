@@ -113,7 +113,7 @@ namespace src\Model\Passage {
                                     WHEN users.name THEN 'Erro'
                                     ELSE 'Aprovada'
                                 END
-                            WHEN users.name THEN 'Erro'
+                            WHEN users.name IS NOT NULL THEN 'Erro'
                             ELSE 'Pendente'
                         END as status
                      FROM passage_bind
