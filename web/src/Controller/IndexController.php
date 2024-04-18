@@ -527,6 +527,48 @@ class IndexController extends App
     }
 
     /**
+     * Remover passagem
+     */
+    public function remover()
+    {
+        $this->setRender('Ajax');
+        if($this->method == 'PATCH')
+        {
+            $params = $this->json;
+
+            $passagens = $this->checkFieldRequest($params, 'passagens', false);
+            $params['updated_by'] = isset($params['updated_by']) ? $this->checkFieldRequest($params, 'updated_by', false) : null;
+            
+            foreach($passagens as $passage)
+            {
+                $params['id'] = $passage['id'];
+                $params['status'] = 0;
+                $result = $this->passageModel->update($params);
+            }
+
+
+            if($result) {
+
+                $return = [];
+
+                $this->output->setCode(200);
+                $this->output->setMessage( 'Passagem alterada com sucesso!' );
+                $this->output->setSuccess( true );
+                $this->output->setData( $return );
+            }
+            else
+            {
+                $this->output->setCode(200);
+                $this->output->setMessage( 'Erro ao alterar passagem' );
+                $this->output->setSuccess( false );
+                $this->output->setData( [] );
+            }
+        }
+
+        $this->output->now();
+    }
+
+    /**
      * Desvincular passagem das outras
      */
     public function desvincular()
