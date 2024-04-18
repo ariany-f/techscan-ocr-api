@@ -52,7 +52,7 @@ namespace src\Model\Passage {
         public function getStatistics($id = null, $data_inicial = null, $data_final = null, $direcao = null){
             
             try {
-                    $where = !empty($id) ? " WHERE passages.id = $id" : " WHERE 1 = 1";
+                    $where = !empty($id) ? " WHERE passages.id = $id AND passages.status = 1" : " WHERE passages.status = 1";
                     $where .= (!empty($data_inicial)) ? " AND passages.datetime >= '$data_inicial'" : "";
                     $where .= (!empty($data_final)) ? " AND passages.datetime <= '$data_final'" : "";
                     $where .= (!empty($direcao)) ? " AND passages.direction = $direcao" : "";
