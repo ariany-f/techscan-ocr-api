@@ -22,6 +22,7 @@ use src\Model\Reason\ReasonModel;
 use src\Model\Option\OptionModel;
 use src\Model\Camera\CameraModel;
 use src\Model\Passage\PassageModel;
+use src\Model\Passage\PassageImageModel;
 use src\Model\Passage\PassageBindModel;
 use Tecno\Lib\Csrf;
 use Tecno\Lib\Mailer;
@@ -37,6 +38,7 @@ class IndexController extends App
     public $cameraModel;
     public $optionModel;
     public $passageModel;
+    public $passageImageModel;
     public $reasonModel;
     public $method;
     public $api;
@@ -79,6 +81,7 @@ class IndexController extends App
         $this->cameraModel = new CameraModel();
         $this->passageModel = new PassageModel();
         $this->passageBindModel = new PassageBindModel();
+        $this->passageImageModel = new PassageImageModel();
         $this->reasonModel = new ReasonModel();
         
         /**
@@ -495,6 +498,31 @@ class IndexController extends App
             $this->output->setData( $result );
         }
         
+        $this->output->now();
+    }
+
+    /**
+     * Capturas
+     */
+    public function imagem_passagem()
+    {
+        $this->setRender('Ajax');
+
+        if($this->method == 'DELETE')
+        {
+            $params = $this->json;
+
+            $params['id'] = $this->checkFieldRequest($params, 'id', false, "integer");
+            $params['active'] = 0;
+
+            $result = $this->passageImageModel->destroy( $params );
+
+            $this->output->setCode(200);
+            $this->output->setMessage( 'Removida' );
+            $this->output->setSuccess( true );
+            $this->output->setData( $result );
+        }
+
         $this->output->now();
     }
 

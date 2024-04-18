@@ -87,6 +87,11 @@ namespace Config {
                 'action' => 'imagens',
                 'pass' => []
             ],
+            'captura/*' => [
+                'controller' => 'Index',
+                'action' => 'imagem_passagem',
+                'pass' => []
+            ],
             'event/*' => [
                 'controller' => 'WebSocket',
                 'action' => 'index',
