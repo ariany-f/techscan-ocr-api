@@ -213,11 +213,13 @@ class WebSocketController extends App
                 if(str_contains($passage['type'], 'CNR'))
                 {
                     $params['container'] = $passage['params']['number'];
+                    $params['plate'] = '';
                 //  $exists = $this->passageModel->exists('container', str_replace('T', ' ', $passage['time']), $passage['params']['number'], $params['camera']);
                 }
                 else
                 {
                     $params['plate'] = $passage['params']['number'];
+                    $params['container'] = '';
                     //$exists = $this->passageModel->exists('plate', $passage['params']['time_enter'], $passage['params']['number'], $params['camera']);
                 }
                 
