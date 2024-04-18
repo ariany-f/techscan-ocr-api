@@ -149,7 +149,7 @@ namespace src\Model\Passage {
                             END as status,
                             p.updated_at AS updated_at,
                             COALESCE(r.description, p.description_reason) as error_reason,
-                            (SELECT GROUP_CONCAT(pi.url, '') FROM passage_images pi WHERE pi.passage_id = p.id) as images
+                            (SELECT GROUP_CONCAT(pi.url, '') FROM passage_images pi WHERE pi.active = 1 AND pi.passage_id = p.id) as images
                         FROM 
                             passages p
                         LEFT JOIN directions d ON d.id = p.direction
