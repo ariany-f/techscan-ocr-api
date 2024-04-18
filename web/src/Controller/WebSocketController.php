@@ -132,39 +132,39 @@ class WebSocketController extends App
         {
             if(UtilsHelper::verificarString($event['params']['number'], $blacklist))
             {
+                $tmp_file = 'img/tmp/';
+                $path = $this->public. $tmp_file;
                 $camera_id = $passage['params']['camera_id'];
-                $image = $this->Securos->getBestViewDataImage($camera_id, $save['time_leave']);
-                if(!isset($image['errors']))
-                {
-                    //Salvar imagem
-                    $tmp_file = 'img/tmp/';
-                    $path = $this->public. $tmp_file;
-                    $file_name = 'securos-'.$passage['params']['tid'].'.jpeg';
-                    $file_path = $path.$file_name;
-                    file_put_contents($file_path, $image);
+                // $image = $this->Securos->getBestViewDataImage($camera_id, $save['time_leave']);
+                // if(!isset($image['errors']))
+                // {
+                //     //Salvar imagem
+                //     $file_name = 'securos-'.$passage['params']['tid'].'.jpeg';
+                //     $file_path = $path.$file_name;
+                //     file_put_contents($file_path, $image);
         
-                    $passage['imagens'][] = $tmp_file.$file_name;
-                }
+                //     $passage['imagens'][] = $tmp_file.$file_name;
+                // }
 
                 
-                $date_enter = (isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']));
-                $params_time['description'] = 'register_collapse_seconds';
-                $time = 2;
-                if(str_contains($passage['type'], 'CNR'))
-                {
-                    $time = 200;
-                }
-                $date_exit =  date( 'Y-m-d H:i:s', strtotime($date_enter)+$time);
-                $image = $this->Securos->getBestViewDataImage($camera_id, $date_exit);
-                if(!isset($image['errors']))
-                {
-                    //Salvar imagem
-                    $file_name = 'securos-'.$passage['params']['tid'].'-2.jpeg';
-                    $file_path = $path.$file_name;
-                    file_put_contents($file_path, $image);
+                // $date_enter = (isset($passage['params']['time_enter']) ? date( 'Y-m-d H:i:s', strtotime( $passage['params']['time_enter']) ) : str_replace('T', ' ', $passage['time']));
+                // $params_time['description'] = 'register_collapse_seconds';
+                // $time = 2;
+                // if(str_contains($passage['type'], 'CNR'))
+                // {
+                //     $time = 200;
+                // }
+                // $date_exit =  date( 'Y-m-d H:i:s', strtotime($date_enter)+$time);
+                // $image = $this->Securos->getBestViewDataImage($camera_id, $date_exit);
+                // if(!isset($image['errors']))
+                // {
+                //     //Salvar imagem
+                //     $file_name = 'securos-'.$passage['params']['tid'].'-2.jpeg';
+                //     $file_path = $path.$file_name;
+                //     file_put_contents($file_path, $image);
 
-                    $passage['imagens'][] = $tmp_file.$file_name;
-                }
+                //     $passage['imagens'][] = $tmp_file.$file_name;
+                // }
 
                 
                 $best_view_date_time = $passage['params']['best_view_date_time'];
@@ -179,25 +179,25 @@ class WebSocketController extends App
                     $passage['imagens'][] = $tmp_file.$file_name;
                 }
 
-                if((!isset($passage['imagens'])) or empty($passage['imagens']))
-                {
-                    $image = $this->Securos->getBestViewDataImage($camera_id, $save['time_enter']);
-                    if(!isset($image['errors']))
-                    {
-                        //Salvar imagem
-                        $tmp_file = 'img/tmp/';
-                        $path = $this->public. $tmp_file;
-                        $file_name = 'securos-'.$passage['params']['tid'].'.jpeg';
-                        $file_path = $path.$file_name;
-                        file_put_contents($file_path, $image);
+                // if((!isset($passage['imagens'])) or empty($passage['imagens']))
+                // {
+                //     $image = $this->Securos->getBestViewDataImage($camera_id, $save['time_enter']);
+                //     if(!isset($image['errors']))
+                //     {
+                //         //Salvar imagem
+                //         $tmp_file = 'img/tmp/';
+                //         $path = $this->public. $tmp_file;
+                //         $file_name = 'securos-'.$passage['params']['tid'].'.jpeg';
+                //         $file_path = $path.$file_name;
+                //         file_put_contents($file_path, $image);
             
-                        $passage['imagens'][] = $tmp_file.$file_name;
-                    }
-                }
+                //         $passage['imagens'][] = $tmp_file.$file_name;
+                //     }
+                // }
                 
                 if((!isset($passage['imagens'])) or empty($passage['imagens']))
                 {
-                $passage['imagens'] = [];
+                    $passage['imagens'] = [];
                 }
 
                 $params['api_origin'] = 2;
