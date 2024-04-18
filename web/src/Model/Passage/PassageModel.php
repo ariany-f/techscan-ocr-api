@@ -110,10 +110,10 @@ namespace src\Model\Passage {
                         CASE
                             WHEN passages.is_ok THEN
                                 CASE
-                                    WHEN users.name THEN 'Erro'
+                                    WHEN MAX(users.name) IS NOT NULL THEN 'Erro'
                                     ELSE 'Aprovada'
                                 END
-                            WHEN users.name IS NOT NULL THEN 'Erro'
+                            WHEN MAX(users.name) IS NOT NULL THEN 'Aprovada'
                             ELSE 'Pendente'
                         END as status
                      FROM passage_bind
