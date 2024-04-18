@@ -536,15 +536,30 @@ class IndexController extends App
         {
             $params = $this->json;
 
-            $params['id'] = $this->checkFieldRequest($params, 'id', false, "integer");
+            $passagens = $this->checkFieldRequest($params, 'passagens', false);
+            $params['bind'] = $this->checkFieldRequest($params, 'bind', false);
             $params['updated_by'] = isset($params['updated_by']) ? $this->checkFieldRequest($params, 'updated_by', false) : null;
             
-            $params_bind['description'] = '';
-            $id_bind = $this->passageBindModel->save($params_bind);
+            if($params['bind'])
+            {
+                $params_bind['description'] = '';
+                $id_bind = $this->passageBindModel->save($params_bind);
+                $params['bind_id'] =  $id_bind;
+            }
 
-            $params['bind_id'] =  $id_bind;
+            foreach($passagens as $passage)
+            {
+                if(!$bind)
+                {
+                    $params_bind['description'] = '';
+                    $id_bind = $this->passageBindModel->save($params_bind);
+                    $params['bind_id'] =  $id_bind;
+                }
+                
+                $params['id'] = $passage['id'];
+                $result = $this->passageModel->update($params);
+            }
 
-            $result = $this->passageModel->update($params);
 
             if($result) {
 
