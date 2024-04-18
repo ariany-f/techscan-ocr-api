@@ -146,6 +146,7 @@ namespace src\Model\Passage {
                             CASE
                                 WHEN p.is_ok AND u.name THEN 'Erro'
                                 WHEN p.is_ok THEN 'Aprovada'
+                                WHEN u.name THEN 'Erro'
                                 ELSE 'Pendente'
                             END as status,
                             p.updated_at AS updated_at,
