@@ -158,7 +158,7 @@ namespace src\Model\Passage {
                         LEFT JOIN gates g ON g.id = c.gate_id
                         LEFT JOIN users u ON u.id = p.updated_by
                         LEFT JOIN reasons r ON r.id = p.preset_reason 
-                        WHERE p.bind_id = ".$passage['id']."
+                        WHERE p.bind_id = ".$passage['id']." AND p.status = 1
                         GROUP BY p.id
                         ORDER BY p.id DESC;
                     ";
