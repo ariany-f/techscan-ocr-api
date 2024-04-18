@@ -549,7 +549,7 @@ class IndexController extends App
 
             foreach($passagens as $passage)
             {
-                if(!$bind)
+                if(!$params['bind'])
                 {
                     $params_bind['description'] = '';
                     $id_bind = $this->passageBindModel->save($params_bind);
