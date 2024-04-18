@@ -199,7 +199,8 @@ CREATE TABLE `passages` (
 CREATE TABLE `passage_images` (
   `id` int(11) NOT NULL,
   `url` varchar(1255) DEFAULT NULL,
-  `passage_id` int(11) DEFAULT NULL
+  `passage_id` int(11) DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------

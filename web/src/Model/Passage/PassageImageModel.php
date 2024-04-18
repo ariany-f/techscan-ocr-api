@@ -63,5 +63,28 @@ namespace src\Model\Passage {
                 ]);
             }
         }
+        
+
+        /**
+         * Apaga imagem
+         * @throws Exception
+         */
+        public function destroy()
+        {
+            $columns = [];
+
+            if(isset($params['active'])) {
+                $columns['active'] = $params['active'];
+            }
+            
+            $update_data = [
+                'table' => 'passage_images',
+                'id' => [
+                      'id' => $params['id']
+                ],
+                'columns' => $columns
+            ];
+            return $this->db->update($update_data);
+        }
     }
 }
