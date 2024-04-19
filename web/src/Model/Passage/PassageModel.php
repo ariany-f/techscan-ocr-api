@@ -52,7 +52,7 @@ namespace src\Model\Passage {
         public function getStatistics($id = null, $data_inicial = null, $data_final = null, $direcao = null){
             
             try {
-                    $where = !empty($id) ? " WHERE passages.id = $id AND passages.status = 1" : " WHERE passages.status = 1";
+                    $where = !empty($id) ? " WHERE passages.id = $id AND passages.active = 1" : " WHERE passages.active = 1";
                     $where .= (!empty($data_inicial)) ? " AND passages.datetime >= '$data_inicial'" : "";
                     $where .= (!empty($data_final)) ? " AND passages.datetime <= '$data_final'" : "";
                     $where .= (!empty($direcao)) ? " AND passages.direction = $direcao" : "";
@@ -160,7 +160,7 @@ namespace src\Model\Passage {
                         LEFT JOIN gates g ON g.id = c.gate_id
                         LEFT JOIN users u ON u.id = p.updated_by
                         LEFT JOIN reasons r ON r.id = p.preset_reason 
-                        WHERE p.bind_id = ".$passage['id']." AND p.status = 1
+                        WHERE p.bind_id = ".$passage['id']." AND p.active = 1
                         GROUP BY p.id
                         ORDER BY p.id DESC;
                     ";
