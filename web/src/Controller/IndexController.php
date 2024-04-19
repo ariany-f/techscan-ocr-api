@@ -542,7 +542,7 @@ class IndexController extends App
             foreach($passagens as $passage)
             {
                 $params['id'] = $passage['id'];
-                $params['status'] = 0;
+                $params['active'] = 0;
                 $result = $this->passageModel->update($params);
             }
 

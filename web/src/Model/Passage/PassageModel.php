@@ -256,8 +256,8 @@ namespace src\Model\Passage {
             if(isset($params['plate'])) {
                 $columns['plate'] = $params['plate'];
             }
-            if(isset($params['status'])) {
-                $columns['status'] = $params['status'];
+            if(isset($params['active'])) {
+                $columns['active'] = $params['active'];
             }
             if(isset($params['container'])) {
                 $columns['container'] = $params['container'];
