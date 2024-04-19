@@ -122,6 +122,7 @@ namespace src\Model\Passage {
                         LEFT JOIN cameras ON cameras.id = passages.camera
                         LEFT JOIN gates ON gates.id = cameras.gate_id
                     ".$where." 
+                    AND passages.active = 1
                     GROUP BY passage_bind.id
                     ORDER BY passage_bind.id DESC
                     $limit
@@ -137,6 +138,7 @@ namespace src\Model\Passage {
                             p.plate, 
                             p.datetime, 
                             p.bind_id, 
+                            p.active,
                             p.container, 
                             COALESCE(c.name, 'Não encontrada') as camera,
                             COALESCE(g.name, 'Não encontrado') as gate,
@@ -160,9 +162,9 @@ namespace src\Model\Passage {
                         LEFT JOIN gates g ON g.id = c.gate_id
                         LEFT JOIN users u ON u.id = p.updated_by
                         LEFT JOIN reasons r ON r.id = p.preset_reason 
-                        WHERE p.bind_id = ".$passage['id']." AND p.active = 1
+                        WHERE p.active = 1 AND p.bind_id = ".$passage['id']."
                         GROUP BY p.id
-                        ORDER BY p.id DESC;
+                        ORDER BY p.id DESC; 
                     ";
 
                     $passages[$key]['itens'] = $this->db->query($passage_sql);
