@@ -131,7 +131,7 @@ require_once('../vendor/econea/nusoap/src/nusoap.php');
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); // Retorna o resultado como uma string em vez de imprimi-lo na tela
         curl_setopt($curl, CURLOPT_POST, true); // Define o método da requisição como POST
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/x-www-form-urlencoded'));
+            'Content-Type: application/x-www-form-urlencoded', 'charset: UTF-8'));
 		curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($postData));
 
         // Executa a requisição e armazena a resposta
@@ -153,8 +153,8 @@ require_once('../vendor/econea/nusoap/src/nusoap.php');
 
 $server = new soap_server();
 $server->soap_defencoding = 'UTF-8';
-$server->decode_utf8 = true;
-$server->encode_utf8 = false;
+$server->decode_utf8 = false;
+$server->encode_utf8 = true;
 
 // Configurar um namespace SOAP personalizado
 $soap_namespace = 'http://schemas.xmlsoap.org/soap/envelope/';
