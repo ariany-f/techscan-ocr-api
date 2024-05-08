@@ -225,50 +225,50 @@ namespace src\Model\Passage {
 
                 $passages = $this->db->query($sql);
                 
-                foreach($passages as $key => $passage) {
-                    $passage_sql = "
-                        SELECT 
-                            p.id, 
-                            p.is_ok, 
-                            p.plate, 
-                            p.datetime, 
-                            p.bind_id, 
-                            p.active,
-                            p.container, 
-                            COALESCE(c.name, 'Não encontrada') as camera,
-                            COALESCE(g.name, 'Não encontrado') as gate,
-                            COALESCE(d.description, 'Não definida') as direction,
-                            ri.url as position,
-                            u.name AS updated_by,
-                            CASE
-                                WHEN p.is_ok AND u.name IS NOT NULL THEN 'Erro'
-                                WHEN p.is_ok THEN 'Aprovada'
-                                WHEN u.name IS NOT NULL THEN 'Erro'
-                                ELSE 'Pendente'
-                            END as status,
-                            p.updated_at AS updated_at,
-                            COALESCE(r.description, p.description_reason) as error_reason,
-                            (SELECT GROUP_CONCAT(pi.url, '') FROM passage_images pi WHERE pi.active = 1 AND pi.passage_id = p.id) as images
-                        FROM 
-                            passages p
-                        LEFT JOIN directions d ON d.id = p.direction
-                        LEFT JOIN cameras c ON c.id = p.camera
-                        LEFT JOIN representative_img ri ON c.representative_img_id = ri.id
-                        LEFT JOIN gates g ON g.id = c.gate_id
-                        LEFT JOIN users u ON u.id = p.updated_by
-                        LEFT JOIN reasons r ON r.id = p.preset_reason 
-                        WHERE p.active = 1 AND p.bind_id = ".$passage['id']."
-                        GROUP BY p.id
-                        ORDER BY p.id DESC; 
-                    ";
+                // foreach($passages as $key => $passage) {
+                //     $passage_sql = "
+                //         SELECT 
+                //             p.id, 
+                //             p.is_ok, 
+                //             p.plate, 
+                //             p.datetime, 
+                //             p.bind_id, 
+                //             p.active,
+                //             p.container, 
+                //             COALESCE(c.name, 'Não encontrada') as camera,
+                //             COALESCE(g.name, 'Não encontrado') as gate,
+                //             COALESCE(d.description, 'Não definida') as direction,
+                //             ri.url as position,
+                //             u.name AS updated_by,
+                //             CASE
+                //                 WHEN p.is_ok AND u.name IS NOT NULL THEN 'Erro'
+                //                 WHEN p.is_ok THEN 'Aprovada'
+                //                 WHEN u.name IS NOT NULL THEN 'Erro'
+                //                 ELSE 'Pendente'
+                //             END as status,
+                //             p.updated_at AS updated_at,
+                //             COALESCE(r.description, p.description_reason) as error_reason,
+                //             (SELECT GROUP_CONCAT(pi.url, '') FROM passage_images pi WHERE pi.active = 1 AND pi.passage_id = p.id) as images
+                //         FROM 
+                //             passages p
+                //         LEFT JOIN directions d ON d.id = p.direction
+                //         LEFT JOIN cameras c ON c.id = p.camera
+                //         LEFT JOIN representative_img ri ON c.representative_img_id = ri.id
+                //         LEFT JOIN gates g ON g.id = c.gate_id
+                //         LEFT JOIN users u ON u.id = p.updated_by
+                //         LEFT JOIN reasons r ON r.id = p.preset_reason 
+                //         WHERE p.active = 1 AND p.bind_id = ".$passage['id']."
+                //         GROUP BY p.id
+                //         ORDER BY p.id DESC; 
+                //     ";
 
-                    $result = $this->db->query($passage_sql);
+                //     $result = $this->db->query($passage_sql);
 
-                    $passages[$key]['plate'] = $result[0]['plate'];
-                    $passages[$key]['container'] = $result[0]['container'];
+                //     $passages[$key]['plate'] = $result[0]['plate'];
+                //     $passages[$key]['container'] = $result[0]['container'];
 
-                    $passages[$key]['list'] = $result;
-                }
+                //     $passages[$key]['list'] = $result;
+                // }
 
                 return $passages;
 
