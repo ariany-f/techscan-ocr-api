@@ -811,7 +811,7 @@ class IndexController extends App
             $this->setRender('Json');
 
             $data = $this->post;
-            $result = $this->passageModel->getLastOne($data['gate'], $data['direction'])[0];
+            $result = $this->passageModel->getLastOne($data['gate'], $data['direction']);
 
             $this->output->setCode(200);
             $this->output->setMessage( 'Ultima passagem' );
