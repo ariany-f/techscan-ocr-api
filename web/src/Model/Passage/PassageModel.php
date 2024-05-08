@@ -234,6 +234,9 @@ namespace src\Model\Passage {
                 }
                 $passages = $this->db->query($sql);
 
+                Utils::saveLogFile('bindings.log', [
+                    'passages' => $passages
+                ]);
                
                 foreach($passages as $key => $passage) {
                     $passage_sql = "
