@@ -233,11 +233,6 @@ namespace src\Model\Passage {
                     $sql = iconv($current_encoding, 'UTF-8', $sql);
                 }
                 $passages = $this->db->query($sql);
-
-                Utils::saveLogFile('bindings.log', [
-                    'passages' => $passages,
-                    'query' => $sql
-                ]);
                
                 foreach($passages as $key => $passage) {
                     $passage_sql = "
