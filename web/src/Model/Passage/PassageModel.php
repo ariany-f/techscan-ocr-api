@@ -189,7 +189,11 @@ namespace src\Model\Passage {
 
                 $where = " WHERE 1 = 1";
                 
-               // $where .= (!empty($gate)) ? " AND passages.gate = $gate" : "";
+                $current_encoding = mb_detect_encoding($gate, 'auto');
+                if($current_encoding != 'UTF-8')
+                {
+                    $gate = iconv($current_encoding, 'UTF-8', $gate);
+                }
                 $where .= (!empty($direcao)) ? " AND passages.direction = '$direcao'" : "";
                 $where .= (!empty($gate)) ? " AND gates.name = '".$gate."'" : "";
                 $limit = "LIMIT 1";
