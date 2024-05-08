@@ -26,7 +26,7 @@ require_once('../vendor/econea/nusoap/src/nusoap.php');
                 $images = explode(",", $event['images']);
                 for($a=0;$a<count($images);$a++)
                 {
-                    $xml_plate .= '<ImagePath>' . $images['a'] . '</ImagePath>';
+                    $xml_plate .= '<ImagePath>' . $images[$a] . '</ImagePath>';
                 }
                 // Adicione outras tags aqui conforme necessário
                 $xml_plate .= '</DTOPlate>';
@@ -40,7 +40,7 @@ require_once('../vendor/econea/nusoap/src/nusoap.php');
                 $images = explode(",", $event['images']);
                 for($a=0;$a<count($images);$a++)
                 {
-                    $xml_container .= '<ImagePath>' . $images['a'] . '</ImagePath>';
+                    $xml_container .= '<ImagePath>' . $images[$a] . '</ImagePath>';
                 }
                 // Adicione outras tags aqui conforme necessário
                 $xml_container .= '</DTOContainer>';
