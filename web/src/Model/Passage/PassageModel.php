@@ -191,7 +191,7 @@ namespace src\Model\Passage {
                 
                // $where .= (!empty($gate)) ? " AND passages.gate = $gate" : "";
                 $where .= (!empty($direcao)) ? " AND passages.direction = '$direcao'" : "";
-                $where .= (!empty($gate)) ? " AND gate.name = '".utf8_encode($gate)."'" : "";
+                $where .= (!empty($gate)) ? " AND gates.name = '".utf8_encode($gate)."'" : "";
                 $limit = "LIMIT 1";
                 $sql = "
                     SELECT 
