@@ -194,8 +194,8 @@ namespace src\Model\Passage {
                 {
                     $gate = iconv($current_encoding, 'UTF-8', $gate);
                 }
-                $where .= (!empty($direcao)) ? " AND passages.direction = '$direcao'" : "";
-                $where .= (!empty($gate)) ? " AND gates.name = '".$gate."'" : "";
+                $where .= (!empty($direcao)) ? " AND passages.direction = $direcao" : "";
+                $where .= (!empty($gate)) ? " AND gates.name = \"".$gate."\"" : "";
                 $limit = "LIMIT 1";
                 $sql = "
                     SELECT 
