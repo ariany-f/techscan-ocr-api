@@ -183,7 +183,7 @@ namespace src\Model\Passage {
          * Pega a ultima Passagem
          * @throws Exception
          */
-        public function getLastOne($gate = null, $direcao = null)
+        public function getLastOne($gate = null, $direcao = null, $AssertDigS = null)
         {
             try {
 
