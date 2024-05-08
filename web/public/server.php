@@ -115,24 +115,24 @@ require_once('../vendor/econea/nusoap/src/nusoap.php');
         // URL para a qual você deseja enviar a requisição
         $url = $_SERVER['HTTP_HOST'] . '/api/web/public/ultima-passagem/';
 
-        $postData = json_encode(array(
+        $postData = array(
             'gate' => $gate,
             'direction' => $direction!== '' ? ($direction == 'Entry' ? '1' : ($direction == 'None' ? '3' : '2')) : '',
             'generateImages' => $generateImages,
             'AssertDigS' => $AssertDigS
-        ));
+        );
 
         // Inicializa a sessão cURL
         $curl = curl_init($url);
 
         // Configura as opções da requisição
-        curl_setopt($curl, CURLOPT_URL, $url);
+		curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl,CURLOPT_HEADER, false); 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); // Retorna o resultado como uma string em vez de imprimi-lo na tela
         curl_setopt($curl, CURLOPT_POST, true); // Define o método da requisição como POST
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/x-www-form-urlencoded'));
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData); // Define os dados a serem enviados no corpo da requisição
+		curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($postData));
 
         // Executa a requisição e armazena a resposta
         $response = curl_exec($curl);

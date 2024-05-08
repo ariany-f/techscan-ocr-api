@@ -810,8 +810,7 @@ class IndexController extends App
         {
             $this->setRender('Json');
 
-            $data = $this->json;
-
+            $data = $this->post;
             $result = $this->passageModel->getLastOne($data['gate'], $data['direction'])[0];
 
             $this->output->setCode(200);
