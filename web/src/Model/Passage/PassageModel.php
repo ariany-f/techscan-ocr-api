@@ -195,12 +195,13 @@ namespace src\Model\Passage {
                     $gate = iconv($current_encoding, 'UTF-8', $gate);
                 }
                 $where .= (!empty($direcao)) ? " AND passages.direction = $direcao" : "";
-                $where .= (!empty($gate)) ? " AND gates.name = \"".$gate."\"" : "";
+                $where .= (!empty($gate)) ? " AND gates.id = $gate" : "";
                 $limit = "LIMIT 1";
                 $sql = "
                     SELECT 
                         passage_bind.*, 
-                        COALESCE(gates.name, 'Não encontrado') as gate,
+                        COALESCE(gates.id, NULL) as gate,
+                        COALESCE(gates.name, 'Não encontrado') as gate_name,
                         CASE
                             WHEN MAX(passages.direction) = 1 THEN 'Entry'
                             WHEN MAX(passages.direction) = 2 THEN 'Exit'

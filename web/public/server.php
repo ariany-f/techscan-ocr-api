@@ -7,6 +7,7 @@ require_once('../vendor/econea/nusoap/src/nusoap.php');
       
         $xml = '<IdPassage>' . $object['id'] . '</IdPassage>';
         $xml .= '<IdGate>' . $object['gate'] . '</IdGate>';
+        $xml .= '<GateName>' . $object['gate_name'] . '</GateName>';
         $xml .= '<Date>' . $object['created_at'] . '</Date>';
         $xml .= '<Validated>' . (($object['status'] == 'Aprovada' || $object['status'] == 'Erro') ? 'true' : 'false'). '</Validated>';
         $xml .= '<Direction>' . $object['direction'] . '</Direction>';
