@@ -153,7 +153,8 @@ require_once('../vendor/econea/nusoap/src/nusoap.php');
 
 $server = new soap_server();
 $server->soap_defencoding = 'UTF-8';
-
+$server->decode_utf8 = true;
+$server->encode_utf8 = false;
 
 // Configurar um namespace SOAP personalizado
 $soap_namespace = 'http://schemas.xmlsoap.org/soap/envelope/';
