@@ -224,7 +224,10 @@ namespace src\Model\Passage {
                 ";
 
                 $current_encoding = mb_detect_encoding($sql, 'auto');
-                $sql = iconv($current_encoding, 'UTF-8', $sql);
+                if($current_encoding != 'UTF-8')
+                {
+                    $sql = iconv($current_encoding, 'UTF-8', $sql);
+                }
                 $passages = $this->db->query($sql);
 
                
