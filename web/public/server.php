@@ -131,7 +131,7 @@ require_once('../vendor/econea/nusoap/src/nusoap.php');
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); // Retorna o resultado como uma string em vez de imprimi-lo na tela
         curl_setopt($curl, CURLOPT_POST, true); // Define o método da requisição como POST
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/x-www-form-urlencoded', 'charset: UTF-8'));
+            'Content-Type: application/x-www-form-urlencoded', 'Charset: UTF-8'));
 		curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($postData));
 
         // Executa a requisição e armazena a resposta

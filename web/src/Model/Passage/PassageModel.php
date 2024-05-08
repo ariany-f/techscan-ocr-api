@@ -225,6 +225,9 @@ namespace src\Model\Passage {
 
                 $passages = $this->db->query($sql);
                 
+                Utils::saveLogFile('ue.log', [
+                    'errors' => $passages
+                ]);
                 // foreach($passages as $key => $passage) {
                 //     $passage_sql = "
                 //         SELECT 
@@ -273,7 +276,7 @@ namespace src\Model\Passage {
                 return $passages;
 
             } catch (Exception $e) {
-                Utils::saveLogFile('catch error.log', [
+                Utils::saveLogFile('catch_error.log', [
                     'errors' => $e->getMessage()
                 ]);
             }
