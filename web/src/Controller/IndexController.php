@@ -800,4 +800,26 @@ class IndexController extends App
 
         $this->output->now();
     }
+
+    /**
+     * Ultima passagem registrada
+     */
+    public function lastPassage()
+    {
+        if($this->method == 'POST')
+        {
+            $this->setRender('Json');
+
+            $data = $this->json;
+
+            $result = $this->passageModel->getLastOne($data['gate'], $data['direction'])[0];
+
+            $this->output->setCode(200);
+            $this->output->setMessage( 'Ultima passagem' );
+            $this->output->setSuccess( true );
+            $this->output->setData( $result );
+        }
+
+        $this->output->now();
+    }
 }

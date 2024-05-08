@@ -12,6 +12,7 @@
         "ext-pdo": "*",
         "phpoffice/phpspreadsheet": "^1.16",
         "fpdf/fpdf": "^1.82",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "econea/nusoap": "^0.9.17"
     }
 }
