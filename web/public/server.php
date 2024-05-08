@@ -3,7 +3,7 @@
 require_once('../vendor/econea/nusoap/src/nusoap.php');
 
 
-    function convertToXml($object) {
+    function convertToXml($object, $generateImages) {
       
         $xml = '<IdPassage>' . $object['id'] . '</IdPassage>';
         $xml .= '<IdGate>' . $object['gate'] . '</IdGate>';
@@ -23,10 +23,13 @@ require_once('../vendor/econea/nusoap/src/nusoap.php');
                 $xml_plate .= '<DTOPlate>';
                 $xml_plate .= '<Id>' . $event['id'] . '</Id>';
                 $xml_plate .= '<PlateNumber>' . $event['plate'] . '</PlateNumber>';
-                $images = explode(",", $event['images']);
-                for($a=0;$a<count($images);$a++)
+                if($generateImages)
                 {
-                    $xml_plate .= '<ImagePath>' . $images[$a] . '</ImagePath>';
+                    $images = explode(",", $event['images']);
+                    for($a=0;$a<count($images);$a++)
+                    {
+                        $xml_plate .= '<ImagePath>' . $images[$a] . '</ImagePath>';
+                    }
                 }
                 // Adicione outras tags aqui conforme necessário
                 $xml_plate .= '</DTOPlate>';
@@ -37,10 +40,13 @@ require_once('../vendor/econea/nusoap/src/nusoap.php');
                 $xml_container .= '<DTOContainer>';
                 $xml_container .= '<Id>' . $event['id'] . '</Id>';
                 $xml_container .= '<ContainerNumber>' . $event['container'] . '</ContainerNumber>';
-                $images = explode(",", $event['images']);
-                for($a=0;$a<count($images);$a++)
+                if($generateImages)
                 {
-                    $xml_container .= '<ImagePath>' . $images[$a] . '</ImagePath>';
+                    $images = explode(",", $event['images']);
+                    for($a=0;$a<count($images);$a++)
+                    {
+                        $xml_container .= '<ImagePath>' . $images[$a] . '</ImagePath>';
+                    }
                 }
                 // Adicione outras tags aqui conforme necessário
                 $xml_container .= '</DTOContainer>';
@@ -157,7 +163,7 @@ require_once('../vendor/econea/nusoap/src/nusoap.php');
 
         $data = json_decode($response, true);
 
-        return isset($data['data'][0]) ? convertToXml($data['data'][0]) : new soap_fault("soap: Client",  "", "Busca Inválida", array("error" => array("code" => "404", "detail" => 'Sua busca não teve retornos')));
+        return isset($data['data'][0]) ? convertToXml($data['data'][0], $generateImages) : new soap_fault("soap: Client",  "", "Busca Inválida", array("error" => array("code" => "404", "detail" => 'Sua busca não teve retornos')));
     }
 
 $server = new soap_server();

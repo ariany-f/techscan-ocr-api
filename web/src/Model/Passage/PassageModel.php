@@ -196,6 +196,8 @@ namespace src\Model\Passage {
                 }
                 $where .= (!empty($direcao)) ? " AND passages.direction = $direcao" : "";
                 $where .= (!empty($gate)) ? " AND gates.id = $gate" : "";
+                $where .= (!empty($AssertDigS)) ? " AND (passages.plate LIKE '%$AssertDigS%' OR passages.container LIKE '%$AssertDigS%')" : "";
+
                 $limit = "LIMIT 1";
                 $sql = "
                     SELECT 
