@@ -79,6 +79,15 @@ require_once('../vendor/econea/nusoap/src/nusoap.php');
             $xml .= $xml_container;
         }
 
+        $xml .= "<Flag_Assert_PassagemPlateHorse>1</Flag_Assert_PassagemPlateHorse>
+        <Flag_Assert_PassagemPlate>1</Flag_Assert_PassagemPlate>
+        <Flag_Assert_PassagemCntr>1</Flag_Assert_PassagemCntr>
+        <Flag_Assert_PassagemCntr2>1</Flag_Assert_PassagemCntr2>
+        <Flag_Assert_PlateHorse>1</Flag_Assert_PlateHorse>
+        <Flag_Assert_Plate>1</Flag_Assert_Plate>
+        <Flag_Assert_Cntr>1</Flag_Assert_Cntr>
+        <Flag_Assert_Cntr2>1</Flag_Assert_Cntr2>";
+
         return $xml;
     }
 
