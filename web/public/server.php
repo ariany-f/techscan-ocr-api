@@ -112,6 +112,10 @@ require_once('../vendor/econea/nusoap/src/nusoap.php');
         {
             return new soap_fault("soap: Client",  "", "Parâmetros faltando", array("error" => array("code" => "422", "detail" => "Parâmetro gate obrigatório")));
         }
+        if(empty($generateImages))
+        {
+            $generateImages = true;
+        }
         if((!empty($direction)) && (!in_array($direction, ['Entry', 'Exit', 'None'])))
         {
             return new soap_fault("soap: Client",  "", "Parâmetros inválidos", array("error" => array("code" => "403", "detail" => "Parâmetro direction inválido")));
