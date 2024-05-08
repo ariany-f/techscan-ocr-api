@@ -223,8 +223,10 @@ namespace src\Model\Passage {
                     $limit
                 ";
 
+                $current_encoding = mb_detect_encoding($sql, 'auto');
+                $sql = iconv($current_encoding, 'UTF-8', $sql);
                 $passages = $this->db->query($sql);
-                
+
                 Utils::saveLogFile('ue.log', [
                     'errors' => $passages
                 ]);
