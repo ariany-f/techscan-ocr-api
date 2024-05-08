@@ -148,7 +148,7 @@ require_once('../vendor/econea/nusoap/src/nusoap.php');
 
         $data = json_decode($response, true);
 
-        return isset($data['data']) ? convertToXml($data['data']) : new soap_fault("soap: Client",  "", "Busca Inválida", array("error" => array("code" => "404", "detail" => 'Sua busca não teve retornos')));
+        return isset($data['data'][0]) ? convertToXml($data['data'][0]) : new soap_fault("soap: Client",  "", "Busca Inválida", array("error" => array("code" => "404", "detail" => 'Sua busca não teve retornos')));
     }
 
 $server = new soap_server();
