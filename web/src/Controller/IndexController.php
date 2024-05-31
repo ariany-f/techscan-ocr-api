@@ -39,6 +39,7 @@ class IndexController extends App
     public $optionModel;
     public $passageModel;
     public $passageImageModel;
+    public $passageBindModel;
     public $reasonModel;
     public $method;
     public $api;
@@ -312,8 +313,8 @@ class IndexController extends App
             $result = $this->gateModel->get();
 
             $this->output->setCode(200);
-            $this->output->setMessage( 'Portões' );
-            $this->output->setSuccess( true );
+      //      $this->output->setMessage( 'Portões' );
+         //   $this->output->setSuccess( true );
             $this->output->setData( $result );
         }
         else if($this->method == 'POST')
@@ -813,6 +814,47 @@ class IndexController extends App
             $data = $this->post;
             $result = $this->passageModel->getLastOne($data['gate'], $data['direction'], $data['AssertDigS']);
 
+            $this->output->setCode(200);
+            $this->output->setMessage( 'Ultima passagem' );
+            $this->output->setSuccess( true );
+            $this->output->setData( $result );
+
+        }
+
+        $this->output->now();
+    }
+
+    /**
+     * Passagens registradas
+     */
+    public function previousPassage()
+    {
+        $this->setRender('Json');
+        if($this->method == 'GET')
+        {
+            $id = $this->params[0] ?? null;
+            $result = $this->passageModel->getPreviousOne($id);
+            $this->output->setCode(200);
+            $this->output->setMessage( 'Ultima passagem' );
+            $this->output->setSuccess( true );
+            $this->output->setData( $result );
+        }
+
+        $this->output->now();
+    }
+
+
+    /**
+     * Passagens registradas
+     */
+    public function infopassagens()
+    {
+
+        $this->setRender('Json');
+        if($this->method == 'GET')
+        {
+            $id = $this->params[0] ?? null;
+            $result = $this->passageModel->getDetail($id);
             $this->output->setCode(200);
             $this->output->setMessage( 'Ultima passagem' );
             $this->output->setSuccess( true );

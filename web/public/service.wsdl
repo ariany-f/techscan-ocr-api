@@ -1,0 +1,288 @@
+<wsdl:definitions xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://tempuri.org/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:types>
+        <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+            <s:element name="GetAllGates">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="wUser" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="wPass" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="wToken" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="GetAllGatesResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="GetAllGatesResult" type="tns:ArrayOfDTOGate" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="ArrayOfDTOGate">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="DTOGate" nillable="true" type="tns:DTOGate" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="DTOGate">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="IdGate" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="NameGate" type="s:string" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfDTOPassage">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="DTOPassage" nillable="true" type="tns:DTOPassage" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="DTOPassage">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="IdPassage" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="IdGate" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="Date" type="s:dateTime" />
+                    <s:element minOccurs="0" maxOccurs="1" name="Plate" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="Container" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="Container2" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="Validated" type="s:boolean" />
+                    <s:element minOccurs="1" maxOccurs="1" name="Direction" type="tns:EnumDirection" />
+                    <s:element minOccurs="0" maxOccurs="1" name="PlateHorse" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="PlateHorse2" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="ListPlate" type="tns:ArrayOfDTOPlate" />
+                    <s:element minOccurs="0" maxOccurs="1" name="ListPlateAll" type="tns:ArrayOfDTOPlateAll" />
+                    <s:element minOccurs="0" maxOccurs="1" name="ListContainer" type="tns:ArrayOfDTOContainer" />
+                    <s:element minOccurs="0" maxOccurs="1" name="nmGate" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="Flag_Assert_PassagemPlateHorse" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="Flag_Assert_PassagemPlate" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="Flag_Assert_PassagemCntr" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="Flag_Assert_PassagemCntr2" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="Flag_Assert_PlateHorse" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="Flag_Assert_Plate" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="Flag_Assert_Cntr" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="Flag_Assert_Cntr2" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="Flag_Selected" type="s:string" />
+                </s:sequence>
+            </s:complexType>
+            <s:simpleType name="EnumDirection">
+                <s:restriction base="s:string">
+                    <s:enumeration value="Entry" />
+                    <s:enumeration value="Exit" />
+                    <s:enumeration value="None" />
+                </s:restriction>
+            </s:simpleType>
+            <s:complexType name="ArrayOfDTOPlate">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="DTOPlate" nillable="true" type="tns:DTOPlate" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="DTOPlate">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="PlateNumber" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="ImagePath" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="ImageBytes" type="s:base64Binary" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfDTOPlateAll">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="DTOPlateAll" nillable="true" type="tns:DTOPlateAll" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="DTOPlateAll">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="ImagePath" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="ImageBytes" type="s:base64Binary" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfDTOContainer">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="DTOContainer" nillable="true" type="tns:DTOContainer" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="DTOContainer">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="ContainerNumber" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="ImagePath" type="s:string" />
+                    <s:element minOccurs="0" maxOccurs="1" name="ImageBytes" type="s:base64Binary" />
+                    <s:element minOccurs="1" maxOccurs="1" name="Fl_Ck_Digit" type="s:boolean" />
+                </s:sequence>
+            </s:complexType>
+            <s:element name="GetLastPassageDetail">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="gate" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="direction" type="tns:EnumDirection" />
+                        <s:element minOccurs="1" maxOccurs="1" name="generateImages" type="s:boolean" />
+                        <s:element minOccurs="0" maxOccurs="1" name="AssertDigS" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="GetLastPassageDetailResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="GetLastPassageDetailResult" type="tns:DTOPassage" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="GetPreviousPassageDetail">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="IdPassage" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="generateImages" type="s:boolean" />
+                        <s:element minOccurs="0" maxOccurs="1" name="AssertDigS" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="GetPreviousPassageDetailResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="GetPreviousPassageDetailResult" type="tns:DTOPassage" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="GetPassageDetail">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="IdPassage" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="generateImages" type="s:boolean" />
+                        <s:element minOccurs="0" maxOccurs="1" name="AssertDigS" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="GetPassageDetailResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="GetPassageDetailResult" type="tns:DTOPassage" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+        </s:schema>
+    </wsdl:types>
+    <wsdl:message name="GetAllGatesSoapIn">
+        <wsdl:part name="parameters" element="tns:GetAllGates" />
+    </wsdl:message>
+    <wsdl:message name="GetAllGatesSoapOut">
+        <wsdl:part name="parameters" element="tns:GetAllGatesResponse" />
+    </wsdl:message>
+    <wsdl:message name="GetLastPassageDetailSoapIn">
+        <wsdl:part name="parameters" element="tns:GetLastPassageDetail" />
+    </wsdl:message>
+    <wsdl:message name="GetLastPassageDetailSoapOut">
+        <wsdl:part name="parameters" element="tns:GetLastPassageDetailResponse" />
+    </wsdl:message>
+    <wsdl:message name="GetPreviousPassageDetailSoapIn">
+        <wsdl:part name="parameters" element="tns:GetPreviousPassageDetail" />
+    </wsdl:message>
+    <wsdl:message name="GetPreviousPassageDetailSoapOut">
+        <wsdl:part name="parameters" element="tns:GetPreviousPassageDetailResponse" />
+    </wsdl:message>
+    <wsdl:message name="GetPassageDetailSoapIn">
+        <wsdl:part name="parameters" element="tns:GetPassageDetail" />
+    </wsdl:message>
+    <wsdl:message name="GetPassageDetailSoapOut">
+        <wsdl:part name="parameters" element="tns:GetPassageDetailResponse" />
+    </wsdl:message>
+    <wsdl:portType name="WebServiceOcrSBXSoap">
+        <wsdl:operation name="GetAllGates">
+            <wsdl:input message="tns:GetAllGatesSoapIn" />
+            <wsdl:output message="tns:GetAllGatesSoapOut" />
+        </wsdl:operation>
+        <wsdl:operation name="GetLastPassageDetail">
+            <wsdl:input message="tns:GetLastPassageDetailSoapIn" />
+            <wsdl:output message="tns:GetLastPassageDetailSoapOut" />
+        </wsdl:operation>
+        <wsdl:operation name="GetPreviousPassageDetail">
+            <wsdl:input message="tns:GetPreviousPassageDetailSoapIn" />
+            <wsdl:output message="tns:GetPreviousPassageDetailSoapOut" />
+        </wsdl:operation>
+        <wsdl:operation name="GetPassageDetail">
+            <wsdl:input message="tns:GetPassageDetailSoapIn" />
+            <wsdl:output message="tns:GetPassageDetailSoapOut" />
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="WebServiceOcrSBXSoap" type="tns:WebServiceOcrSBXSoap">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="GetAllGates">
+            <soap:operation soapAction="http://tempuri.org/GetAllGates" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetLastPassageDetail">
+            <soap:operation soapAction="http://tempuri.org/GetLastPassageDetail" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetPreviousPassageDetail">
+            <soap:operation soapAction="http://tempuri.org/GetPreviousPassageDetail" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetPassageDetail">
+            <soap:operation soapAction="http://tempuri.org/GetPassageDetail" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="WebServiceOcrSBXSoap12" type="tns:WebServiceOcrSBXSoap">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="GetAllGates">
+            <soap12:operation soapAction="http://tempuri.org/GetAllGates" style="document" />
+            <wsdl:input>
+                <soap12:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetLastPassageDetail">
+            <soap12:operation soapAction="http://tempuri.org/GetLastPassageDetail" style="document" />
+            <wsdl:input>
+                <soap12:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetPreviousPassageDetail">
+            <soap12:operation soapAction="http://tempuri.org/GetPreviousPassageDetail" style="document" />
+            <wsdl:input>
+                <soap12:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetPassageDetail">
+            <soap12:operation soapAction="http://tempuri.org/GetPassageDetail" style="document" />
+            <wsdl:input>
+                <soap12:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="WebServiceOcrSBX">
+        <wsdl:port name="WebServiceOcrSBXSoap" binding="tns:WebServiceOcrSBXSoap">
+            <soap:address location="http://localhost/api/web/public/server.php" />
+        </wsdl:port>
+        <wsdl:port name="WebServiceOcrSBXSoap12" binding="tns:WebServiceOcrSBXSoap12">
+            <soap12:address location="http://localhost/api/web/public/server.php" />
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
