@@ -42,6 +42,10 @@ class WebServiceOcrSBXSoap {
         return array('GetAllGatesResult' => $obj);
     }
 
+    public function TestConnection() {
+        return array('TestConnectionResult' => 'Conexão realizada com sucesso em ' . date('Y-m-d H:i:s'));
+    }
+
     public function GetLastPassageDetail($parameters) {
 
         if(empty($parameters->gate))
