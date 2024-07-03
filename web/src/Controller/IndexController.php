@@ -835,7 +835,26 @@ class IndexController extends App
             $id = $this->params[0] ?? null;
             $result = $this->passageModel->getPreviousOne($id);
             $this->output->setCode(200);
-            $this->output->setMessage( 'Ultima passagem' );
+            $this->output->setMessage( 'Passagem Anterior' );
+            $this->output->setSuccess( true );
+            $this->output->setData( $result );
+        }
+
+        $this->output->now();
+    }
+
+    /**
+     * Passagens registradas
+     */
+    public function nextPassage()
+    {
+        $this->setRender('Json');
+        if($this->method == 'GET')
+        {
+            $id = $this->params[0] ?? null;
+            $result = $this->passageModel->getNextOne($id);
+            $this->output->setCode(200);
+            $this->output->setMessage( 'Próxima passagem' );
             $this->output->setSuccess( true );
             $this->output->setData( $result );
         }

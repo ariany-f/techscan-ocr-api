@@ -378,10 +378,118 @@ namespace src\Model\Passage {
 
                     $result = $this->db->query($passage_sql);
 
-                    $passages[$key]['plate'] = $result[0]['plate'];
-                    $passages[$key]['container'] = $result[0]['container'];
+                    if(isset($result[0]) and (!empty($result[0])))
+                    {
+                        $passages[$key]['plate'] = $result[0]['plate'];
+                        $passages[$key]['container'] = $result[0]['container'];
+    
+                        $passages[$key]['list'] = $result;
+                    }
+                }
 
-                    $passages[$key]['list'] = $result;
+                return $passages;
+
+            } catch (Exception $e) {
+                Utils::saveLogFile('catch_error.log', [
+                    'errors' => $e->getMessage()
+                ]);
+            }
+        }
+
+        /**
+         * Detalhes da Passagem
+         * @throws Exception
+         */
+        public function getNextOne($idPassage)
+        {
+            try {
+
+                $where = " WHERE passages.active = 1 ";
+                $where .= (!empty($idPassage)) ? " AND passages.bind_id = $idPassage+1" : "";
+
+                $limit = "LIMIT 1";
+                $sql = "
+                    SELECT 
+                        passage_bind.*, 
+                        COALESCE(gates.id, NULL) as gate,
+                        COALESCE(gates.name, 'Não encontrado') as gate_name,
+                        CASE
+                            WHEN MAX(passages.direction) = 1 THEN 'Entry'
+                            WHEN MAX(passages.direction) = 2 THEN 'Exit'
+                            ELSE 'None'
+                        END as direction,
+                        CASE
+                            WHEN passages.is_ok THEN
+                                CASE
+                                    WHEN MAX(users.name) IS NOT NULL THEN 'Erro'
+                                    ELSE 'Aprovada'
+                                END
+                            WHEN MAX(users.name) IS NOT NULL THEN 'Erro'
+                            ELSE 'Pendente'
+                        END as status
+                     FROM passage_bind
+                        INNER JOIN passages ON passages.bind_id = passage_bind.id
+                        LEFT JOIN users ON users.id = passages.updated_by
+                        LEFT JOIN cameras ON cameras.id = passages.camera
+                        LEFT JOIN gates ON gates.id = cameras.gate_id
+                    ".$where."
+                    GROUP BY passage_bind.id
+                    ORDER BY passage_bind.id DESC
+                    $limit
+                ";
+
+                $current_encoding = mb_detect_encoding($sql, 'auto');
+                if($current_encoding != 'UTF-8')
+                {
+                    $sql = iconv($current_encoding, 'UTF-8', $sql);
+                }
+                $passages = $this->db->query($sql);
+
+                foreach($passages as $key => $passage) {
+                    $passage_sql = "
+                        SELECT 
+                            p.id, 
+                            p.is_ok, 
+                            p.plate, 
+                            p.datetime, 
+                            p.bind_id, 
+                            p.active,
+                            p.container, 
+                            COALESCE(c.name, 'Não encontrada') as camera,
+                            COALESCE(g.name, 'Não encontrado') as gate,
+                            COALESCE(d.description, 'Não definida') as direction,
+                            ri.url as position,
+                            u.name AS updated_by,
+                            CASE
+                                WHEN p.is_ok AND u.name IS NOT NULL THEN 'Erro'
+                                WHEN p.is_ok THEN 'Aprovada'
+                                WHEN u.name IS NOT NULL THEN 'Erro'
+                                ELSE 'Pendente'
+                            END as status,
+                            p.updated_at AS updated_at,
+                            COALESCE(r.description, p.description_reason) as error_reason,
+                            (SELECT GROUP_CONCAT(pi.url, '') FROM passage_images pi WHERE pi.active = 1 AND pi.passage_id = p.id) as images
+                        FROM 
+                            passages p
+                        LEFT JOIN directions d ON d.id = p.direction
+                        LEFT JOIN cameras c ON c.id = p.camera
+                        LEFT JOIN representative_img ri ON c.representative_img_id = ri.id
+                        LEFT JOIN gates g ON g.id = c.gate_id
+                        LEFT JOIN users u ON u.id = p.updated_by
+                        LEFT JOIN reasons r ON r.id = p.preset_reason 
+                        WHERE p.active = 1 AND p.bind_id = ".$passage['id']."
+                        GROUP BY p.id
+                        ORDER BY p.id DESC; 
+                    ";
+
+                    $result = $this->db->query($passage_sql);
+                    if(isset($result[0]) and (!empty($result[0])))
+                    {
+                        $passages[$key]['plate'] = $result[0]['plate'];
+                        $passages[$key]['container'] = $result[0]['container'];
+    
+                        $passages[$key]['list'] = $result;
+                    }
                 }
 
                 return $passages;

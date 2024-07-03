@@ -67,6 +67,11 @@ namespace Config {
                 'action' => 'infopassagens',
                 'pass' => []
             ],
+            'proxima-passagem/*' => [
+                'controller' => 'Index',
+                'action' => 'nextPassage',
+                'pass' => []
+            ],
             'passagem-anterior/*' => [
                 'controller' => 'Index',
                 'action' => 'previousPassage',

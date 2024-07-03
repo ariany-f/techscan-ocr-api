@@ -158,9 +158,10 @@ class WebServiceOcrSBXSoap {
                     {
                         $container[] = [
                             'Id' => $event['id'],
-                            'PlateNumber' =>  $event['plate'],
+                            'ContainerNumber' =>  $event['container'],
                             'ImagePath' =>  'http://' . $_SERVER['HTTP_HOST'] . '/api/web/public/' . $images[$a],
-                            'ImageBytes' => base64_encode(file_get_contents('http://' .$_SERVER['HTTP_HOST'] . '/api/web/public/' . $images[$a]))
+                            'ImageBytes' => base64_encode(file_get_contents('http://' .$_SERVER['HTTP_HOST'] . '/api/web/public/' . $images[$a])),
+							'Fl_Ck_Digit' => true
                         ];
                     }
                 }
@@ -168,7 +169,7 @@ class WebServiceOcrSBXSoap {
                 {
                     $container[] = [
                         'Id' => $event['id'],
-                        'PlateNumber' =>  $event['plate'],
+                        'ContainerNumber' =>  $event['container'],
                     ];
                 }
             }
@@ -203,7 +204,7 @@ class WebServiceOcrSBXSoap {
         return array('GetLastPassageDetailResult' => $obj);
     }
 
-    public function GetPreviousPassageDetail($parameters) {
+    public function GetNextPassageDetail($parameters) {
         if(empty($parameters->IdPassage))
         {
             return new SoapFault("Client",  "Parâmetros inválidos", "actorURI", 'Parâmetro IdPassage obrigatório');
@@ -224,14 +225,14 @@ class WebServiceOcrSBXSoap {
         }
 
         // URL para a qual você deseja enviar a requisição
-        $url = $_SERVER['HTTP_HOST'] . '/api/web/public/passagem-anterior/' . $parameters->IdPassage;
+        $url = $_SERVER['HTTP_HOST'] . '/api/web/public/proxima-passagem/' . $parameters->IdPassage;
 
 
-//        $postData = array(
-//            'IdPassage' => $parameters->IdPassage,
-//            'generateImages' => $parameters->generateImages,
-//            'AssertDigS' => $parameters->AssertDigS
-//        );
+        //        $postData = array(
+        //            'IdPassage' => $parameters->IdPassage,
+        //            'generateImages' => $parameters->generateImages,
+        //            'AssertDigS' => $parameters->AssertDigS
+        //        );
 
         // Inicializa a sessão cURL
         $curl = curl_init($url);
@@ -292,6 +293,117 @@ class WebServiceOcrSBXSoap {
                     {
                         $container[] = [
                             'Id' => $event['id'],
+                            'ContainerNumber' =>  $event['container'],
+                            'ImagePath' =>  'http://' . $_SERVER['HTTP_HOST'] . '/api/web/public/' . $images[$a],
+                            'ImageBytes' => base64_encode(file_get_contents('http://' .$_SERVER['HTTP_HOST'] . '/api/web/public/' . $images[$a])),
+							'Fl_Ck_Digit' => true
+                        ];
+                    }
+                }
+                else
+                {
+                    $container[] = [
+                        'Id' => $event['id'],
+                        'ContainerNumber' =>  $event['container'],
+                    ];
+                }
+            }
+        }
+
+        $obj = [
+            'IdPassage' => $data['id'],
+            'IdGate' => $parameters->gate,
+            'Date' => $data['created_at'], // Formato ISO 8601 para xsd:dateTime
+            'Plate' => $data['plate'] ?? '',
+            'Container' => $data['container'] ?? '',
+            'Container2' => '',
+            'Validated' => (($data['status'] == 'Aprovada' || $data['status'] == 'Erro') ? 'true' : 'false'),
+            'Direction' => $parameters->direction,
+            'PlateHorse' => '',
+            'PlateHorse2' => '',
+            'nmGate' =>$data['gate_name'],
+            'ListPlate' => $plate,
+            'ListPlateAll' => array(),
+            'ListContainer' => $container,
+            'Flag_Assert_PassagemPlateHorse' => 1,
+            'Flag_Assert_PassagemPlate' => 1,
+            'Flag_Assert_PassagemCntr' => 1,
+            'Flag_Assert_PassagemCntr2' => 1,
+            'Flag_Assert_PlateHorse' => 1,
+            'Flag_Assert_Plate' => 1,
+            'Flag_Assert_Cntr' => 1,
+            'Flag_Assert_Cntr2' => 1,
+            'Flag_Selected' => 1,
+        ];
+
+        return array('GetNextPassageDetailResult' => $obj);
+    }
+
+    public function GetPreviousPassageDetail($parameters) {
+        if(empty($parameters->IdPassage))
+        {
+            return new SoapFault("Client",  "Parâmetros inválidos", "actorURI", 'Parâmetro IdPassage obrigatório');
+        }
+        if(empty($parameters->generateImages))
+        {
+            $parameters->generateImages = true;
+        }
+        // Verificar se é uma string
+        if (is_string($parameters->generateImages)) {
+            // Converter para booleano
+            $parameters->generateImages = filter_var($parameters->generateImages, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if(!is_bool($parameters->generateImages))
+        {
+            return new SoapFault("Client",  "Parâmetros inválidos", "actorURI", 'Parâmetro generateImages inválido');
+        }
+
+        // URL para a qual você deseja enviar a requisição
+        $url = $_SERVER['HTTP_HOST'] . '/api/web/public/passagem-anterior/' . $parameters->IdPassage;
+
+
+        //        $postData = array(
+        //            'IdPassage' => $parameters->IdPassage,
+        //            'generateImages' => $parameters->generateImages,
+        //            'AssertDigS' => $parameters->AssertDigS
+        //        );
+
+        // Inicializa a sessão cURL
+        $curl = curl_init($url);
+
+        // Configura as opções da requisição
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); // Retorna o resultado como uma string em vez de imprimi-lo na tela
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/x-www-form-urlencoded'));
+
+        // Executa a requisição e armazena a resposta
+        $response = curl_exec($curl);
+
+        // Verifica se ocorreu algum erro durante a requisição
+        if(curl_errno($curl)) {
+            return new SoapFault("Server",  "Erro Inesperado", "ServerURI", 'Erro na requisição cURL: ' . curl_error($curl));
+        }
+
+        // Fecha a sessão cURL
+        curl_close($curl);
+
+        $data = json_decode($response, true)['data'][0];
+        $plate = [];
+        $container = [];
+        foreach ($data['list'] as $k => $event) {
+            if (isset($event['plate']) && !empty($event['plate'])) {
+                $count_plates[] = $event;
+
+                if($parameters->generateImages)
+                {
+                    $images = explode(",", $event['images']);
+                    for($a=0;$a<count($images);$a++)
+                    {
+                        $plate[] = [
+                            'Id' => $event['id'],
                             'PlateNumber' =>  $event['plate'],
                             'ImagePath' =>  'http://' . $_SERVER['HTTP_HOST'] . '/api/web/public/' . $images[$a],
                             'ImageBytes' => base64_encode(file_get_contents('http://' .$_SERVER['HTTP_HOST'] . '/api/web/public/' . $images[$a]))
@@ -300,9 +412,34 @@ class WebServiceOcrSBXSoap {
                 }
                 else
                 {
-                    $container[] = [
+                    $plate[] = [
                         'Id' => $event['id'],
                         'PlateNumber' =>  $event['plate'],
+                    ];
+                }
+            }
+            if (isset($event['container']) && !empty($event['container'])) {
+                $count_containers[] = $event;
+
+                if($parameters->generateImages)
+                {
+                    $images = explode(",", $event['images']);
+                    for($a=0;$a<count($images);$a++)
+                    {
+                        $container[] = [
+                            'Id' => $event['id'],
+                            'ContainerNumber' =>  $event['container'],
+                            'ImagePath' =>  'http://' . $_SERVER['HTTP_HOST'] . '/api/web/public/' . $images[$a],
+                            'ImageBytes' => base64_encode(file_get_contents('http://' .$_SERVER['HTTP_HOST'] . '/api/web/public/' . $images[$a])),
+							'Fl_Ck_Digit' => true
+                        ];
+                    }
+                }
+                else
+                {
+                    $container[] = [
+                        'Id' => $event['id'],
+                        'ContainerNumber' =>  $event['container'],
                     ];
                 }
             }
@@ -426,9 +563,10 @@ class WebServiceOcrSBXSoap {
                     {
                         $container[] = [
                             'Id' => $event['id'],
-                            'PlateNumber' =>  $event['plate'],
+                            'ContainerNumber' =>  $event['container'],
                             'ImagePath' =>  'http://' . $_SERVER['HTTP_HOST'] . '/api/web/public/' . $images[$a],
-                            'ImageBytes' => base64_encode(file_get_contents('http://' .$_SERVER['HTTP_HOST'] . '/api/web/public/' . $images[$a]))
+                            'ImageBytes' => base64_encode(file_get_contents('http://' .$_SERVER['HTTP_HOST'] . '/api/web/public/' . $images[$a])),
+							'Fl_Ck_Digit' => true
                         ];
                     }
                 }
@@ -436,7 +574,7 @@ class WebServiceOcrSBXSoap {
                 {
                     $container[] = [
                         'Id' => $event['id'],
-                        'PlateNumber' =>  $event['plate'],
+                        'ContainerNumber' =>  $event['container'],
                     ];
                 }
             }
