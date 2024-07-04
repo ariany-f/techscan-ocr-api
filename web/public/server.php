@@ -175,10 +175,16 @@ class WebServiceOcrSBXSoap {
             }
         }
 
+        // Converta a string para um objeto DateTime
+        $datetime = new DateTime( $data['created_at'] );
+
+        // Converta para o formato ISO 8601
+        $iso_format = $datetime->format(DateTime::ATOM);
+
         $obj = [
             'IdPassage' => $data['id'],
             'IdGate' => $parameters->gate,
-            'Date' => $data['created_at'], // Formato ISO 8601 para xsd:dateTime
+            'Date' => $iso_format, // Formato ISO 8601 para xsd:dateTime
             'Plate' => $data['plate'] ?? '',
             'Container' => $data['container'] ?? '',
             'Container2' => '',
@@ -310,10 +316,16 @@ class WebServiceOcrSBXSoap {
             }
         }
 
+        // Converta a string para um objeto DateTime
+        $datetime = new DateTime( $data['created_at'] );
+
+        // Converta para o formato ISO 8601
+        $iso_format = $datetime->format(DateTime::ATOM);
+
         $obj = [
             'IdPassage' => $data['id'],
             'IdGate' => $parameters->gate,
-            'Date' => $data['created_at'], // Formato ISO 8601 para xsd:dateTime
+            'Date' => $iso_format, // Formato ISO 8601 para xsd:dateTime
             'Plate' => $data['plate'] ?? '',
             'Container' => $data['container'] ?? '',
             'Container2' => '',
@@ -445,10 +457,16 @@ class WebServiceOcrSBXSoap {
             }
         }
 
+        // Converta a string para um objeto DateTime
+        $datetime = new DateTime( $data['created_at'] );
+
+        // Converta para o formato ISO 8601
+        $iso_format = $datetime->format(DateTime::ATOM);
+
         $obj = [
             'IdPassage' => $data['id'],
             'IdGate' => $parameters->gate,
-            'Date' => $data['created_at'], // Formato ISO 8601 para xsd:dateTime
+            'Date' => $iso_format, // Formato ISO 8601 para xsd:dateTime
             'Plate' => $data['plate'] ?? '',
             'Container' => $data['container'] ?? '',
             'Container2' => '',
@@ -580,10 +598,16 @@ class WebServiceOcrSBXSoap {
             }
         }
 
+        // Converta a string para um objeto DateTime
+        $datetime = new DateTime( $data['created_at'] );
+
+        // Converta para o formato ISO 8601
+        $iso_format = $datetime->format(DateTime::ATOM);
+
         $obj = [
             'IdPassage' => $data['id'],
             'IdGate' => $parameters->gate,
-            'Date' => $data['created_at'], // Formato ISO 8601 para xsd:dateTime
+            'Date' => $iso_format, // Formato ISO 8601 para xsd:dateTime
             'Plate' => $data['plate'] ?? '',
             'Container' => $data['container'] ?? '',
             'Container2' => '',
